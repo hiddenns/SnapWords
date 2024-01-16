@@ -11,7 +11,7 @@ object Config {
     const val isMinifyEnabled = false
 
     object Sdk {
-        const val minSdk = 23
+        const val minSdk = 26
         const val targetSdk = 34
         const val compileSdk = 34
     }
