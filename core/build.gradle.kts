@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.khalore.core"
-    compileSdk = 33
+    namespace = Config.appId
+    compileSdk = Config.Sdk.compileSdk
 
     defaultConfig {
-        minSdk = 26
+        minSdk = Config.Sdk.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -40,4 +40,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.compose.runtime:runtime:1.5.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+
+
+    implementation(project(":app"))
 }
