@@ -15,5 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "SnapWords"
 include(":app")
-include(":core")
+include(":common")
 include(":features")
