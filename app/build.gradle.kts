@@ -112,4 +112,8 @@ dependencies {
     androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
+
+    //modules
+    implementation(project(":common"))
+    implementation(project(":features"))
 }
