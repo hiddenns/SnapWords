@@ -1,9 +1,10 @@
 package com.khalore.snapwords.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -17,13 +18,15 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.khalore.features.screens.editor.EditorScreen
 import com.khalore.features.screens.home.HomeScreen
 import com.khalore.features.screens.settings.SettingsScreen
 import com.khalore.features.screens.shop.ShopScreen
 
 sealed class Screen(val route: String, val name: String, val icon: ImageVector) {
     data object Home: Screen(route = "home_screen", name = "Home", icon = Icons.Default.Home)
-    data object Profile: Screen(route = "profile_screen", name = "Profile", icon = Icons.Default.Person)
+    data object Editor: Screen(route = "editor_screen", name = "Editor", icon = Icons.Default.Create)
+    data object Shop: Screen(route = "shop_screen", name = "Shop", icon = Icons.Default.ShoppingCart)
     data object Settings: Screen(route = "settings_screen", name = "Settings", icon = Icons.Default.Settings)
 }
 
@@ -40,7 +43,13 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(
-            route = Screen.Profile.route
+            route = Screen.Editor.route
+        ) {
+            EditorScreen()
+        }
+
+        composable(
+            route = Screen.Shop.route
         ) {
             ShopScreen()
         }
@@ -57,7 +66,8 @@ fun SetupNavGraph(navController: NavHostController) {
 fun MyBottomBar(navController: NavHostController) {
     val navigationItems = listOf(
         Screen.Home,
-        Screen.Profile,
+        Screen.Editor,
+        Screen.Shop,
         Screen.Settings
     )
 
