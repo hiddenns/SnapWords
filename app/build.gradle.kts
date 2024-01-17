@@ -1,3 +1,4 @@
+@Suppress("DSL_SCOPE_VIOLATION") // Remove when fixed https://youtrack.jetbrains.com/issue/KTIJ-19369
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -8,7 +9,7 @@ plugins {
 
 android {
     namespace = Config.appId
-    compileSdk = 34
+    compileSdk = Config.Sdk.compileSdk
 
     defaultConfig {
         applicationId = Config.appId
