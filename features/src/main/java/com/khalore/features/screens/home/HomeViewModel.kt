@@ -3,6 +3,7 @@ package com.khalore.features.screens.home
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.features.components.swipable.cards.cardsColors
+import com.khalore.features.components.swipable.cards.defaultCards
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class HomeViewModel @Inject constructor(
         HomeScreenContract.State,
         HomeScreenContract.Effect>() {
 
-    override fun setInitialState(): HomeScreenContract.State = setupDefaultState()
+    override fun setInitialState() = setupDefaultState()
 
     init {
 
@@ -27,7 +28,8 @@ class HomeViewModel @Inject constructor(
     private fun setupDefaultState() = HomeScreenContract.State(
         State.Data(
             HomeViewState(
-                cardsColors = cardsColors
+                cardsColors = cardsColors,
+                cardsList = defaultCards
             )
         )
     )

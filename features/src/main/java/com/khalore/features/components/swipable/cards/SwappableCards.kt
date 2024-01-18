@@ -12,22 +12,11 @@ import androidx.compose.animation.splineBasedDecay
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.verticalDrag
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -46,6 +35,9 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.khalore.features.domain.model.card.Card
+import com.khalore.features.domain.model.word.WordsCombination
+import com.khalore.features.domain.model.word.getWord
 import com.khalore.features.screens.home.HomeViewState
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
@@ -54,13 +46,6 @@ import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
-
-val cardsColors = listOf(
-    Color(0xff90caf9),
-    Color(0xfffafafa),
-    Color(0xffef9a9a),
-    Color(0xfffff59d),
-).reversed()
 
 @Composable
 fun SwappableCards(state: HomeViewState) {
@@ -78,9 +63,10 @@ fun SwappableCards(state: HomeViewState) {
     ) {
         colors.forEachIndexed { idx, color ->
             key(color) {
-                SwipeableCard(order = idx,
+                SwappableCard(order = idx,
                     totalCount = colors.size,
                     backgroundColor = color,
+                    cards = state.cardsList,
                     onMoveToBack = {
                         colors = listOf(color) + (colors - color)
                     })
@@ -88,18 +74,20 @@ fun SwappableCards(state: HomeViewState) {
         }
     }
 }
+
 @Composable
-fun SwipeableCard(
+fun SwappableCard(
     order: Int,
     totalCount: Int,
     backgroundColor: Color = Color.White,
-    onMoveToBack: () -> Unit
+    onMoveToBack: () -> Unit,
+    cards: List<Card>
 ) {
     val animatedScale by animateFloatAsState(
-        targetValue = 1f - (totalCount - order) * 0.05f,
+        targetValue = 1f - (totalCount - order) * 0.05f, label = "",
     )
     val animatedYOffset by animateDpAsState(
-        targetValue = ((totalCount - order) * -12).dp,
+        targetValue = ((totalCount - order) * -12).dp, label = "",
     )
     Box(
         modifier = Modifier
@@ -110,57 +98,18 @@ fun SwipeableCard(
             }
             .swipeToBack { onMoveToBack() }
     ) {
-        SampleCard(backgroundColor = backgroundColor)
+        SampleCard(
+            backgroundColor = backgroundColor,
+            word = cards.first().wordCombination.getWord()
+        )
     }
 }
-@Composable
-fun SampleCard(backgroundColor: Color = Color.White) {
-    Card(
-        modifier = Modifier
-            .height(220.dp)
-            .fillMaxWidth(.8f),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        shape = RoundedCornerShape(12.dp)
-    ) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(vertical = 24.dp, horizontal = 32.dp),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Row(
-                Modifier.fillMaxWidth(0.5f),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    Modifier
-                        .size(36.dp)
-                        .pillShape()
-                )
-                Spacer(Modifier.width(8.dp))
-                Column {
-                    Box(
-                        Modifier
-                            .height(12.dp)
-                            .fillMaxWidth()
-                            .pillShape()
-                    )
-                    Spacer(Modifier.height(6.dp))
-                    Box(
-                        Modifier
-                            .height(12.dp)
-                            .fillMaxWidth(0.6f)
-                            .pillShape()
-                    )
-                }
-            }
-        }
-    }
-}
+
 fun Modifier.pillShape() =
     this.then(
         background(Color.Black.copy(0.3f), CircleShape)
     )
+
 fun Modifier.swipeToBack(
     onMoveToBack: () -> Unit
 ): Modifier = composed {
@@ -253,3 +202,49 @@ fun Modifier.swipeToBack(
             rotationZ = rotation.value
         }
 }
+
+val cardsColors = listOf(
+    Color(0xff90caf9),
+    Color(0xfffafafa),
+    Color(0xffef9a9a),
+    Color(0xfffff59d),
+).reversed()
+
+val defaultCards = listOf(
+    Card(
+        cardId = 1,
+        wordCombination = WordsCombination(
+            id = 1,
+            word = "First",
+            translate = "Translate",
+            language = "eng"
+        )
+    ),
+    Card(
+        cardId = 2,
+        wordCombination = WordsCombination(
+            id = 2,
+            word = "Second",
+            translate = "Translate",
+            language = "eng"
+        )
+    ),
+    Card(
+        cardId = 3,
+        wordCombination = WordsCombination(
+            id = 3,
+            word = "Third",
+            translate = "Translate",
+            language = "eng"
+        )
+    ),
+    Card(
+        cardId = 4,
+        wordCombination = WordsCombination(
+            id = 4,
+            word = "Four",
+            translate = "Translate",
+            language = "eng"
+        )
+    ),
+)
