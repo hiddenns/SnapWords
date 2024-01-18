@@ -16,7 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.khalore.snapwords.navigation.MyBottomBar
 import com.khalore.snapwords.navigation.SetupNavGraph
 import com.khalore.snapwords.ui.theme.SnapWordsTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {

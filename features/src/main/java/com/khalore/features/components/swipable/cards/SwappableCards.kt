@@ -44,7 +44,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.coroutineScope
@@ -54,9 +53,8 @@ import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
-@Preview
 @Composable
-fun SwappableCards() {
+fun SwappableCards(list: List<String>) {
     var colors by remember {
         mutableStateOf(
             listOf(
