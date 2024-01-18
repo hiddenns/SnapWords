@@ -1,5 +1,7 @@
 package com.khalore.features.screens.home
 
+import androidx.compose.ui.graphics.Color
+
 data class HomeViewState(
-    val something: Int
+    val cardsColors: List<Color>
 )

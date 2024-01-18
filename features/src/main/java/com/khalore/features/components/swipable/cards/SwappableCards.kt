@@ -46,6 +46,7 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.khalore.features.screens.home.HomeViewState
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -53,16 +54,19 @@ import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
+
+val cardsColors = listOf(
+    Color(0xff90caf9),
+    Color(0xfffafafa),
+    Color(0xffef9a9a),
+    Color(0xfffff59d),
+).reversed()
+
 @Composable
-fun SwappableCards(list: List<String>) {
+fun SwappableCards(state: HomeViewState) {
     var colors by remember {
         mutableStateOf(
-            listOf(
-                Color(0xff90caf9),
-                Color(0xfffafafa),
-                Color(0xffef9a9a),
-                Color(0xfffff59d),
-            ).reversed()
+            state.cardsColors
         )
     }
     Box(
