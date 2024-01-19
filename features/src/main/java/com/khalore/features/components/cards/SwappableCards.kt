@@ -1,6 +1,7 @@
 package com.khalore.features.components.cards
 
 
+import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -57,20 +58,20 @@ fun SwappableCards(state: HomeViewState) {
     }
     Box(
         Modifier
-            .background(Color.Black)
             .padding(vertical = 32.dp)
             .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
         colors.forEachIndexed { idx, color ->
             key(color) {
-                SwappableCard(order = idx,
+                SwappableCard(
+                    state.cardsList,
+                    order = idx,
                     totalCount = colors.size,
-                    backgroundColor = color,
-                    cards = state.cardsList,
-                    onMoveToBack = {
-                        colors = listOf(color) + (colors - color)
-                    })
+                    backgroundColor = color
+                ) {
+                    colors = listOf(color) + (colors - color)
+                }
             }
         }
     }
@@ -78,11 +79,11 @@ fun SwappableCards(state: HomeViewState) {
 
 @Composable
 fun SwappableCard(
+    cards: List<Card>,
     order: Int,
     totalCount: Int,
     backgroundColor: Color = Color.White,
-    onMoveToBack: () -> Unit,
-    cards: List<Card>
+    onMoveToBack: () -> Unit
 ) {
     val animatedScale by animateFloatAsState(
         targetValue = 1f - (totalCount - order) * 0.05f, label = "",
@@ -93,35 +94,33 @@ fun SwappableCard(
     var cardFace by remember {
         mutableStateOf(CardFace.Front)
     }
-    Box(
+    FlipCard(
+        cardFace = cardFace,
         modifier = Modifier
             .offset { IntOffset(x = 0, y = animatedYOffset.roundToPx()) }
             .graphicsLayer {
                 scaleX = animatedScale
                 scaleY = animatedScale
-            }
-            .swipeToBack { onMoveToBack() }
-    ) {
-        FlipCard(
-            cardFace = cardFace,
-            onClick = {
-                cardFace = it.next
             },
-            axis = RotationAxis.AxisY,
-            back = {
-                SampleCard(
-                    backgroundColor = backgroundColor,
-                    word = cards.first().wordCombination.getTranslate()
-                )
-            },
-            front = {
-                SampleCard(
-                    backgroundColor = backgroundColor,
-                    word = cards.first().wordCombination.getWord()
-                )
-            }
-        )
-    }
+        onClick = {
+            Log.d("anal", "SwappableCard: click")
+            cardFace = it.next
+        },
+        onMoveToBack = onMoveToBack,
+        axis = RotationAxis.AxisY,
+        back = {
+            SampleCard(
+                backgroundColor = backgroundColor,
+                word = cards.first().wordCombination.getTranslate(),
+            )
+        },
+        front = {
+            SampleCard(
+                backgroundColor = backgroundColor,
+                word = cards.first().wordCombination.getWord(),
+            )
+        }
+    )
 }
 
 fun Modifier.pillShape() =

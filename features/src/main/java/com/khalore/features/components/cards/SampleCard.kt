@@ -45,7 +45,7 @@ class WordSampleProvider : PreviewParameterProvider<Word> {
 @Composable
 fun SampleCard(
     @PreviewParameter(WordSampleProvider::class) word: Word,
-    backgroundColor: Color = Color.White,
+    backgroundColor: Color = Color.White
 ) {
     Card(
         modifier = Modifier

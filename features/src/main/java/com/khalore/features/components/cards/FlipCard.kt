@@ -3,12 +3,15 @@ package com.khalore.features.components.cards
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.dp
 
 enum class CardFace(val angle: Float) {
     Front(0f) {
@@ -28,7 +31,6 @@ enum class RotationAxis {
     AxisY,
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlipCard(
     cardFace: CardFace,
@@ -37,6 +39,7 @@ fun FlipCard(
     axis: RotationAxis = RotationAxis.AxisY,
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
+    onMoveToBack: () -> Unit
 ) {
     val rotation = animateFloatAsState(
         targetValue = cardFace.angle,
@@ -46,7 +49,6 @@ fun FlipCard(
         ), label = ""
     )
     Card(
-        onClick = { onClick(cardFace) },
         modifier = modifier
             .graphicsLayer {
                 if (axis == RotationAxis.AxisX) {
@@ -55,7 +57,18 @@ fun FlipCard(
                     rotationY = rotation.value
                 }
                 cameraDistance = 12f * density
+            }
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onDoubleTap = {
+                        onClick(cardFace)
+                    }
+                )
+            }.swipeToBack {
+                onMoveToBack()
+                if (rotation.value > 90f) onClick(cardFace)
             },
+        elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
     ) {
         if (rotation.value <= 90f) {
             front()
