@@ -1,4 +1,4 @@
-package com.khalore.features.components.swipable.cards
+package com.khalore.features.components.cards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

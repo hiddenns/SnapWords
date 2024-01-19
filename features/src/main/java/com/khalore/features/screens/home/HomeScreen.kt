@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
 import com.khalore.features.components.Error
-import com.khalore.features.components.swipable.cards.SwappableCards
+import com.khalore.features.components.cards.SwappableCards
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {

@@ -1,4 +1,4 @@
-package com.khalore.features.components.swipable.cards
+package com.khalore.features.components.cards
 
 
 import androidx.compose.animation.core.Animatable
@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.khalore.features.domain.model.card.Card
 import com.khalore.features.domain.model.word.WordsCombination
+import com.khalore.features.domain.model.word.getTranslate
 import com.khalore.features.domain.model.word.getWord
 import com.khalore.features.screens.home.HomeViewState
 import kotlinx.coroutines.coroutineScope
@@ -89,6 +90,9 @@ fun SwappableCard(
     val animatedYOffset by animateDpAsState(
         targetValue = ((totalCount - order) * -12).dp, label = "",
     )
+    var cardFace by remember {
+        mutableStateOf(CardFace.Front)
+    }
     Box(
         modifier = Modifier
             .offset { IntOffset(x = 0, y = animatedYOffset.roundToPx()) }
@@ -98,9 +102,24 @@ fun SwappableCard(
             }
             .swipeToBack { onMoveToBack() }
     ) {
-        SampleCard(
-            backgroundColor = backgroundColor,
-            word = cards.first().wordCombination.getWord()
+        FlipCard(
+            cardFace = cardFace,
+            onClick = {
+                cardFace = it.next
+            },
+            axis = RotationAxis.AxisY,
+            back = {
+                SampleCard(
+                    backgroundColor = backgroundColor,
+                    word = cards.first().wordCombination.getTranslate()
+                )
+            },
+            front = {
+                SampleCard(
+                    backgroundColor = backgroundColor,
+                    word = cards.first().wordCombination.getWord()
+                )
+            }
         )
     }
 }
