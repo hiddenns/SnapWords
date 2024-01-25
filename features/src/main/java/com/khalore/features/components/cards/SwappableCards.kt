@@ -52,7 +52,7 @@ import kotlin.math.roundToInt
 @Composable
 fun SwappableCards(state: HomeViewState) {
 
-    val list by remember {
+    val cardList by remember {
         mutableStateOf(state.cardsList.toShiftList())
     }
 
@@ -67,15 +67,14 @@ fun SwappableCards(state: HomeViewState) {
         contentAlignment = Alignment.BottomCenter
     ) {
         colors.forEachIndexed { idx, color ->
-            val currentCard = list[idx]
             key(color) {
                 SwappableCard(
-                    card = currentCard,
+                    card = cardList[idx],
                     order = idx,
                     totalCount = colors.size,
                     backgroundColor = color
                 ) {
-                    list.rotateList()
+                    cardList.rotateList()
                     colors = listOf(color) + (colors - color)
                 }
             }
