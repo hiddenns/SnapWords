@@ -1,7 +1,6 @@
 package com.khalore.features.components.cards
 
 
-import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -122,7 +121,6 @@ fun SwappableCard(
             )
         },
         front = {
-            Log.d("anal", "RENDERED WORD : ${card.cardId}")
             SampleCard(
                 backgroundColor = backgroundColor,
                 word = card.wordCombination.getWord(),
