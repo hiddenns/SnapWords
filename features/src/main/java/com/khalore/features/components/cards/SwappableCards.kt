@@ -36,6 +36,7 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.khalore.domain.toShiftList
 import com.khalore.features.domain.model.card.Card
 import com.khalore.features.domain.model.word.WordsCombination
 import com.khalore.features.domain.model.word.getTranslate
@@ -51,11 +52,15 @@ import kotlin.math.roundToInt
 
 @Composable
 fun SwappableCards(state: HomeViewState) {
-    var colors by remember {
-        mutableStateOf(
-            state.cardsColors
-        )
+
+    val list by remember {
+        mutableStateOf(state.cardsList.toShiftList())
     }
+
+    var colors by remember {
+        mutableStateOf(state.cardsColors)
+    }
+
     Box(
         Modifier
             .padding(vertical = 32.dp)
@@ -63,13 +68,15 @@ fun SwappableCards(state: HomeViewState) {
         contentAlignment = Alignment.BottomCenter
     ) {
         colors.forEachIndexed { idx, color ->
+            val currentCard = list[idx]
             key(color) {
                 SwappableCard(
-                    state.cardsList,
+                    card = currentCard,
                     order = idx,
                     totalCount = colors.size,
                     backgroundColor = color
                 ) {
+                    list.rotateList()
                     colors = listOf(color) + (colors - color)
                 }
             }
@@ -79,7 +86,7 @@ fun SwappableCards(state: HomeViewState) {
 
 @Composable
 fun SwappableCard(
-    cards: List<Card>,
+    card: Card,
     order: Int,
     totalCount: Int,
     backgroundColor: Color = Color.White,
@@ -94,6 +101,7 @@ fun SwappableCard(
     var cardFace by remember {
         mutableStateOf(CardFace.Front)
     }
+
     FlipCard(
         cardFace = cardFace,
         modifier = Modifier
@@ -103,21 +111,21 @@ fun SwappableCard(
                 scaleY = animatedScale
             },
         onClick = {
-            Log.d("anal", "SwappableCard: click")
-            cardFace = it.next
+            cardFace = cardFace.next
         },
         onMoveToBack = onMoveToBack,
         axis = RotationAxis.AxisY,
         back = {
             SampleCard(
                 backgroundColor = backgroundColor,
-                word = cards.first().wordCombination.getTranslate(),
+                word = card.wordCombination.getTranslate(),
             )
         },
         front = {
+            Log.d("anal", "RENDERED WORD : ${card.cardId}")
             SampleCard(
                 backgroundColor = backgroundColor,
-                word = cards.first().wordCombination.getWord(),
+                word = card.wordCombination.getWord(),
             )
         }
     )
@@ -261,6 +269,24 @@ val defaultCards = listOf(
         wordCombination = WordsCombination(
             id = 4,
             word = "Four",
+            translate = "Translate",
+            language = "eng"
+        )
+    ),
+    Card(
+        cardId = 5,
+        wordCombination = WordsCombination(
+            id = 5,
+            word = "Five",
+            translate = "Translate",
+            language = "eng"
+        )
+    ),
+    Card(
+        cardId = 6,
+        wordCombination = WordsCombination(
+            id = 6,
+            word = "Six",
             translate = "Translate",
             language = "eng"
         )
