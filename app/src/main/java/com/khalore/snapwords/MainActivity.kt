@@ -11,6 +11,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.khalore.snapwords.navigation.MyBottomBar
@@ -48,15 +52,32 @@ class MainActivity : ComponentActivity() {
 fun AppUI() {
     val navController = rememberNavController()
 
+    var selectedScreen by remember {
+        mutableIntStateOf(0)
+    }
+
+    val onSelectedScreenChanged: (newSelectedScreen: Int) -> Unit = { newSelectedScreen ->
+        selectedScreen = newSelectedScreen
+    }
+
     Scaffold(
-        bottomBar = { MyBottomBar(navController) }
+        bottomBar = {
+            MyBottomBar(
+                navController,
+                selectedScreen,
+                onSelectedScreenChanged = onSelectedScreenChanged
+            )
+        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues = paddingValues)
                 .fillMaxSize()
         ) {
-            SetupNavGraph(navController = navController)
+            SetupNavGraph(
+                navController = navController,
+                onSelectedScreenChanged = onSelectedScreenChanged
+            )
         }
     }
 }

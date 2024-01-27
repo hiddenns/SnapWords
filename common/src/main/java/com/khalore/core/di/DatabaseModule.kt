@@ -18,6 +18,8 @@ package com.khalore.core.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.khalore.core.dao.CardDao
 import com.khalore.core.database.AppDatabase
 import dagger.Module
@@ -44,6 +46,15 @@ class DatabaseModule {
             appContext,
             AppDatabase::class.java,
             "KhaloreDB"
-        ).build()
+        )
+            //.addCallback(defaultCardsCallback)
+            .build()
+    }
+
+    private val defaultCardsCallback = object : RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            db.execSQL("INSERT INTO CardLocal (wordCombinationId, rate) VALUES ( \"2\", \"0\");")
+        }
     }
 }

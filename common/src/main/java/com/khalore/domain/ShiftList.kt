@@ -2,7 +2,11 @@ package com.khalore.domain
 
 class ShiftList<T>(private var values: List<T>) {
 
-    operator fun get(idx: Int): T = values[idx]
+    operator fun get(idx: Int): T = kotlin.runCatching {
+        values[idx]
+    }.getOrElse {
+        values.last()
+    }
 
     fun rotateList() {
         if (values.isEmpty()) return

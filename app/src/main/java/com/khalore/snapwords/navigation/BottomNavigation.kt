@@ -1,7 +1,7 @@
 package com.khalore.snapwords.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -10,28 +10,34 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.khalore.features.screens.editor.EditorScreen
+import com.khalore.features.screens.collection.EditorScreen
 import com.khalore.features.screens.home.HomeScreen
 import com.khalore.features.screens.settings.SettingsScreen
 import com.khalore.features.screens.shop.ShopScreen
 
 sealed class Screen(val route: String, val name: String, val icon: ImageVector) {
     data object Home: Screen(route = "home_screen", name = "Home", icon = Icons.Default.Home)
-    data object Editor: Screen(route = "editor_screen", name = "Editor", icon = Icons.Default.Create)
+    data object Collection: Screen(route = "collection_screen", name = "Collection", icon = Icons.Default.Face)
     data object Shop: Screen(route = "shop_screen", name = "Shop", icon = Icons.Default.ShoppingCart)
     data object Settings: Screen(route = "settings_screen", name = "Settings", icon = Icons.Default.Settings)
 }
 
+val navigationItems = listOf(
+    Screen.Home,
+    Screen.Collection,
+    Screen.Shop,
+    Screen.Settings
+)
+
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(
+    navController: NavHostController,
+    onSelectedScreenChanged: (newSelectedScreen: Int) -> Unit
+) {
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route
@@ -39,11 +45,20 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(
             route = Screen.Home.route
         ) {
-            HomeScreen()
+            HomeScreen(
+                onClickCollection = {
+                    navController.navigate(Screen.Collection.route)
+                    onSelectedScreenChanged(navigationItems.indexOf(Screen.Collection))
+                },
+                onClickShop = {
+                    navController.navigate(Screen.Shop.route)
+                    onSelectedScreenChanged(navigationItems.indexOf(Screen.Shop))
+                }
+            )
         }
 
         composable(
-            route = Screen.Editor.route
+            route = Screen.Collection.route
         ) {
             EditorScreen()
         }
@@ -63,17 +78,7 @@ fun SetupNavGraph(navController: NavHostController) {
 }
 
 @Composable
-fun MyBottomBar(navController: NavHostController) {
-    val navigationItems = listOf(
-        Screen.Home,
-        Screen.Editor,
-        Screen.Shop,
-        Screen.Settings
-    )
-
-    var selectedScreen by remember {
-        mutableIntStateOf(0) // or use mutableStateOf(0)
-    }
+fun MyBottomBar(navController: NavHostController, selectedScreen: Int, onSelectedScreenChanged: (value: Int) -> Unit) {
 
     NavigationBar {
         navigationItems.forEachIndexed { index, screen ->
@@ -86,7 +91,7 @@ fun MyBottomBar(navController: NavHostController) {
                     if (navController.currentBackStack.value.size >= 2) {
                         navController.popBackStack()
                     }
-                    selectedScreen = index
+                    onSelectedScreenChanged(index)
                     navController.navigate(screen.route)
                 }
             )
