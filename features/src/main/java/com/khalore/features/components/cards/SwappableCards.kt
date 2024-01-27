@@ -35,11 +35,11 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import com.khalore.core.model.card.Card
+import com.khalore.core.model.word.WordsCombination
+import com.khalore.core.model.word.getTranslate
+import com.khalore.core.model.word.getWord
 import com.khalore.domain.toShiftList
-import com.khalore.features.domain.model.card.Card
-import com.khalore.features.domain.model.word.WordsCombination
-import com.khalore.features.domain.model.word.getTranslate
-import com.khalore.features.domain.model.word.getWord
 import com.khalore.features.screens.home.HomeViewState
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
@@ -237,55 +237,62 @@ val defaultCards = listOf(
     Card(
         cardId = 1,
         wordCombination = WordsCombination(
-            id = 1,
+            wordCombinationId = 1,
             word = "First",
             translate = "Translate",
             language = "eng"
-        )
+        ),
+        rate = 0
     ),
     Card(
         cardId = 2,
         wordCombination = WordsCombination(
-            id = 2,
+            wordCombinationId = 2,
             word = "Second",
             translate = "Translate",
+            description = "description",
             language = "eng"
-        )
+        ),
+        rate = 0
     ),
     Card(
         cardId = 3,
         wordCombination = WordsCombination(
-            id = 3,
+            wordCombinationId = 3,
             word = "Third",
             translate = "Translate",
             language = "eng"
-        )
+        ),
+        rate = 0
     ),
     Card(
         cardId = 4,
         wordCombination = WordsCombination(
-            id = 4,
+            wordCombinationId = 4,
             word = "Four",
             translate = "Translate",
             language = "eng"
-        )
+        ),
+        rate = 0
     ),
     Card(
         cardId = 5,
         wordCombination = WordsCombination(
-            id = 5,
+            wordCombinationId = 5,
             word = "Five",
             translate = "Translate",
             language = "eng"
-        )
+        ),
+        rate = 0
     ),
     Card(
         cardId = 6,
         wordCombination = WordsCombination(
-            id = 6,
+            wordCombinationId = 6,
             word = "Six",
             translate = "Translate",
             language = "eng"
-        )
+        ),
+        rate = 0
     ),
 )

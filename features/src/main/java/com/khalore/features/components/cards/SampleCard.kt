@@ -22,14 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.khalore.features.domain.model.word.Word
-import com.khalore.features.domain.model.word.WordsCombination
-import com.khalore.features.domain.model.word.getWord
+import com.khalore.core.model.word.Word
+import com.khalore.core.model.word.WordsCombination
+import com.khalore.core.model.word.getWord
 
 class WordSampleProvider : PreviewParameterProvider<Word> {
     override val values = sequenceOf(
         WordsCombination(
-            id = 1,
+            wordCombinationId = 1,
             word = "Word super long word long",
             translate = "Translate Translate Translate",
             description = "Translate Translate TranslateTranslate Translate",
@@ -84,7 +84,7 @@ fun SampleCard(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = word.description,
+                        text = word.description!!,
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Light,
                         textAlign = TextAlign.Center,

@@ -16,7 +16,13 @@
 
 package com.khalore.core.database
 
-//@Database(entities = [], version = 1)
-//abstract class AppDatabase : RoomDatabase() {
-////    abstract fun cardEntityDao(): CardEntityDao
-//}
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.khalore.core.dao.CardDao
+import com.khalore.core.entity.CardLocal
+import com.khalore.core.entity.WordCombinationLocal
+
+@Database(entities = [CardLocal::class, WordCombinationLocal::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun cardDao(): CardDao
+}

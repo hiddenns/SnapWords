@@ -1,12 +1,14 @@
-package com.khalore.features.domain.model.word
+package com.khalore.core.model.word
+
+import java.util.Locale
 
 data class WordsCombination(
-    val id: Long,
-    val word: String,
-    val translate: String,
+    val wordCombinationId: Long = -1,
+    val word: String = "",
+    val translate: String = "",
     val description: String? = null,
     val translateDescription: String? = null,
-    val language: String
+    val language: String = Locale.ENGLISH.language
 )
 
 data class Word(

@@ -16,27 +16,34 @@
 
 package com.khalore.core.di
 
-//import com.khalore.core.database.AppDatabase
+import android.content.Context
+import androidx.room.Room
+import com.khalore.core.dao.CardDao
+import com.khalore.core.database.AppDatabase
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
-//    @Provides
-//    fun provideCardEntityDao(appDatabase: AppDatabase): CardEntityDao {
-//        return appDatabase.cardEntityDao()
-//    }
 
-//    @Provides
-//    @Singleton
-//    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
-//        return Room.databaseBuilder(
-//            appContext,
-//            AppDatabase::class.java,
-//            "KhaloreDB"
-//        ).build()
-//    }
+    @Provides
+    fun provideCardDao(appDatabase: AppDatabase): CardDao {
+        return appDatabase.cardDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
+        return Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            "KhaloreDB"
+        ).build()
+    }
 }
