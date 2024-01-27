@@ -39,7 +39,8 @@ fun FlipCard(
     axis: RotationAxis = RotationAxis.AxisY,
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
-    onMoveToBack: () -> Unit
+    onMoveToBack: () -> Unit,
+    isSwappable: Boolean = false
 ) {
     val rotation = animateFloatAsState(
         targetValue = cardFace.angle,
@@ -64,9 +65,13 @@ fun FlipCard(
                         onClick(cardFace)
                     }
                 )
-            }.swipeToBack {
-                onMoveToBack()
-                if (rotation.value > 90f) onClick(cardFace)
+            }.let { mdf ->
+                if (isSwappable)
+                    modifier.swipeToBack {
+                        onMoveToBack()
+                        if (rotation.value > 90f) onClick(cardFace)
+                    }
+                mdf
             },
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
     ) {

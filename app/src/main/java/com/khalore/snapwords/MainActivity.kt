@@ -39,13 +39,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-//    override fun attachBaseContext(newBase: Context?) {
-//        val newOverride = Configuration(newBase?.resources?.configuration)
-//        if (newOverride.fontScale >= 1.1f)
-//            newOverride.fontScale = 0.9f
-//        applyOverrideConfiguration(newOverride)
-//        super.attachBaseContext(newBase)
-//    }
 }
 
 @Composable

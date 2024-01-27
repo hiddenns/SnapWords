@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.khalore.features.screens.collection.EditorScreen
+import com.khalore.features.screens.collection.CollectionScreen
 import com.khalore.features.screens.home.HomeScreen
 import com.khalore.features.screens.settings.SettingsScreen
 import com.khalore.features.screens.shop.ShopScreen
@@ -60,7 +60,7 @@ fun SetupNavGraph(
         composable(
             route = Screen.Collection.route
         ) {
-            EditorScreen()
+            CollectionScreen()
         }
 
         composable(
