@@ -7,7 +7,6 @@ import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
 import com.khalore.core.repository.CardsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +25,7 @@ class CollectionViewModel @Inject constructor(
     override fun setInitialState() = CollectionScreenContract.State(State.None)
 
     override fun handleEvents(event: CollectionScreenContract.Event) {
-        when(event) {
+        when (event) {
             is CollectionScreenContract.Event.AddCard -> addCard(event.card)
             is CollectionScreenContract.Event.DeleteCard -> deleteCard(event.card)
             is CollectionScreenContract.Event.SetupCards -> setupCards(event.cards)
@@ -35,15 +34,13 @@ class CollectionViewModel @Inject constructor(
 
     private fun fetchCards() {
         viewModelScope.launch {
-            val cards = cardsRepository.getCardsFlow().firstOrNull()
-            handleEvents(
-                CollectionScreenContract.Event.SetupCards(
-                    if (cards.isNullOrEmpty())
-                        emptyList()
-                    else
-                        cards
+            cardsRepository.getCardsFlow().collect { cards ->
+                handleEvents(
+                    CollectionScreenContract.Event.SetupCards(
+                        cards.ifEmpty { emptyList() }
+                    )
                 )
-            )
+            }
         }
     }
 
