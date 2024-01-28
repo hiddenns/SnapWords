@@ -2,6 +2,7 @@ package com.khalore.core.repository
 
 import com.khalore.core.datasource.cards.CardsLocalDataSource
 import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
+import com.khalore.core.mappers.toLocal
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,9 +22,10 @@ class CardsRepositoryImpl @Inject constructor(
         return cardsLocalDataSource.getCardByIdFlow(cardId)
     }
 
-    override suspend fun insert(card: Card) = withContext(Dispatchers.IO) {
-        wordCombinationLocalDataSource.insert(card.wordCombination)
-        cardsLocalDataSource.insert(card)
+    override suspend fun insert(card: Card): Unit = withContext(Dispatchers.IO) {
+        val savedWordCombination = wordCombinationLocalDataSource.insert(card.wordCombination)
+        val updatedCard = card.toLocal().copy(wordCombinationId = savedWordCombination)
+        cardsLocalDataSource.insert(updatedCard)
     }
 
     override fun insert(cards: List<Card>) {

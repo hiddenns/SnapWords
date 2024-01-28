@@ -13,6 +13,8 @@ class ShiftList<T>(private var values: List<T>) {
         val lastElement = values.last()
         values = (listOf(lastElement) + values.subList(0, values.size - 1))
     }
+
+    fun size() = values.size
 }
 
 fun <T> List<T>.toShiftList(): ShiftList<T> {

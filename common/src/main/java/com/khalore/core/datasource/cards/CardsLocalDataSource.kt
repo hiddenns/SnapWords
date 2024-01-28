@@ -1,5 +1,6 @@
 package com.khalore.core.datasource.cards
 
+import com.khalore.core.entity.CardLocal
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.flow.Flow
 
@@ -9,7 +10,7 @@ interface CardsLocalDataSource {
 
     fun getCardByIdFlow(cardId: Long): Flow<Card>
 
-    suspend fun insert(card: Card)
+    suspend fun insert(card: CardLocal): Long
 
     fun insert(cards: List<Card>)
 

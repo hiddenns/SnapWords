@@ -19,7 +19,7 @@ interface CardDao {
     fun getCardByIdFlow(cardId: Long): Flow<CardLocal>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(card: CardLocal)
+    suspend fun insert(card: CardLocal) : Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(card: List<CardLocal>)

@@ -25,8 +25,8 @@ class WordCombinationLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun insert(words: WordsCombination) {
-        wordCombinationDao.insert(words.toLocal())
+    override suspend fun insert(words: WordsCombination): Long {
+        return wordCombinationDao.insert(words.toLocal())
     }
 
     override fun insert(list: List<WordsCombination>) {

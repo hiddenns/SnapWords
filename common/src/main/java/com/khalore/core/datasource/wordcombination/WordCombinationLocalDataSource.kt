@@ -9,7 +9,7 @@ interface WordCombinationLocalDataSource {
 
     fun getWordCombinationByIdFlow(wordsId: Long): Flow<WordsCombination>
 
-    suspend fun insert(words: WordsCombination)
+    suspend fun insert(words: WordsCombination) : Long
 
     fun insert(list: List<WordsCombination>)
 

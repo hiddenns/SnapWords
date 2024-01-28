@@ -36,7 +36,6 @@ import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.khalore.core.model.card.Card
-import com.khalore.core.model.word.WordsCombination
 import com.khalore.core.model.word.getTranslate
 import com.khalore.core.model.word.getWord
 import com.khalore.domain.toShiftList
@@ -67,6 +66,9 @@ fun SwappableCards(state: HomeViewState) {
         contentAlignment = Alignment.BottomCenter
     ) {
         colors.forEachIndexed { idx, color ->
+            if (idx >= cardList.size()) {
+                return
+            }
             key(color) {
                 SwappableCard(
                     card = cardList[idx],
@@ -233,67 +235,3 @@ val cardsColors = listOf(
     Color(0xffef9a9a),
     Color(0xfffff59d),
 ).reversed()
-
-val defaultCards = listOf(
-    Card(
-        cardId = 1,
-        wordCombination = WordsCombination(
-            wordCombinationId = 1,
-            word = "First",
-            translate = "Translate",
-            language = "eng"
-        ),
-        rate = 0
-    ),
-    Card(
-        cardId = 2,
-        wordCombination = WordsCombination(
-            wordCombinationId = 2,
-            word = "Second",
-            translate = "Translate",
-            description = "description",
-            language = "eng"
-        ),
-        rate = 0
-    ),
-    Card(
-        cardId = 3,
-        wordCombination = WordsCombination(
-            wordCombinationId = 3,
-            word = "Third",
-            translate = "Translate",
-            language = "eng"
-        ),
-        rate = 0
-    ),
-    Card(
-        cardId = 4,
-        wordCombination = WordsCombination(
-            wordCombinationId = 4,
-            word = "Four",
-            translate = "Translate",
-            language = "eng"
-        ),
-        rate = 0
-    ),
-    Card(
-        cardId = 5,
-        wordCombination = WordsCombination(
-            wordCombinationId = 5,
-            word = "Five",
-            translate = "Translate",
-            language = "eng"
-        ),
-        rate = 0
-    ),
-    Card(
-        cardId = 6,
-        wordCombination = WordsCombination(
-            wordCombinationId = 6,
-            word = "Six",
-            translate = "Translate",
-            language = "eng"
-        ),
-        rate = 0
-    ),
-)

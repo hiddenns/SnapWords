@@ -17,8 +17,12 @@ interface WordCombinationDao {
     @Query("SELECT * FROM WordCombinationLocal WHERE WordCombinationLocal.wordCombinationId = :wordCombinationId")
     fun getWordCombinationByIdFlow(wordCombinationId: Long): Flow<WordCombinationLocal>
 
+    @Query("SELECT * FROM WordCombinationLocal WHERE WordCombinationLocal.wordCombinationId = :wordCombinationId")
+    fun getWordCombinationById(wordCombinationId: Long): WordCombinationLocal
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(words: WordCombinationLocal)
+    suspend fun insert(words: WordCombinationLocal) : Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(wordList: List<WordCombinationLocal>)

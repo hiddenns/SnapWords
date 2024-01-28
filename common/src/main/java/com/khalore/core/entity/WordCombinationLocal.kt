@@ -7,7 +7,7 @@ import java.util.Locale
 @Entity
 data class WordCombinationLocal(
     @PrimaryKey(autoGenerate = true)
-    val wordCombinationId: Long = -1,
+    val wordCombinationId: Long = 0,
     val word: String,
     val translate: String,
     val description: String? = null,
