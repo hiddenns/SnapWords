@@ -89,10 +89,6 @@ fun EmptyCollection() {
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .padding(16.dp)
-                .clip(shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
-                .background(Color.Green),
         ) {
             val image: Painter =
                 painterResource(id = androidx.appcompat.R.drawable.abc_star_black_48dp)
@@ -104,61 +100,71 @@ fun EmptyCollection() {
                 fontStyle = FontStyle.Normal
             )
 
-            Text(
-                text = "Here, you can build up your vocabulary and review the words you've already created.",
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center
-            )
-
-            Divider(
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(
-                        horizontal = 32.dp,
-                        vertical = 8.dp
-                    )
-                    .fillMaxWidth()
-                    .height(1.dp)
-            )
-
-            Text(
-                text = "Add a new word: Tap the \"Create Card\" button at the bottom right.",
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center
-            )
-
-            ExtendedFloatingActionButton(
-                modifier = Modifier.padding(bottom = 8.dp),
-                text = { Text("Create Card") },
-                icon = { Icon(Icons.Filled.Add, contentDescription = "") },
-                onClick = {}
-            )
-
-            Divider(
-                modifier = Modifier
-                    .padding(
-                        horizontal = 32.dp,
-                        vertical = 8.dp
-                    )
-                    .fillMaxWidth()
-                    .height(1.dp)
-            )
-
-            Text(
-                text = "Remove a card: Simply swipe left or right on the selected word",
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center
-            )
-
-            Box(
-                modifier = Modifier.padding(8.dp)
+                    .padding(16.dp)
+                    .clip(shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
+                    .background(Color(0xff333333)),
             ) {
-                Box(modifier = Modifier.padding(top = 32.dp)) {
+
+                Text(
+                    text = "Here, you can build up your vocabulary and review the words you've already created.",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
+                )
+
+                Divider(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 32.dp,
+                            vertical = 8.dp
+                        )
+                        .fillMaxWidth()
+                        .height(1.dp)
+                )
+
+                Text(
+                    text = "Tap the \"Create Card\" button at the bottom right.",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
+                )
+
+                ExtendedFloatingActionButton(
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    text = { Text("Create Card") },
+                    icon = { Icon(Icons.Filled.Add, contentDescription = "") },
+                    onClick = {}
+                )
+
+                Divider(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 32.dp,
+                            vertical = 8.dp
+                        )
+                        .fillMaxWidth()
+                        .height(1.dp)
+                )
+
+                Text(
+                    text = "Delete a card by swiping left or right on the chosen word.",
+                    modifier = Modifier.padding(16.dp),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
+                )
+
+                Box(
+                    modifier = Modifier.padding(8.dp)
+                ) {
+
                     CardListItem(card = Card.default(), onRemove = {})
+                    Box(modifier = Modifier.padding(top = 8.dp)) {
+                        DeleteCardLottie()
+                    }
                 }
-                DeleteCardLottie()
             }
         }
     }
@@ -173,6 +179,9 @@ fun DeleteCardLottie() {
         isPlaying = true
     )
     LottieAnimation(
+        modifier = Modifier
+            .height(64.dp)
+            .padding(horizontal = 32.dp, vertical = 0.dp),
         composition = preloaderLottieComposition,
         progress = { progress },
     )

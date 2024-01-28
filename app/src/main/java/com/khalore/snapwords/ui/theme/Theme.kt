@@ -10,16 +10,24 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Color(0xffc8c8c8), // Chinese Silver
+    secondary = Color(0xffffffff), // White
+    background = Color(0xff141414), // Sooty Black
+    surface = Color(0xff282828), // Dire Wolf Black
+    onPrimary = Color(0xff141414), // Sooty Black Text
+    onSecondary = Color(0xff141414), // Sooty Black Text
+    onBackground = Color(0xffc8c8c8), // Chinese Silver Text
+    onSurface = Color(0xffc8c8c8), // Chinese Silver Text
+    secondaryContainer = Color(0xff5174e2)
 )
+
 
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,

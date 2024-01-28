@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppUI() {
     val navController = rememberNavController()
-
+    System.setProperty("skiko.renderApi", "SOFTWARE_FAST")
     var selectedScreen by remember {
         mutableIntStateOf(0)
     }

@@ -51,7 +51,7 @@ fun WelcomeEmptyCard(
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))
-            .background(color = Color.LightGray)
+            .background(color = MaterialTheme.colorScheme.surface)
             .padding(16.dp)
             .fillMaxWidth(),
     ) {
@@ -92,7 +92,7 @@ fun CreateUnicCard(
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(0.dp, 0.dp, 15.dp, 15.dp))
-            .background(color = Color.Gray)
+            .background(color = Color(0xff333333))
             .padding(vertical = 24.dp)
             .fillMaxWidth(),
     ) {
@@ -109,11 +109,11 @@ fun CreateUnicCard(
             OutlinedButton(
                 modifier = Modifier
                     .padding(top = 12.dp),
-                onClick = onClickCollection
+                onClick = onClickCollection,
             ) {
                 Text(
                     text = "Collection",
-                    modifier = Modifier,
+                    style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                 )
             }
