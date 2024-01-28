@@ -9,14 +9,12 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.calculateTargetValue
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.splineBasedDecay
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.verticalDrag
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -130,11 +128,6 @@ fun SwappableCard(
         isSwappable = true
     )
 }
-
-fun Modifier.pillShape() =
-    this.then(
-        background(Color.Black.copy(0.3f), CircleShape)
-    )
 
 fun Modifier.swipeToBack(
     onMoveToBack: () -> Unit

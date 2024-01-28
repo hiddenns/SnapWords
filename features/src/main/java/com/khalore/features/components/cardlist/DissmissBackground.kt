@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,7 +16,7 @@ import androidx.compose.ui.unit.dp
 fun DismissBackground(dismissState: DismissState) {
     val color = when (dismissState.dismissDirection) {
         DismissDirection.StartToEnd -> Color(0xFFFF1744)
-        DismissDirection.EndToStart -> Color(0xFF1DE9B6)
+        DismissDirection.EndToStart -> Color(0xFFFF1744)
         null -> Color.Transparent
     }
     val direction = dismissState.dismissDirection
@@ -36,9 +35,8 @@ fun DismissBackground(dismissState: DismissState) {
         )
         Spacer(modifier = Modifier)
         if (direction == DismissDirection.EndToStart) Icon(
-            // make sure add baseline_archive_24 resource to drawable folder
-            painter = painterResource(androidx.core.R.drawable.ic_call_answer),
-            contentDescription = "Archive"
+            Icons.Default.Delete,
+            contentDescription = "delete"
         )
     }
 }
