@@ -1,4 +1,4 @@
-package com.khalore.core.datasource
+package com.khalore.core.datasource.cards
 
 import com.khalore.core.dao.CardDao
 import com.khalore.core.mappers.toDomain
@@ -26,7 +26,7 @@ class CardsLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun insert(card: Card) {
+    override suspend fun insert(card: Card) {
         cardsDao.insert(card.toLocal())
     }
 

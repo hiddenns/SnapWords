@@ -124,7 +124,8 @@ fun SwappableCard(
                 backgroundColor = backgroundColor,
                 word = card.wordCombination.getWord(),
             )
-        }
+        },
+        isSwappable = true
     )
 }
 

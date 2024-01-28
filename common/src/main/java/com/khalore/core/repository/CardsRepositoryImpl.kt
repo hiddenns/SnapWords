@@ -1,12 +1,16 @@
 package com.khalore.core.repository
 
-import com.khalore.core.datasource.CardsLocalDataSource
+import com.khalore.core.datasource.cards.CardsLocalDataSource
+import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
 import com.khalore.core.model.card.Card
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CardsRepositoryImpl @Inject constructor(
-    private val cardsLocalDataSource: CardsLocalDataSource
+    private val cardsLocalDataSource: CardsLocalDataSource,
+    private val wordCombinationLocalDataSource: WordCombinationLocalDataSource
 ) : CardsRepository {
 
     override fun getCardsFlow(): Flow<List<Card>> {
@@ -17,7 +21,8 @@ class CardsRepositoryImpl @Inject constructor(
         return cardsLocalDataSource.getCardByIdFlow(cardId)
     }
 
-    override fun insert(card: Card) {
+    override suspend fun insert(card: Card) = withContext(Dispatchers.IO) {
+        wordCombinationLocalDataSource.insert(card.wordCombination)
         cardsLocalDataSource.insert(card)
     }
 

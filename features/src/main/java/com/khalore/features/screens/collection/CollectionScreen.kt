@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
+import com.khalore.core.model.card.Card
 import com.khalore.features.components.CreateCardDialog
 import com.khalore.features.components.Error
 import com.khalore.features.screens.collection.preview.CollectionPreview
@@ -21,20 +22,27 @@ fun CollectionScreen(
     viewModel: CollectionViewModel = hiltViewModel(),
 ) {
     val viewState = viewModel.viewState.value
+
+    val onSaveCard = { card: Card ->
+        viewModel.handleEvents(CollectionScreenContract.Event.AddCard(card))
+    }
+
     CollectionScreenContent(
-        viewState = viewState.state
+        viewState = viewState.state,
+        onSaveCard = onSaveCard
     )
 }
 
 @Composable
 fun CollectionScreenContent(
-    viewState: State<CollectionViewState>
+    viewState: State<CollectionViewState>,
+    onSaveCard: (card: Card) -> Unit
 ) {
     when (viewState) {
         is State.Data -> CollectionList()
         is State.Error -> Error()
         is State.Loading -> Error()
-        is State.None -> CreateCardDialog()
+        is State.None -> CreateCardDialog(onSaveCard)
     }
 }
 

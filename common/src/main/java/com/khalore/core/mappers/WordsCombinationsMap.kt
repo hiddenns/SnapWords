@@ -16,7 +16,6 @@ fun WordCombinationLocal.toDomain(): WordsCombination {
 
 fun WordsCombination.toLocal(): WordCombinationLocal {
     return WordCombinationLocal(
-        wordCombinationId = this@toLocal.wordCombinationId,
         word = this@toLocal.word,
         translate = this@toLocal.translate,
         description = this@toLocal.description,

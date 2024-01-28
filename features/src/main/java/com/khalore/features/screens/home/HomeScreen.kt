@@ -1,5 +1,6 @@
 package com.khalore.features.screens.home
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
@@ -28,7 +29,10 @@ fun CardScreenContent(
     onClickCollection: () -> Unit = {},
 ) {
     when (state) {
-        is State.Data -> SwappableCards(state.asData())
+        is State.Data -> {
+            Log.d("anal", "CardScreenContent: ${state.asData().cardsList}")
+            SwappableCards(state.asData())
+        }
         is State.Error -> Error()
         is State.Loading -> Error()
         is State.None -> EmptyCardsScreen(

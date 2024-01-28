@@ -31,19 +31,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.khalore.core.model.card.Card
 import com.khalore.core.model.word.Word
+import com.khalore.core.model.word.WordsCombination
 import com.khalore.features.components.cards.CardFace
 import com.khalore.features.components.cards.FlipCard
 import com.khalore.features.components.cards.RotationAxis
 import com.khalore.features.components.cards.SmallSampleCard
 import kotlinx.coroutines.launch
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateCardDialog() {
+fun CreateCardDialog(
+    onSaveCard: (card: Card) -> Unit
+) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -59,7 +61,6 @@ fun CreateCardDialog() {
             )
         }
     ) { contentPadding ->
-        // Screen content
         if (showBottomSheet) {
             ModalBottomSheet(
                 modifier = Modifier
@@ -121,7 +122,8 @@ fun CreateCardDialog() {
                                 SmallSampleCard(
                                     backgroundColor = Color.Magenta,
                                     word = Word(
-                                        word = translateText.takeIf { it.isNotBlank() } ?: "Write translate",
+                                        word = translateText.takeIf { it.isNotBlank() }
+                                            ?: "Write translate",
                                         description = translateDescriptionText.takeIf { it.isNotBlank() }
                                     ),
                                 )
@@ -224,15 +226,27 @@ fun CreateCardDialog() {
                         )
 
                         Button(
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
                             onClick = {
-                            scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                if (!sheetState.isVisible) {
-                                    showBottomSheet = false
+                                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                    if (!sheetState.isVisible) {
+                                        showBottomSheet = false
+                                    }
+                                    onSaveCard(
+                                        Card(
+                                            wordCombination = WordsCombination(
+                                                word = wordText,
+                                                translate = translateText,
+                                                description = descriptionText,
+                                                translateDescription = translateDescriptionText
+                                            ),
+                                            rate = 0
+                                        )
+                                    )
                                 }
-                            }
-                        }) {
+                            }) {
                             Text("Save card")
                         }
 

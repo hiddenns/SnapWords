@@ -18,9 +18,8 @@ package com.khalore.core.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.khalore.core.dao.CardDao
+import com.khalore.core.dao.WordCombinationDao
 import com.khalore.core.database.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -40,21 +39,18 @@ class DatabaseModule {
     }
 
     @Provides
+    fun provideWordCombinationDao(appDatabase: AppDatabase): WordCombinationDao {
+        return appDatabase.wordCombinationDao()
+    }
+
+
+    @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room.databaseBuilder(
             appContext,
             AppDatabase::class.java,
             "KhaloreDB"
-        )
-            //.addCallback(defaultCardsCallback)
-            .build()
-    }
-
-    private val defaultCardsCallback = object : RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            db.execSQL("INSERT INTO CardLocal (wordCombinationId, rate) VALUES ( \"2\", \"0\");")
-        }
+        ).build()
     }
 }

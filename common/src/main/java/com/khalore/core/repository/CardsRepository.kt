@@ -9,7 +9,7 @@ interface CardsRepository {
 
     fun getCardByIdFlow(cardId: Long): Flow<Card>
 
-    fun insert(card: Card)
+    suspend fun insert(card: Card)
 
     fun insert(cards: List<Card>)
 

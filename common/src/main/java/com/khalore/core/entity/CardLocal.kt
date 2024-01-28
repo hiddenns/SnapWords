@@ -16,7 +16,7 @@ import androidx.room.PrimaryKey
     )]
 )
 data class CardLocal(
-    @PrimaryKey(autoGenerate = true) val cardId: Long,
+    @PrimaryKey(autoGenerate = true) val cardId: Long = -1,
     val wordCombinationId: Long,
     val rate: Long = 0
 )
