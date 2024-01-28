@@ -65,10 +65,16 @@ fun FlipCard(
                         onClick(cardFace)
                     }
                 )
-            }.takeIf { isSwappable }?.swipeToBack {
-                onMoveToBack()
-                if (rotation.value > 90f) onClick(cardFace)
-            } ?: modifier,
+            }.let { mdf ->
+                if (isSwappable)
+                    mdf.swipeToBack {
+                        onMoveToBack()
+                        if (rotation.value > 90f) onClick(cardFace)
+                    }
+                else {
+                    mdf
+                }
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
     ) {
         if (rotation.value <= 90f) {
