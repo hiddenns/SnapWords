@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -92,7 +91,7 @@ fun CreateUnicCard(
     Box(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(0.dp, 0.dp, 15.dp, 15.dp))
-            .background(color = Color(0xff333333))
+            .background(color = MaterialTheme.colorScheme.tertiary)
             .padding(vertical = 24.dp)
             .fillMaxWidth(),
     ) {

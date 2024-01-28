@@ -21,6 +21,7 @@ private val DarkColorScheme = darkColorScheme(
     secondary = Color(0xffffffff), // White
     background = Color(0xff141414), // Sooty Black
     surface = Color(0xff282828), // Dire Wolf Black
+    tertiary = Color(0xff333333), // Tertiary color
     onPrimary = Color(0xff141414), // Sooty Black Text
     onSecondary = Color(0xff141414), // Sooty Black Text
     onBackground = Color(0xffc8c8c8), // Chinese Silver Text
@@ -30,19 +31,16 @@ private val DarkColorScheme = darkColorScheme(
 
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = Color(0xff141414), // Sooty Black
+    secondary = Color(0xff282828), // Dire Wolf Black
+    background = Color(0xffffffff), // White
+    surface = Color(0xffc8c8c8), // Chinese Silver
+    tertiary = Color(0xff999999), // Tertiary color
+    onPrimary = Color(0xffffffff), // White Text
+    onSecondary = Color(0xffffffff), // White Text
+    onBackground = Color(0xff141414), // Sooty Black Text
+    onSurface = Color(0xff141414), // Sooty Black Text
+    secondaryContainer = Color(0xff5174e2)
 )
 
 @Composable
