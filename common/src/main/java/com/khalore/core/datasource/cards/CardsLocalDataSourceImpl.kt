@@ -40,11 +40,11 @@ class CardsLocalDataSourceImpl @Inject constructor(
         cardsDao.update(card.toLocal())
     }
 
-    override fun deleteById(cardId: Long) {
+    override suspend fun deleteById(cardId: Long) {
         cardsDao.deleteById(cardId)
     }
 
-    override fun delete(card: Card) {
+    override suspend fun delete(card: Card) {
         cardsDao.delete(card.toLocal())
     }
 

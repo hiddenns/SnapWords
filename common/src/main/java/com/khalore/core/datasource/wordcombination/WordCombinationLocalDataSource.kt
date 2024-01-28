@@ -15,7 +15,7 @@ interface WordCombinationLocalDataSource {
 
     fun update(words: WordsCombination)
 
-    fun deleteById(wordsId: Long)
+    suspend fun deleteById(wordsId: Long)
 
-    fun delete(words: WordsCombination)
+    suspend fun delete(words: WordsCombination)
 }

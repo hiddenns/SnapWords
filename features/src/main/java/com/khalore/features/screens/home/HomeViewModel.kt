@@ -1,9 +1,9 @@
 package com.khalore.features.screens.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
+import com.khalore.core.model.card.Card
 import com.khalore.core.repository.CardsRepository
 import com.khalore.features.components.cards.cardsColors
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
         HomeScreenContract.Effect>() {
 
     init {
-        setupDefaultState()
+        fetchCards()
     }
 
     override fun setInitialState() = HomeScreenContract.State(State.Loading)
@@ -28,37 +28,37 @@ class HomeViewModel @Inject constructor(
     override fun handleEvents(event: HomeScreenContract.Event) {
         when (event) {
             is HomeScreenContract.Event.SetupCards -> {
-                if (event.cardList.isEmpty()) {
-                    setState {
-                        HomeScreenContract.State(State.None)
-                    }
-                    return
-                }
-
-                Log.d("anal", "handleEvents data: ${event.cardList}")
-                setState {
-                    HomeScreenContract.State(
-                        State.Data(
-                            HomeViewState(
-                                cardsColors = cardsColors,
-                                cardsList = event.cardList
-                            )
-                        )
-                    )
-                }
+                setupCards(event.cardList)
             }
         }
     }
 
-    private fun setupDefaultState() {
+    private fun setupCards(cards: List<Card>) {
+        if (cards.isEmpty()) {
+            setState { HomeScreenContract.State(State.None) }
+            return
+        }
+        setState {
+            HomeScreenContract.State(
+                State.Data(
+                    HomeViewState(
+                        cardsColors = cardsColors,
+                        cardsList = cards
+                    )
+                )
+            )
+        }
+    }
+
+    private fun fetchCards() {
         viewModelScope.launch {
             val cards = cardsRepository.getCardsFlow().firstOrNull()
             handleEvents(
-                if (cards.isNullOrEmpty()) {
-                    HomeScreenContract.Event.SetupCards(emptyList())
-                } else {
-                    HomeScreenContract.Event.SetupCards(cards)
-                }
+                HomeScreenContract.Event.SetupCards(
+                    if (cards.isNullOrEmpty())
+                        emptyList()
+                    else cards
+                )
             )
         }
     }

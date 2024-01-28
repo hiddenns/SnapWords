@@ -1,4 +1,4 @@
-package com.khalore.features.components
+package com.khalore.features.screens.collection
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,9 +32,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
 import com.khalore.core.model.word.Word
 import com.khalore.core.model.word.WordsCombination
+import com.khalore.features.components.EmptyCardsScreen
+import com.khalore.features.components.Error
+import com.khalore.features.components.cardlist.CollectionList
 import com.khalore.features.components.cards.CardFace
 import com.khalore.features.components.cards.FlipCard
 import com.khalore.features.components.cards.RotationAxis
@@ -43,8 +47,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateCardDialog(
-    onSaveCard: (card: Card) -> Unit
+fun CreateCollectionCardsDialog(
+    onSaveCard: (card: Card) -> Unit,
+    viewState: State<CollectionViewState>,
+    onRemoveCard: (Card) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
@@ -61,9 +67,22 @@ fun CreateCardDialog(
             )
         }
     ) { contentPadding ->
+
+        when (viewState) {
+            is State.Data -> CollectionList(
+                cardList = viewState.asData().cardsList,
+                onRemoveCard = onRemoveCard
+            )
+
+            is State.Error -> Error()
+            is State.Loading -> Error()
+            is State.None -> EmptyCardsScreen()
+        }
+
         if (showBottomSheet) {
             ModalBottomSheet(
                 modifier = Modifier
+                    .padding(contentPadding)
                     .fillMaxSize(),
                 onDismissRequest = {
                     showBottomSheet = false

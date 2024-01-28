@@ -15,7 +15,7 @@ interface CardsRepository {
 
     fun update(card: Card)
 
-    fun deleteById(cardId: Long)
+    suspend fun deleteById(cardId: Long)
 
-    fun delete(card: Card)
+    suspend fun delete(card: Card)
 }

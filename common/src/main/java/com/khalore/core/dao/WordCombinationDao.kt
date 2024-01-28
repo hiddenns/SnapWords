@@ -31,8 +31,8 @@ interface WordCombinationDao {
     fun update(words: WordCombinationLocal)
 
     @Query("DELETE FROM WordCombinationLocal WHERE wordCombinationId = :wordCombinationId")
-    fun deleteById(wordCombinationId: Long)
+    suspend fun deleteById(wordCombinationId: Long)
 
     @Delete
-    fun delete(wordCombinationId: WordCombinationLocal)
+    suspend fun delete(wordCombinationId: WordCombinationLocal)
 }

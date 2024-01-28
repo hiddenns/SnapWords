@@ -28,8 +28,8 @@ interface CardDao {
     fun update(card: CardLocal)
 
     @Query("DELETE FROM CardLocal WHERE cardId = :cardId")
-    fun deleteById(cardId: Long)
+    suspend fun deleteById(cardId: Long)
 
     @Delete
-    fun delete(card: CardLocal)
+    suspend fun delete(card: CardLocal)
 }

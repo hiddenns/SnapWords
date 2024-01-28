@@ -36,11 +36,12 @@ class CardsRepositoryImpl @Inject constructor(
         cardsLocalDataSource.update(card)
     }
 
-    override fun deleteById(cardId: Long) {
+    override suspend fun deleteById(cardId: Long) {
         cardsLocalDataSource.deleteById(cardId)
     }
 
-    override fun delete(card: Card) {
+    override suspend fun delete(card: Card) {
+        wordCombinationLocalDataSource.deleteById(card.wordCombination.wordCombinationId)
         cardsLocalDataSource.delete(card)
     }
 }

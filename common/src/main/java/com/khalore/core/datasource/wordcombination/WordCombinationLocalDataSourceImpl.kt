@@ -39,11 +39,11 @@ class WordCombinationLocalDataSourceImpl @Inject constructor(
         wordCombinationDao.update(words.toLocal())
     }
 
-    override fun deleteById(wordsId: Long) {
+    override suspend fun deleteById(wordsId: Long) {
         wordCombinationDao.deleteById(wordsId)
     }
 
-    override fun delete(words: WordsCombination) {
+    override suspend fun delete(words: WordsCombination) {
         wordCombinationDao.delete(words.toLocal())
     }
 
