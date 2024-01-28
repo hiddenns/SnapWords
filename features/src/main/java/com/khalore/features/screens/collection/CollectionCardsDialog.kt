@@ -36,7 +36,6 @@ import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
 import com.khalore.core.model.word.Word
 import com.khalore.core.model.word.WordsCombination
-import com.khalore.features.components.EmptyCardsScreen
 import com.khalore.features.components.Error
 import com.khalore.features.components.cardlist.CollectionList
 import com.khalore.features.components.cards.CardFace
@@ -47,7 +46,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateCollectionCardsDialog(
+fun CollectionCardsDialog(
     onSaveCard: (card: Card) -> Unit,
     viewState: State<CollectionViewState>,
     onRemoveCard: (Card) -> Unit
@@ -76,7 +75,7 @@ fun CreateCollectionCardsDialog(
 
             is State.Error -> Error()
             is State.Loading -> Error()
-            is State.None -> EmptyCardsScreen()
+            is State.None -> EmptyCollection()
         }
 
         if (showBottomSheet) {

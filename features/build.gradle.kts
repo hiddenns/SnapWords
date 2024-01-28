@@ -85,6 +85,10 @@ dependencies {
 
     //Nfc
     implementation(libs.devnied.emvnfccard)
+
+    // Lottie
+    implementation(libs.lottie.compose)
+
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Instrumented tests
