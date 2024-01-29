@@ -43,7 +43,7 @@ fun FlipCard(
     front: @Composable () -> Unit = {},
     onMoveToBack: () -> Unit,
     isSwappable: Boolean = false,
-    onChangeCardOffsetY: (Animatable<Float, AnimationVector1D>) -> Unit = {}
+    onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit = {}
 ) {
     val rotation = animateFloatAsState(
         targetValue = cardFace.angle,

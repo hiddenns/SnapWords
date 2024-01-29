@@ -79,19 +79,22 @@ fun SwappableCards(state: HomeViewState) {
     val maxOffset = 500.0f
     val maxCoefficient = 0.5f
 
-    val onChangeCardOffsetY = { offsetY: Animatable<Float, AnimationVector1D> ->
-        val trueOffset = offsetY.value
+    val onChangeCardOffsetY = { offsetY: Pair<Boolean, Animatable<Float, AnimationVector1D>> ->
+        val isDragging = offsetY.first
+        val trueOffset = offsetY.second.value
         val color = if (trueOffset > 0) Color.Red else Color.Green
-        val offset = abs(offsetY.value)
+        val offset = abs(trueOffset)
 
-        val coefficient = maxCoefficient * (1 - offset / maxOffset)
+        if (!isDragging) {
+            val coefficient = maxCoefficient * (1 - offset / maxOffset)
 
-        gradientColor = Brush.verticalGradient(
-            coefficient to backgroundColor,
-            1.0f to color,
-            startY = screenHeightPx / 3,
-            endY = screenHeightPx + screenHeightPx
-        )
+            gradientColor = Brush.verticalGradient(
+                coefficient to backgroundColor,
+                1.0f to color,
+                startY = screenHeightPx / 3,
+                endY = screenHeightPx + screenHeightPx
+            )
+        }
     }
 
     Box(
@@ -129,7 +132,7 @@ fun SwappableCard(
     totalCount: Int,
     backgroundColor: Color = Color.White,
     onMoveToBack: () -> Unit,
-    onChangeCardOffsetY: (Animatable<Float, AnimationVector1D>) -> Unit
+    onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit
 ) {
     val animatedScale by animateFloatAsState(
         targetValue = 1f - (totalCount - order) * 0.05f, label = "",
@@ -172,11 +175,12 @@ fun SwappableCard(
 }
 
 fun Modifier.swipeToBack(
-    onChangeCardOffsetY: (Animatable<Float, AnimationVector1D>) -> Unit,
+    onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit,
     onMoveToBack: () -> Unit
 ): Modifier = composed {
     val offsetY = remember { Animatable(0f) }
-    onChangeCardOffsetY(offsetY)
+    var isDropOnBottom by remember { mutableStateOf(false) }
+    onChangeCardOffsetY(isDropOnBottom to offsetY)
 
     val rotation = remember { Animatable(0f) }
     var leftSide by remember { mutableStateOf(true) }
@@ -214,6 +218,7 @@ fun Modifier.swipeToBack(
                     launch { rotation.animateTo(targetValue = 0f, initialVelocity = velocity) }
                 } else {
                     // Enough velocity to fling the card to the back
+                    isDropOnBottom = offsetY.value > 0
                     val boomerangDuration = 600
                     val maxDistanceToFling = (size.height * 4).toFloat()
                     val maxRotations = 3
@@ -255,6 +260,7 @@ fun Modifier.swipeToBack(
                         }
                     )
                     animationJobs.joinAll()
+                    isDropOnBottom = false
                     clearedHurdle = false
                 }
             }
