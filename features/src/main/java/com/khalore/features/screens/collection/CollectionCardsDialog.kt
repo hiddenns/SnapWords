@@ -120,22 +120,12 @@ fun CollectionCardsDialog(
                     ) {
                         FlipCard(
                             cardFace = cardFace,
-                            modifier = Modifier
-                                .padding(horizontal = 52.dp),
                             onClick = {
                                 cardFace = cardFace.next
                             },
-                            onMoveToBack = {},
+                            modifier = Modifier
+                                .padding(horizontal = 52.dp),
                             axis = RotationAxis.AxisY,
-                            front = {
-                                SmallSampleCard(
-                                    backgroundColor = Color.Unspecified,
-                                    word = Word(
-                                        word = wordText.takeIf { it.isNotBlank() } ?: "Write word",
-                                        description = descriptionText.takeIf { it.isNotBlank() }
-                                    ),
-                                )
-                            },
                             back = {
                                 SmallSampleCard(
                                     backgroundColor = Color.Magenta,
@@ -146,6 +136,16 @@ fun CollectionCardsDialog(
                                     ),
                                 )
                             },
+                            front = {
+                                SmallSampleCard(
+                                    backgroundColor = Color.Unspecified,
+                                    word = Word(
+                                        word = wordText.takeIf { it.isNotBlank() } ?: "Write word",
+                                        description = descriptionText.takeIf { it.isNotBlank() }
+                                    ),
+                                )
+                            },
+                            onMoveToBack = {},
                             isSwappable = false
                         )
 

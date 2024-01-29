@@ -2,6 +2,7 @@ package com.khalore.features.components.cards
 
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -9,6 +10,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.calculateTargetValue
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.splineBasedDecay
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.verticalDrag
 import androidx.compose.foundation.layout.Box
@@ -25,12 +27,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.khalore.core.model.card.Card
@@ -43,6 +48,7 @@ import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import java.lang.Float.max
 import java.lang.Float.min
+import kotlin.math.abs
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -57,8 +63,40 @@ fun SwappableCards(state: HomeViewState) {
         mutableStateOf(state.cardsColors)
     }
 
+    val backgroundColor = Color(0xff141414)
+
+    var gradientColor by remember {
+        mutableStateOf(
+            Brush.linearGradient(
+                colors = listOf(backgroundColor, backgroundColor)
+            )
+        )
+    }
+
+    val screenHeightDp = LocalConfiguration.current.screenHeightDp.dp
+    val screenHeightPx = with(LocalDensity.current) { screenHeightDp.toPx() }
+
+    val maxOffset = 500.0f
+    val maxCoefficient = 0.5f
+
+    val onChangeCardOffsetY = { offsetY: Animatable<Float, AnimationVector1D> ->
+        val trueOffset = offsetY.value
+        val color = if (trueOffset > 0) Color.Red else Color.Green
+        val offset = abs(offsetY.value)
+
+        val coefficient = maxCoefficient * (1 - offset / maxOffset)
+
+        gradientColor = Brush.verticalGradient(
+            coefficient to backgroundColor,
+            1.0f to color,
+            startY = screenHeightPx / 3,
+            endY = screenHeightPx + screenHeightPx
+        )
+    }
+
     Box(
         Modifier
+            .background(brush = gradientColor)
             .padding(vertical = 32.dp)
             .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
@@ -72,11 +110,13 @@ fun SwappableCards(state: HomeViewState) {
                     card = cardList[idx],
                     order = idx,
                     totalCount = colors.size,
-                    backgroundColor = color
-                ) {
-                    cardList.rotateList()
-                    colors = listOf(color) + (colors - color)
-                }
+                    backgroundColor = color,
+                    onChangeCardOffsetY = onChangeCardOffsetY,
+                    onMoveToBack = {
+                        cardList.rotateList()
+                        colors = listOf(color) + (colors - color)
+                    }
+                )
             }
         }
     }
@@ -88,7 +128,8 @@ fun SwappableCard(
     order: Int,
     totalCount: Int,
     backgroundColor: Color = Color.White,
-    onMoveToBack: () -> Unit
+    onMoveToBack: () -> Unit,
+    onChangeCardOffsetY: (Animatable<Float, AnimationVector1D>) -> Unit
 ) {
     val animatedScale by animateFloatAsState(
         targetValue = 1f - (totalCount - order) * 0.05f, label = "",
@@ -125,14 +166,18 @@ fun SwappableCard(
                 word = card.wordCombination.getWord(),
             )
         },
-        isSwappable = true
+        isSwappable = true,
+        onChangeCardOffsetY = onChangeCardOffsetY
     )
 }
 
 fun Modifier.swipeToBack(
+    onChangeCardOffsetY: (Animatable<Float, AnimationVector1D>) -> Unit,
     onMoveToBack: () -> Unit
 ): Modifier = composed {
     val offsetY = remember { Animatable(0f) }
+    onChangeCardOffsetY(offsetY)
+
     val rotation = remember { Animatable(0f) }
     var leftSide by remember { mutableStateOf(true) }
     var clearedHurdle by remember { mutableStateOf(false) }

@@ -1,5 +1,7 @@
 package com.khalore.features.components.cards
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -40,7 +42,8 @@ fun FlipCard(
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
     onMoveToBack: () -> Unit,
-    isSwappable: Boolean = false
+    isSwappable: Boolean = false,
+    onChangeCardOffsetY: (Animatable<Float, AnimationVector1D>) -> Unit = {}
 ) {
     val rotation = animateFloatAsState(
         targetValue = cardFace.angle,
@@ -67,7 +70,7 @@ fun FlipCard(
                 )
             }.let { mdf ->
                 if (isSwappable)
-                    mdf.swipeToBack {
+                    mdf.swipeToBack(onChangeCardOffsetY) {
                         onMoveToBack()
                         if (rotation.value > 90f) onClick(cardFace)
                     }
