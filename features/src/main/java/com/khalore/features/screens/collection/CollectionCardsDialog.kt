@@ -48,6 +48,7 @@ import com.khalore.features.components.cards.CardFace
 import com.khalore.features.components.cards.FlipCard
 import com.khalore.features.components.cards.RotationAxis
 import com.khalore.features.components.cards.SmallSampleCard
+import com.khalore.features.components.cards.cardsColors
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -98,6 +99,14 @@ fun CollectionCardsDialog(
 
                 val focusRequester = remember { FocusRequester() }
 
+                val randomWordCardColor by remember {
+                    mutableStateOf( cardsColors.random())
+                }
+
+                val randomTranslateCardColor by remember {
+                    mutableStateOf( cardsColors.filterNot { it == randomWordCardColor }.random())
+                }
+
                 var wordText by remember {
                     mutableStateOf("")
                 }
@@ -140,7 +149,7 @@ fun CollectionCardsDialog(
                             axis = RotationAxis.AxisY,
                             back = {
                                 SmallSampleCard(
-                                    backgroundColor = Color.Magenta,
+                                    backgroundColor = randomTranslateCardColor,
                                     word = Word(
                                         word = translateText.takeIf { it.isNotBlank() }
                                             ?: "Write translate",
@@ -150,7 +159,7 @@ fun CollectionCardsDialog(
                             },
                             front = {
                                 SmallSampleCard(
-                                    backgroundColor = Color.Unspecified,
+                                    backgroundColor = randomWordCardColor,
                                     word = Word(
                                         word = wordText.takeIf { it.isNotBlank() } ?: "Write word",
                                         description = descriptionText.takeIf { it.isNotBlank() }
@@ -228,7 +237,7 @@ fun CollectionCardsDialog(
                                 keyboardType = KeyboardType.Text
                             ),
                             visualTransformation = VisualTransformation.None,
-                            isError = translateText.isBlank(), // Example error condition (can be adjusted)
+                            isError = translateText.isBlank(),
                             colors = if (translateText.isBlank()) OutlinedTextFieldDefaults.colors(
                                 errorCursorColor = Color.Red,
                                 focusedBorderColor = Color.Red,
