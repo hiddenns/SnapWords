@@ -99,7 +99,7 @@ fun SwappableCards(state: HomeViewState) {
 
     Box(
         Modifier
-            .background(brush = gradientColor)
+            .background(brush = gradientColor, alpha = 0.6f)
             .padding(vertical = 32.dp)
             .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
