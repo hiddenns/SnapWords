@@ -14,5 +14,4 @@ data class Deck(
     val access: DeckAccessLevel,
     val isOwned: Boolean = false,
     val cards: List<Card>
-
 )

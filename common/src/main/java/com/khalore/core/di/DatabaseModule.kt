@@ -19,6 +19,7 @@ package com.khalore.core.di
 import android.content.Context
 import androidx.room.Room
 import com.khalore.core.dao.CardDao
+import com.khalore.core.dao.DeckDao
 import com.khalore.core.dao.WordCombinationDao
 import com.khalore.core.database.AppDatabase
 import dagger.Module
@@ -42,6 +43,11 @@ class DatabaseModule {
     fun provideWordCombinationDao(appDatabase: AppDatabase): WordCombinationDao {
         return appDatabase.wordCombinationDao()
     }
+    @Provides
+    fun provideDeckDao(appDatabase: AppDatabase): DeckDao {
+        return appDatabase.deckDao()
+    }
+
 
 
     @Provides

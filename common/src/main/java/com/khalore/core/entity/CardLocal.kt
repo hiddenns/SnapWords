@@ -17,7 +17,8 @@ import com.khalore.core.model.card.LanguageLevel
     )]
 )
 data class CardLocal(
-    @PrimaryKey(autoGenerate = true) val cardId: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    val cardId: Long = 0,
     val wordCombinationId: Long,
     val level: LanguageLevel?,
     val rate: Long,
