@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
+import com.khalore.core.model.card.LanguageLevel
 
 
 @Entity(
@@ -18,5 +19,9 @@ import androidx.room.PrimaryKey
 data class CardLocal(
     @PrimaryKey(autoGenerate = true) val cardId: Long = 0,
     val wordCombinationId: Long,
-    val rate: Long = 0
+    val level: LanguageLevel?,
+    val rate: Long,
+    val correctResponses: Long = 0,
+    val incorrectResponses: Long = 0,
+    val lastResponseDate: Long = System.currentTimeMillis()
 )
