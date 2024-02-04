@@ -17,17 +17,17 @@ object Config {
     }
 
     object SignIn {
-        const val keyAlias = "key"
-        const val keyPassword = "android"
-        const val storeFilePath = "../key.jks"
-        const val storePassword = "android"
+        const val keyAlias = "khalore"
+        const val keyPassword = "khalore7701"
+        const val storeFilePath = "../snapwords.jks"
+        const val storePassword = "khalore7701"
     }
 
     object SignInDebug {
-        const val keyAlias = "android"
-        const val keyPassword = "android"
-        const val storeFilePath = "../debug_key.jks"
-        const val storePassword = "android"
+        const val keyAlias = "khalore"
+        const val keyPassword = "khalore7701"
+        const val storeFilePath = "../snapwords.jks"
+        const val storePassword = "khalore7701"
     }
 
     object Versions {

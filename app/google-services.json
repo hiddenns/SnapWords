@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "202253321863",
+    "project_id": "snapwords-ba662",
+    "storage_bucket": "snapwords-ba662.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202253321863:android:7a4383cfabe93235125a22",
+        "android_client_info": {
+          "package_name": "com.khalore.snapwords"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3t5g4oAQ-Q-ROJ5HuCqqiX8npwBxNapc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

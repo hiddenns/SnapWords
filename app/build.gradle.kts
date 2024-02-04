@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.gms.googleServices)
+    alias(libs.plugins.firebase.crashlitycs)
 }
 
 android {
@@ -25,6 +27,24 @@ android {
         }
     }
 
+    signingConfigs {
+
+        create("release") {
+            keyAlias = Config.SignIn.keyAlias
+            keyPassword = Config.SignIn.keyPassword
+            storeFile = file(Config.SignIn.storeFilePath)
+            storePassword = Config.SignIn.storePassword
+        }
+        getByName("debug") {
+            keyAlias = Config.SignInDebug.keyAlias
+            keyPassword = Config.SignInDebug.keyPassword
+            storeFile = file(Config.SignInDebug.storeFilePath)
+            storePassword = Config.SignInDebug.storePassword
+        }
+    }
+
+
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -32,6 +52,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            //signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -115,6 +144,15 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.lottie)
+
+    //google services
+    implementation(libs.gms.googleServices)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.config)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.crashlytics)
+
 
     //modules
     implementation(project(":common"))
