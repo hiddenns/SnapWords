@@ -152,6 +152,8 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.firebase.messaging)
     implementation(libs.firebase.crashlytics)
+//    implementation("com.google.firebase:firebase-auth")
+    implementation(libs.play.services.auth)
 
 
     //modules

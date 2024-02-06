@@ -89,6 +89,8 @@ dependencies {
     // Lottie
     implementation(libs.lottie.compose)
 
+    implementation(libs.play.services.auth)
+
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Instrumented tests
