@@ -35,7 +35,7 @@ fun CardViewCard(wordsCombination: WordsCombination) {
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    wordsCombination.translate,
+                    wordsCombination.otherWord,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -59,7 +59,7 @@ fun CardViewCard(wordsCombination: WordsCombination) {
                     Spacer(modifier = Modifier.width(8.dp))
                 }
 
-                wordsCombination.translateDescription?.let {
+                wordsCombination.otherDescription?.let {
                     Text(
                         it,
                         style = MaterialTheme.typography.titleSmall

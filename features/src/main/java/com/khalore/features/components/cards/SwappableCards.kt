@@ -39,7 +39,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.khalore.core.model.card.Card
-import com.khalore.core.model.word.getTranslate
+import com.khalore.core.model.word.getOtherWord
 import com.khalore.core.model.word.getWord
 import com.khalore.domain.toShiftList
 import com.khalore.features.screens.home.HomeViewState
@@ -160,7 +160,7 @@ fun SwappableCard(
         back = {
             SampleCard(
                 backgroundColor = backgroundColor,
-                word = card.wordCombination.getTranslate(),
+                word = card.wordCombination.getOtherWord(),
             )
         },
         front = {

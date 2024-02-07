@@ -111,7 +111,7 @@ fun CollectionCardsDialog(
                     mutableStateOf("")
                 }
 
-                var translateText by remember {
+                var otherText by remember {
                     mutableStateOf("")
                 }
 
@@ -119,7 +119,7 @@ fun CollectionCardsDialog(
                     mutableStateOf("")
                 }
 
-                var translateDescriptionText by remember {
+                var otherDescriptionText by remember {
                     mutableStateOf("")
                 }
 
@@ -128,7 +128,7 @@ fun CollectionCardsDialog(
                 }
 
                 var isValidInputs by remember {
-                    mutableStateOf(wordText.isNotBlank() && translateText.isNotBlank())
+                    mutableStateOf(wordText.isNotBlank() && otherText.isNotBlank())
                 }
 
                 Box(
@@ -151,9 +151,9 @@ fun CollectionCardsDialog(
                                 SmallSampleCard(
                                     backgroundColor = randomTranslateCardColor,
                                     word = Word(
-                                        word = translateText.takeIf { it.isNotBlank() }
-                                            ?: "Write translate",
-                                        description = translateDescriptionText.takeIf { it.isNotBlank() }
+                                        word = otherText.takeIf { it.isNotBlank() }
+                                            ?: "Another word",
+                                        description = otherDescriptionText.takeIf { it.isNotBlank() }
                                     ),
                                 )
                             },
@@ -175,7 +175,7 @@ fun CollectionCardsDialog(
                             onValueChange = {
                                 cardFace = CardFace.Front
                                 wordText = it
-                                isValidInputs = wordText.isNotBlank() && translateText.isNotBlank()
+                                isValidInputs = wordText.isNotBlank() && otherText.isNotBlank()
                             },
                             label = { Text("Word") },
                             keyboardOptions = KeyboardOptions.Default.copy(
@@ -226,19 +226,19 @@ fun CollectionCardsDialog(
 
 
                         OutlinedTextField(
-                            value = translateText,
+                            value = otherText,
                             onValueChange = {
                                 cardFace = CardFace.Back
-                                translateText = it
-                                isValidInputs = wordText.isNotBlank() && translateText.isNotBlank()
+                                otherText = it
+                                isValidInputs = wordText.isNotBlank() && otherText.isNotBlank()
                             },
-                            label = { Text("Translate") },
+                            label = { Text("Another word") },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Text
                             ),
                             visualTransformation = VisualTransformation.None,
-                            isError = translateText.isBlank(),
-                            colors = if (translateText.isBlank()) OutlinedTextFieldDefaults.colors(
+                            isError = otherText.isBlank(),
+                            colors = if (otherText.isBlank()) OutlinedTextFieldDefaults.colors(
                                 errorCursorColor = Color.Red,
                                 focusedBorderColor = Color.Red,
                                 unfocusedBorderColor = Color.Red,
@@ -251,12 +251,12 @@ fun CollectionCardsDialog(
                         )
 
                         OutlinedTextField(
-                            value = translateDescriptionText,
+                            value = otherDescriptionText,
                             onValueChange = {
                                 cardFace = CardFace.Back
-                                translateDescriptionText = it
+                                otherDescriptionText = it
                             },
-                            label = { Text("Translate description") },
+                            label = { Text("Description") },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Text
                             ),
@@ -281,9 +281,9 @@ fun CollectionCardsDialog(
                                         Card(
                                             wordCombination = WordsCombination(
                                                 word = wordText,
-                                                translate = translateText,
+                                                otherWord = otherText,
                                                 description = descriptionText,
-                                                translateDescription = translateDescriptionText
+                                                otherDescription = otherDescriptionText
                                             ),
                                             rate = 0
                                         )

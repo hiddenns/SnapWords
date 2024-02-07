@@ -7,19 +7,17 @@ fun WordCombinationLocal.toDomain(): WordsCombination {
     return WordsCombination(
         wordCombinationId = this@toDomain.wordCombinationId,
         word = this@toDomain.word,
-        translate = this@toDomain.translate,
+        otherWord = this@toDomain.otherWords,
         description = this@toDomain.description,
-        translateDescription = this@toDomain.translateDescription,
-        language = this@toDomain.translate
+        otherDescription = this@toDomain.otherDescription,
     )
 }
 
 fun WordsCombination.toLocal(): WordCombinationLocal {
     return WordCombinationLocal(
         word = this@toLocal.word,
-        translate = this@toLocal.translate,
+        otherWords = this@toLocal.otherWord,
         description = this@toLocal.description,
-        translateDescription = this@toLocal.translateDescription,
-        language = this@toLocal.translate
+        otherDescription = this@toLocal.otherDescription,
     )
 }

@@ -1,14 +1,11 @@
 package com.khalore.core.model.word
 
-import java.util.Locale
-
 data class WordsCombination(
     val wordCombinationId: Long = -1,
     val word: String = "",
-    val translate: String = "",
+    val otherWord: String = "",
     val description: String? = null,
-    val translateDescription: String? = null,
-    val language: String = Locale.ENGLISH.language
+    val otherDescription: String? = null
 )
 
 data class Word(
@@ -21,7 +18,7 @@ fun WordsCombination.getWord() = Word(
     description = this.description,
 )
 
-fun WordsCombination.getTranslate() = Word(
-    word = this.translate,
-    description = this.translateDescription,
+fun WordsCombination.getOtherWord() = Word(
+    word = this.otherWord,
+    description = this.otherDescription,
 )

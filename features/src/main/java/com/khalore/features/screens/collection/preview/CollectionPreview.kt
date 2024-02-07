@@ -12,10 +12,9 @@ class CollectionPreview : PreviewParameterProvider<List<Card>> {
                 wordCombination = WordsCombination(
                     wordCombinationId = 1,
                     word = "Word super long word long",
-                    translate = "Translate Translate Translate",
+                    otherWord = "Translate Translate Translate",
                     description = "Translate Translate TranslateTranslate Translate",
-                    translateDescription = null,
-                    language = "eng"
+                    otherDescription = null,
                 ),
                 rate = 1
             ),
