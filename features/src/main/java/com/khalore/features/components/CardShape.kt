@@ -14,14 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 
-@Preview()
+
 @Composable
 fun CardShapeCanvas(
-    color:Color = Color.Magenta
+    color: Brush
 ) {
     Box(
         modifier = Modifier
@@ -58,7 +57,7 @@ fun CardShapeCanvas(
 //            }
 
             drawRoundRect(
-                color = color,
+                brush = color,
                 cornerRadius = CornerRadius(
                     12f, 12f
                 )

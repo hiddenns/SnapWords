@@ -1,10 +1,13 @@
 package com.khalore.features.components.cardlist
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -31,13 +34,19 @@ fun CardViewCard(card: Card, onRemove: (Card) -> Unit, onEdit: (Card) -> Unit) {
             )
         },
         supportingContent = {
+            Divider(
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .fillMaxWidth()
+                    .height(1.dp)
+            )
             Text(
                 wordsCombination.otherWord,
                 style = MaterialTheme.typography.titleSmall
             )
         },
         leadingContent = {
-            CardShapeCanvas()
+            CardShapeCanvas(card.getResponsesColor())
         },
         trailingContent = {
             Row {

@@ -1,26 +1,52 @@
 package com.khalore.core.model.card
 
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import com.khalore.core.model.word.WordsCombination
 
 data class Card(
     val cardId: Long = -1,
     val wordCombination: WordsCombination,
     val rate: Long,
-    val correctResponses: Long = 0,
-    val incorrectResponses: Long = 0,
+    var correctResponses: Long = 0,
+    var incorrectResponses: Long = 0,
     val lastResponseDate: Long = System.currentTimeMillis()
 ) {
-    companion object {
-        fun default(): Card {
-            return Card(
-                wordCombination = WordsCombination(
-                    word = "Word",
-                    otherWord = "The other side",
-                    description = "Description",
-                    otherDescription = "Description"
-                ),
-                rate = 0,
-            )
+
+    fun getResponsesColor(): Brush {
+        val maxCorrectResponses = 100f
+
+        val saturationColorBoost = .3f
+
+        val isCorrectMore = correctResponses > incorrectResponses
+        val differenceResponses = if (isCorrectMore) {
+            correctResponses - incorrectResponses
+        } else {
+            incorrectResponses - correctResponses
         }
+
+        val coefficient: Float = differenceResponses.div(maxCorrectResponses)
+
+        val saturation = if (coefficient > 1) {
+            1f
+        } else if (coefficient != 0f && coefficient < saturationColorBoost) {
+            saturationColorBoost
+        } else {
+            coefficient
+        }
+
+        val hue = if (isCorrectMore) 125f else 0f
+
+        return Brush.linearGradient(
+            colors = listOf(
+                Color.hsl(hue, saturation, .5f),
+                Color.hsl(hue, saturation, .5f)
+            ),
+            start = Offset.Infinite,
+            end = Offset.Infinite
+        )
+
     }
+
 }
