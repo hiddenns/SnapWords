@@ -16,28 +16,15 @@ data class Card(
 
     fun getResponsesColor(): Brush {
         val maxCorrectResponses = 100f
-
         val saturationColorBoost = .3f
-
-        val isCorrectMore = correctResponses > incorrectResponses
-        val differenceResponses = if (isCorrectMore) {
-            correctResponses - incorrectResponses
-        } else {
-            incorrectResponses - correctResponses
+        val differenceResponses = kotlin.math.abs(correctResponses - incorrectResponses)
+        val coefficient = differenceResponses.div(maxCorrectResponses)
+        val hue = if (correctResponses > incorrectResponses) 125f else 0f
+        val saturation = when {
+            coefficient > 1 -> 1f
+            coefficient != 0f && coefficient < saturationColorBoost -> saturationColorBoost
+            else -> coefficient
         }
-
-        val coefficient: Float = differenceResponses.div(maxCorrectResponses)
-
-        val saturation = if (coefficient > 1) {
-            1f
-        } else if (coefficient != 0f && coefficient < saturationColorBoost) {
-            saturationColorBoost
-        } else {
-            coefficient
-        }
-
-        val hue = if (isCorrectMore) 125f else 0f
-
         return Brush.linearGradient(
             colors = listOf(
                 Color.hsl(hue, saturation, .5f),
