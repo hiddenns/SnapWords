@@ -36,7 +36,6 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
-import com.khalore.features.components.cardlist.CardListItem
 import com.khalore.snapwords.R
 
 
@@ -155,16 +154,6 @@ fun EmptyCollection() {
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center
                 )
-
-                Box(
-                    modifier = Modifier.padding(8.dp)
-                ) {
-
-                    CardListItem(card = Card.default(), onRemove = {})
-                    Box(modifier = Modifier.padding(top = 8.dp)) {
-                        DeleteCardLottie()
-                    }
-                }
             }
         }
     }

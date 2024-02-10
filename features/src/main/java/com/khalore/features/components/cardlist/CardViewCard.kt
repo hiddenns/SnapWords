@@ -1,8 +1,12 @@
 package com.khalore.features.components.cardlist
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,74 +14,54 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.khalore.core.model.word.WordsCombination
+import com.khalore.core.model.card.Card
 import com.khalore.features.components.CardShapeCanvas
 
 @Composable
-fun CardViewCard(wordsCombination: WordsCombination) {
+fun CardViewCard(card: Card, onRemove: (Card) -> Unit, onEdit: (Card) -> Unit) {
+    val wordsCombination = card.wordCombination
     ListItem(
-        modifier = Modifier.clip(MaterialTheme.shapes.small),
+        modifier = Modifier
+            .clip(MaterialTheme.shapes.small)
+            .padding(vertical = 4.dp),
         headlineContent = {
-            Row {
-                Text(
-                    wordsCombination.word,
-                    style = MaterialTheme.typography.titleMedium
-                )
-
-                Spacer(modifier = Modifier.width(8.dp)) // Adjust the width as needed
-
-                Text(
-                    "-",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.width(4.dp) // Adjust the width as needed
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    wordsCombination.otherWord,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
+            Text(
+                wordsCombination.word,
+                style = MaterialTheme.typography.titleMedium
+            )
         },
         supportingContent = {
+            Text(
+                wordsCombination.otherWord,
+                style = MaterialTheme.typography.titleSmall
+            )
+        },
+        leadingContent = {
+            CardShapeCanvas()
+        },
+        trailingContent = {
             Row {
-                wordsCombination.description?.let {
-                    Text(
-                        it,
-                        style = MaterialTheme.typography.titleSmall
+                IconButton(
+                    onClick = { onEdit(card) },
+                ) {
+                    Icon(
+                        Icons.Rounded.Edit,
+                        contentDescription = "edit card",
                     )
-
-                    Spacer(modifier = Modifier.width(8.dp)) // Adjust the width as needed
-
-                    Text(
-                        "-",
-                        style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier.width(4.dp) // Adjust the width as needed
-                    )
-
-                    Spacer(modifier = Modifier.width(8.dp))
                 }
 
-                wordsCombination.otherDescription?.let {
-                    Text(
-                        it,
-                        style = MaterialTheme.typography.titleSmall
+                IconButton(
+                    onClick = {
+                        onRemove(card)
+                    },
+                ) {
+                    Icon(
+                        Icons.Rounded.Delete,
+                        contentDescription = "delete card"
                     )
                 }
             }
-        },
-        leadingContent = {
-//            Icon(
-//                Icons.Default.Star,
-//                contentDescription = "person icon",
-//                Modifier
-//                    .clip(CircleShape)
-//                    .background(MaterialTheme.colorScheme.primaryContainer)
-//                    .padding(10.dp)
-//            )
-
-            CardShapeCanvas()
         }
     )
+
 }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -66,7 +66,7 @@ fun CollectionCardsDialog(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = { Text("Create Card") },
-                icon = { Icon(Icons.Filled.Add, contentDescription = "") },
+                icon = { Icon(Icons.Rounded.Add, contentDescription = "") },
                 onClick = {
                     showBottomSheet = true
                 }

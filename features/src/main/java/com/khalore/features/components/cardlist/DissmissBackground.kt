@@ -23,9 +23,10 @@ fun DismissBackground(dismissState: DismissState) {
 
     Row(
         modifier = Modifier
+            .padding(vertical = 4.dp)
             .fillMaxSize()
             .background(color)
-            .padding(12.dp, 8.dp),
+            .padding(start = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
