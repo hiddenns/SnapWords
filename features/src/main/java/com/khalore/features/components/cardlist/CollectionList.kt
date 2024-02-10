@@ -23,7 +23,8 @@ import com.khalore.core.model.card.Card
 @Composable
 fun CollectionList(
     cardList: List<Card>,
-    onRemoveCard: (Card) -> Unit
+    onRemoveCard: (Card) -> Unit,
+    onEditCard: (Card) -> Unit,
 ) {
 
     val openDeleteDialog = remember { mutableStateOf(false) }
@@ -86,7 +87,7 @@ fun CollectionList(
                     key = { _, item -> item.cardId }
                 ) { _, cardContent ->
                     // Display each email item
-                    CardListItem(cardContent, onRemove = onRemoveSwipe, onEdit = {})
+                    CardListItem(cardContent, onRemove = onRemoveSwipe, onEdit = onEditCard)
                 }
             }
         }

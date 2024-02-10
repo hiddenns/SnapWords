@@ -12,9 +12,9 @@ interface CardsLocalDataSource {
 
     suspend fun insert(card: CardLocal): Long
 
-    fun insert(cards: List<Card>)
+    suspend fun insert(cards: List<Card>)
 
-    fun update(card: Card)
+    suspend fun update(card: Card)
 
     suspend fun deleteById(cardId: Long)
 

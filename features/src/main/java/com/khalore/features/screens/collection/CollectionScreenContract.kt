@@ -16,6 +16,10 @@ class CollectionScreenContract {
             val card: Card
         ) : Event()
 
+        data class UpdateCard(
+            val card: Card
+        ) : Event()
+
         data class SetupCards(
             val cards: List<Card>
         ) : Event()

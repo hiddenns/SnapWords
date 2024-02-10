@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,6 +43,8 @@ import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
 import com.khalore.core.model.word.Word
 import com.khalore.core.model.word.WordsCombination
+import com.khalore.core.model.word.getOtherWord
+import com.khalore.core.model.word.getWord
 import com.khalore.features.components.Error
 import com.khalore.features.components.cardlist.CollectionList
 import com.khalore.features.components.cards.CardFace
@@ -55,12 +58,19 @@ import kotlinx.coroutines.launch
 @Composable
 fun CollectionCardsDialog(
     onSaveCard: (card: Card) -> Unit,
+    onUpdateCard: (card: Card) -> Unit,
     viewState: State<CollectionViewState>,
     onRemoveCard: (Card) -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
+    val editCard: MutableState<Card?> = remember { mutableStateOf(null) }
+
+    val onEditCard = { card: Card ->
+        editCard.value = card
+        showBottomSheet = true
+    }
 
     Scaffold(
         floatingActionButton = {
@@ -77,7 +87,8 @@ fun CollectionCardsDialog(
         when (viewState) {
             is State.Data -> CollectionList(
                 cardList = viewState.asData().cardsList,
-                onRemoveCard = onRemoveCard
+                onRemoveCard = onRemoveCard,
+                onEditCard = onEditCard
             )
 
             is State.Error -> Error()
@@ -100,27 +111,31 @@ fun CollectionCardsDialog(
                 val focusRequester = remember { FocusRequester() }
 
                 val randomWordCardColor by remember {
-                    mutableStateOf( cardsColors.random())
+                    mutableStateOf(cardsColors.random())
                 }
 
                 val randomTranslateCardColor by remember {
-                    mutableStateOf( cardsColors.filterNot { it == randomWordCardColor }.random())
+                    mutableStateOf(cardsColors.filterNot { it == randomWordCardColor }.random())
+                }
+
+                val wordEditCombination = remember {
+                    mutableStateOf(editCard.value?.wordCombination)
                 }
 
                 var wordText by remember {
-                    mutableStateOf("")
+                    mutableStateOf(wordEditCombination.value?.getWord()?.word ?: "")
                 }
 
                 var otherText by remember {
-                    mutableStateOf("")
+                    mutableStateOf(wordEditCombination.value?.getOtherWord()?.word ?: "")
                 }
 
                 var descriptionText by remember {
-                    mutableStateOf("")
+                    mutableStateOf(wordEditCombination.value?.getWord()?.description ?: "")
                 }
 
                 var otherDescriptionText by remember {
-                    mutableStateOf("")
+                    mutableStateOf(wordEditCombination.value?.getOtherWord()?.description ?: "")
                 }
 
                 var cardFace by remember {
@@ -277,17 +292,37 @@ fun CollectionCardsDialog(
                                     if (!sheetState.isVisible) {
                                         showBottomSheet = false
                                     }
-                                    onSaveCard(
-                                        Card(
-                                            wordCombination = WordsCombination(
-                                                word = wordText,
-                                                otherWord = otherText,
-                                                description = descriptionText,
-                                                otherDescription = otherDescriptionText
-                                            ),
-                                            rate = 0
+
+                                    if (editCard.value == null) {
+                                        onSaveCard(
+                                            Card(
+                                                wordCombination = WordsCombination(
+                                                    word = wordText,
+                                                    otherWord = otherText,
+                                                    description = descriptionText,
+                                                    otherDescription = otherDescriptionText
+                                                ),
+                                                rate = 0
+                                            )
                                         )
-                                    )
+                                    } else {
+                                        editCard.value?.let {
+                                            onUpdateCard(
+                                                Card(
+                                                    cardId = it.cardId,
+                                                    wordCombination = WordsCombination(
+                                                        wordCombinationId = it.wordCombination.wordCombinationId,
+                                                        word = wordText,
+                                                        otherWord = otherText,
+                                                        description = descriptionText,
+                                                        otherDescription = otherDescriptionText
+                                                    ),
+                                                    rate = 0
+                                                )
+                                            )
+                                            editCard.value = null
+                                        }
+                                    }
                                 }
                             }) {
                             Text("Save card")

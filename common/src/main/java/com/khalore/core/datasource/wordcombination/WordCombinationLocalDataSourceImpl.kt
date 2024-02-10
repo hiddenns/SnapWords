@@ -3,6 +3,7 @@ package com.khalore.core.datasource.wordcombination
 import com.khalore.core.dao.WordCombinationDao
 import com.khalore.core.mappers.toDomain
 import com.khalore.core.mappers.toLocal
+import com.khalore.core.mappers.toLocalWithId
 import com.khalore.core.model.word.WordsCombination
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -36,7 +37,7 @@ class WordCombinationLocalDataSourceImpl @Inject constructor(
     }
 
     override fun update(words: WordsCombination) {
-        wordCombinationDao.update(words.toLocal())
+        wordCombinationDao.update(words.toLocalWithId())
     }
 
     override suspend fun deleteById(wordsId: Long) {

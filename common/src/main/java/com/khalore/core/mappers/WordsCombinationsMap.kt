@@ -21,3 +21,13 @@ fun WordsCombination.toLocal(): WordCombinationLocal {
         otherDescription = this@toLocal.otherDescription,
     )
 }
+
+fun WordsCombination.toLocalWithId(): WordCombinationLocal {
+    return WordCombinationLocal(
+        wordCombinationId = this@toLocalWithId.wordCombinationId,
+        word = this@toLocalWithId.word,
+        otherWords = this@toLocalWithId.otherWord,
+        description = this@toLocalWithId.description,
+        otherDescription = this@toLocalWithId.otherDescription,
+    )
+}

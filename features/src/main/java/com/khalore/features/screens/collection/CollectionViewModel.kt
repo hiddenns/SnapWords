@@ -28,6 +28,7 @@ class CollectionViewModel @Inject constructor(
         when (event) {
             is CollectionScreenContract.Event.AddCard -> addCard(event.card)
             is CollectionScreenContract.Event.DeleteCard -> deleteCard(event.card)
+            is CollectionScreenContract.Event.UpdateCard -> updateCard(event.card)
             is CollectionScreenContract.Event.SetupCards -> setupCards(event.cards)
         }
     }
@@ -54,6 +55,13 @@ class CollectionViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d("anal", "deleteCard: $card")
             cardsRepository.delete(card)
+        }
+    }
+
+    private fun updateCard(card: Card) {
+        viewModelScope.launch {
+            Log.d("anal", "update vm: $card")
+            cardsRepository.update(card)
         }
     }
 

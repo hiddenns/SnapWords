@@ -23,6 +23,17 @@ fun Card.toLocal(): CardLocal {
     )
 }
 
+fun Card.toLocalWithId(): CardLocal {
+    return CardLocal(
+        cardId = this@toLocalWithId.cardId,
+        wordCombinationId = this@toLocalWithId.wordCombination.toLocalWithId().wordCombinationId,
+        rate = this@toLocalWithId.rate,
+        correctResponses = this@toLocalWithId.correctResponses,
+        incorrectResponses = this@toLocalWithId.incorrectResponses,
+        lastResponseDate = this@toLocalWithId.lastResponseDate
+    )
+}
+
 fun CardDTO.toDomain(): Card {
     return Card(
         cardId = this@toDomain.card.cardId,

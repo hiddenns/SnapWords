@@ -4,6 +4,7 @@ import com.khalore.core.dao.CardDao
 import com.khalore.core.entity.CardLocal
 import com.khalore.core.mappers.toDomain
 import com.khalore.core.mappers.toLocal
+import com.khalore.core.mappers.toLocalWithId
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -30,14 +31,14 @@ class CardsLocalDataSourceImpl @Inject constructor(
     override suspend fun insert(card: CardLocal) =
         cardsDao.insert(card)
 
-    override fun insert(cards: List<Card>) {
+    override suspend fun insert(cards: List<Card>) {
         cardsDao.insert(cards.map {
             it.toLocal()
         })
     }
 
-    override fun update(card: Card) {
-        cardsDao.update(card.toLocal())
+    override suspend fun update(card: Card) {
+        cardsDao.update(card.toLocalWithId())
     }
 
     override suspend fun deleteById(cardId: Long) {

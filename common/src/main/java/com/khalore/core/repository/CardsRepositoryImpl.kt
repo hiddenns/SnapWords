@@ -1,5 +1,6 @@
 package com.khalore.core.repository
 
+import android.util.Log
 import com.khalore.core.datasource.cards.CardsLocalDataSource
 import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
 import com.khalore.core.mappers.toLocal
@@ -28,19 +29,21 @@ class CardsRepositoryImpl @Inject constructor(
         cardsLocalDataSource.insert(updatedCard)
     }
 
-    override fun insert(cards: List<Card>) {
+    override suspend fun insert(cards: List<Card>) = withContext(Dispatchers.IO) {
         cardsLocalDataSource.insert(cards)
     }
 
-    override fun update(card: Card) {
+    override suspend fun update(card: Card) = withContext(Dispatchers.IO) {
+        Log.d("anal", "update: ${card.wordCombination.word}")
+        wordCombinationLocalDataSource.update(card.wordCombination)
         cardsLocalDataSource.update(card)
     }
 
-    override suspend fun deleteById(cardId: Long) {
+    override suspend fun deleteById(cardId: Long) = withContext(Dispatchers.IO) {
         cardsLocalDataSource.deleteById(cardId)
     }
 
-    override suspend fun delete(card: Card) {
+    override suspend fun delete(card: Card) = withContext(Dispatchers.IO) {
         wordCombinationLocalDataSource.deleteById(card.wordCombination.wordCombinationId)
         cardsLocalDataSource.delete(card)
     }

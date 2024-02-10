@@ -22,10 +22,10 @@ interface CardDao {
     suspend fun insert(card: CardLocal) : Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(card: List<CardLocal>)
+    suspend fun insert(card: List<CardLocal>)
 
     @Update
-    fun update(card: CardLocal)
+    suspend fun update(card: CardLocal)
 
     @Query("DELETE FROM CardLocal WHERE cardId = :cardId")
     suspend fun deleteById(cardId: Long)

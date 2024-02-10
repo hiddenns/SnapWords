@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,14 +28,8 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
-import com.khalore.snapwords.R
 
 
 @Composable
@@ -53,10 +46,15 @@ fun CollectionScreen(
         viewModel.handleEvents(CollectionScreenContract.Event.DeleteCard(card))
     }
 
+    val onUpdateCard = { card: Card ->
+        viewModel.handleEvents(CollectionScreenContract.Event.UpdateCard(card))
+    }
+
     CollectionScreenContent(
         viewState = viewState.state,
         onSaveCard = onSaveCard,
-        onRemoveCard = onRemoveCard
+        onRemoveCard = onRemoveCard,
+        onUpdateCard = onUpdateCard
     )
 }
 
@@ -64,12 +62,14 @@ fun CollectionScreen(
 fun CollectionScreenContent(
     viewState: State<CollectionViewState>,
     onSaveCard: (card: Card) -> Unit,
-    onRemoveCard: (Card) -> Unit
+    onRemoveCard: (Card) -> Unit,
+    onUpdateCard: (Card) -> Unit,
 ) {
     CollectionCardsDialog(
         viewState = viewState,
         onSaveCard = onSaveCard,
-        onRemoveCard = onRemoveCard
+        onRemoveCard = onRemoveCard,
+        onUpdateCard = onUpdateCard,
     )
 }
 
@@ -157,21 +157,4 @@ fun EmptyCollection() {
             }
         }
     }
-}
-
-@Composable
-fun DeleteCardLottie() {
-    val preloaderLottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.swipe_horizontal_lottie))
-    val progress by animateLottieCompositionAsState(
-        preloaderLottieComposition,
-        iterations = LottieConstants.IterateForever,
-        isPlaying = true
-    )
-    LottieAnimation(
-        modifier = Modifier
-            .height(64.dp)
-            .padding(horizontal = 32.dp, vertical = 0.dp),
-        composition = preloaderLottieComposition,
-        progress = { progress },
-    )
 }
