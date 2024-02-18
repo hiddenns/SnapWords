@@ -1,5 +1,6 @@
 package com.khalore.core.model.card
 
+import android.util.Log
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -15,6 +16,7 @@ data class Card(
 ) {
 
     fun getResponsesColor(): Brush {
+        Log.d("anal", "getResponsesColor: correctResponses $correctResponses , incorrectResponses $incorrectResponses")
         val maxCorrectResponses = 100f
         val saturationColorBoost = .3f
         val differenceResponses = kotlin.math.abs(correctResponses - incorrectResponses)

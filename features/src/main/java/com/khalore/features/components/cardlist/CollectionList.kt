@@ -1,5 +1,6 @@
 package com.khalore.features.components.cardlist
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -67,6 +68,8 @@ fun CollectionList(
             }
         )
     }
+
+    Log.d("anal", "CollectionList: $cardList")
 
     Box(
         modifier = Modifier

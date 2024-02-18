@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import com.khalore.core.model.card.Card
 
 enum class CardFace(val angle: Float) {
     Front(0f) {
@@ -28,6 +29,14 @@ enum class CardFace(val angle: Float) {
     abstract val next: CardFace
 }
 
+data class AnimatedCard(
+    val card: Card,
+    var cardFace: CardFace
+) {
+    fun next() = this.copy(cardFace = cardFace.next)
+
+}
+
 enum class RotationAxis {
     AxisX,
     AxisY,
@@ -35,18 +44,18 @@ enum class RotationAxis {
 
 @Composable
 fun FlipCard(
-    cardFace: CardFace,
-    onClick: (CardFace) -> Unit,
+    animatedCard: AnimatedCard,
+    onClick: (AnimatedCard) -> Unit,
     modifier: Modifier = Modifier,
     axis: RotationAxis = RotationAxis.AxisY,
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
-    onMoveToBack: () -> Unit,
+    onMoveToBack: (animatedCard: AnimatedCard) -> Unit,
     isSwappable: Boolean = false,
     onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit = {}
 ) {
     val rotation = animateFloatAsState(
-        targetValue = cardFace.angle,
+        targetValue = animatedCard.cardFace.angle,
         animationSpec = tween(
             durationMillis = 400,
             easing = FastOutSlowInEasing,
@@ -65,14 +74,14 @@ fun FlipCard(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onDoubleTap = {
-                        onClick(cardFace)
+                        onClick(animatedCard)
                     }
                 )
             }.let { mdf ->
                 if (isSwappable)
                     mdf.swipeToBack(onChangeCardOffsetY) {
-                        onMoveToBack()
-                        if (rotation.value > 90f) onClick(cardFace)
+                        onMoveToBack(animatedCard)
+                        if (rotation.value > 90f) onClick(animatedCard)
                     }
                 else {
                     mdf

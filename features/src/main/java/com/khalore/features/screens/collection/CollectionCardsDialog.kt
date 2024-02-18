@@ -1,5 +1,6 @@
 package com.khalore.features.screens.collection
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,6 +48,7 @@ import com.khalore.core.model.word.getOtherWord
 import com.khalore.core.model.word.getWord
 import com.khalore.features.components.Error
 import com.khalore.features.components.cardlist.CollectionList
+import com.khalore.features.components.cards.AnimatedCard
 import com.khalore.features.components.cards.CardFace
 import com.khalore.features.components.cards.FlipCard
 import com.khalore.features.components.cards.RotationAxis
@@ -138,8 +140,21 @@ fun CollectionCardsDialog(
                     mutableStateOf(wordEditCombination.value?.getOtherWord()?.description ?: "")
                 }
 
-                var cardFace by remember {
-                    mutableStateOf(CardFace.Front)
+                var animatedCard by remember {
+                    mutableStateOf(
+                        AnimatedCard(
+                            cardFace = CardFace.Front,
+                            card = Card(
+                                wordCombination = WordsCombination(
+                                    word = wordText,
+                                    otherWord = otherText,
+                                    description = descriptionText,
+                                    otherDescription = otherDescriptionText
+                                ),
+                                rate = 0
+                            )
+                        )
+                    )
                 }
 
                 var isValidInputs by remember {
@@ -152,12 +167,13 @@ fun CollectionCardsDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(
+                        verticalArrangement = Arrangement.SpaceBetween,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         FlipCard(
-                            cardFace = cardFace,
+                            animatedCard = animatedCard,
                             onClick = {
-                                cardFace = cardFace.next
+                                animatedCard = animatedCard.next()
                             },
                             modifier = Modifier
                                 .padding(horizontal = 52.dp),
@@ -188,7 +204,7 @@ fun CollectionCardsDialog(
                         OutlinedTextField(
                             value = wordText,
                             onValueChange = {
-                                cardFace = CardFace.Front
+                                animatedCard = animatedCard.copy(cardFace = CardFace.Front)
                                 wordText = it
                                 isValidInputs = wordText.isNotBlank() && otherText.isNotBlank()
                             },
@@ -215,7 +231,7 @@ fun CollectionCardsDialog(
                         OutlinedTextField(
                             value = descriptionText,
                             onValueChange = {
-                                cardFace = CardFace.Front
+                                animatedCard = animatedCard.copy(cardFace = CardFace.Front)
                                 descriptionText = it
                             },
                             label = { Text("Word description") },
@@ -243,7 +259,7 @@ fun CollectionCardsDialog(
                         OutlinedTextField(
                             value = otherText,
                             onValueChange = {
-                                cardFace = CardFace.Back
+                                animatedCard = animatedCard.copy(cardFace = CardFace.Back)
                                 otherText = it
                                 isValidInputs = wordText.isNotBlank() && otherText.isNotBlank()
                             },
@@ -268,7 +284,7 @@ fun CollectionCardsDialog(
                         OutlinedTextField(
                             value = otherDescriptionText,
                             onValueChange = {
-                                cardFace = CardFace.Back
+                                animatedCard = animatedCard.copy(cardFace = CardFace.Back)
                                 otherDescriptionText = it
                             },
                             label = { Text("Description") },
@@ -320,9 +336,13 @@ fun CollectionCardsDialog(
                                                     rate = 0
                                                 )
                                             )
-                                            editCard.value = null
                                         }
                                     }
+                                    editCard.value = null
+                                    wordText = ""
+                                    descriptionText = ""
+                                    otherText = ""
+                                    otherDescriptionText = ""
                                 }
                             }) {
                             Text("Save card")

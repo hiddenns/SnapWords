@@ -1,6 +1,5 @@
 package com.khalore.core.repository
 
-import android.util.Log
 import com.khalore.core.datasource.cards.CardsLocalDataSource
 import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
 import com.khalore.core.mappers.toLocal
@@ -34,7 +33,6 @@ class CardsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(card: Card) = withContext(Dispatchers.IO) {
-        Log.d("anal", "update: ${card.wordCombination.word}")
         wordCombinationLocalDataSource.update(card.wordCombination)
         cardsLocalDataSource.update(card)
     }

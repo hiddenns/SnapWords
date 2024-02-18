@@ -30,6 +30,19 @@ class HomeViewModel @Inject constructor(
             is HomeScreenContract.Event.SetupCards -> {
                 setupCards(event.cardList)
             }
+            is HomeScreenContract.Event.SwipeCard -> {
+                viewModelScope.launch {
+                    val updatedCard = event.swippedCardState.card.apply {
+                        if (event.swippedCardState.isPositiveAnswer) {
+                            this.correctResponses++
+                        } else {
+                            this.incorrectResponses++
+                        }
+                    }.copy(lastResponseDate = System.currentTimeMillis())
+
+                    cardsRepository.update(updatedCard)
+                }
+            }
         }
     }
 

@@ -39,5 +39,8 @@ fun CardDTO.toDomain(): Card {
         cardId = this@toDomain.card.cardId,
         wordCombination = this@toDomain.wordCombination.toDomain(),
         rate = this@toDomain.card.rate,
+        correctResponses = this@toDomain.card.correctResponses,
+        incorrectResponses = this@toDomain.card.incorrectResponses,
+        lastResponseDate = this@toDomain.card.lastResponseDate
     )
 }
