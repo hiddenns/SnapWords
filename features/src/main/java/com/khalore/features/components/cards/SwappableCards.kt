@@ -1,7 +1,6 @@
 package com.khalore.features.components.cards
 
 
-import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.CubicBezierEasing
@@ -66,7 +65,8 @@ fun SwappableCards(
 
     var cardList by remember {
         mutableStateOf(
-            state.cardsList.reversed())
+            state.cardsList.sortedByDescending { it.lastResponseDate }
+        )
     }
 
     var colors by remember {
@@ -76,16 +76,6 @@ fun SwappableCards(
     val backgroundColor = Color(0xff141414)
 
     var gradientColor by remember {
-
-
-        Log.d("anal", "----------------")
-        cardList.forEachIndexed { index, card ->
-            if (index == colors.size - 1)
-                Log.d("anal", "card ${card.wordCombination.word} <- current")
-            else
-                Log.d("anal", "card ${card.wordCombination.word}")
-        }
-
         mutableStateOf(
             Brush.linearGradient(
                 colors = listOf(backgroundColor, backgroundColor)
@@ -132,31 +122,29 @@ fun SwappableCards(
     ) {
         colors.forEachIndexed { idx, color ->
             if (idx >= cardList.size) return
-            key(color, cardList[idx]) {
+            val card = cardList[idx]
+            key(color) {
                 SwappableCard(
-                    card = cardList[idx],
+                    card = card,
                     order = idx,
                     totalCount = colors.size,
                     backgroundColor = color,
                     onChangeCardOffsetY = onChangeCardOffsetY,
                     onMoveToBack = { animatedCard ->
+                        val goalCard = animatedCard.card
                         onSwippedCard(
                             SwippedCardState(
-                                card = animatedCard.card,
+                                card = goalCard,
                                 isPositiveAnswer = lastOffsetValue < 0
                             )
                         )
-                        cardList = listOf(animatedCard.card) + (cardList - animatedCard.card)
                         colors = listOf(color) + (colors - color)
+                        cardList = cardList.map {
+                            if (it.cardId == goalCard.cardId) {
+                                it.copy(lastResponseDate = System.currentTimeMillis())
+                            } else it
 
-
-                        Log.d("anal", "----------------")
-                        cardList.forEachIndexed { index, card ->
-                            if (index == colors.size - 1)
-                                Log.d("anal", "card ${card.wordCombination.word} <- current")
-                            else
-                                Log.d("anal", "card ${card.wordCombination.word}")
-                        }
+                        }.sortedByDescending { it.lastResponseDate }
                     }
                 )
             }
@@ -179,14 +167,10 @@ fun SwappableCard(
     val animatedYOffset by animateDpAsState(
         targetValue = ((totalCount - order) * -12).dp, label = "",
     )
-    var animatedCard by remember {
-        mutableStateOf(
-            AnimatedCard(
-                cardFace = CardFace.Front,
-                card = card
-            )
+    var animatedCard = AnimatedCard(
+            cardFace = CardFace.Front,
+            card = card
         )
-    }
 
     FlipCard(
         animatedCard = animatedCard,
