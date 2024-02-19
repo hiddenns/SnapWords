@@ -9,11 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -129,13 +125,6 @@ fun EmptyCollection() {
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center
-                )
-
-                ExtendedFloatingActionButton(
-                    modifier = Modifier.padding(bottom = 8.dp),
-                    text = { Text("Create Card") },
-                    icon = { Icon(Icons.Filled.Add, contentDescription = "") },
-                    onClick = {}
                 )
 
                 Divider(

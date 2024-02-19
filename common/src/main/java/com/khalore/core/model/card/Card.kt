@@ -15,6 +15,10 @@ data class Card(
     val lastResponseDate: Long = System.currentTimeMillis()
 ) {
 
+    companion object {
+        private const val LEARNED_ANSWERS_COUNT = 100
+    }
+
     fun getResponsesColor(): Brush {
         Log.d("anal", "getResponsesColor: correctResponses $correctResponses , incorrectResponses $incorrectResponses")
         val maxCorrectResponses = 100f
@@ -36,6 +40,14 @@ data class Card(
             end = Offset.Infinite
         )
 
+    }
+
+    fun getProgressPercent(): Int {
+        if (incorrectResponses >= correctResponses) return 0
+        val diff = correctResponses - incorrectResponses
+
+        val percent = diff * 100 / LEARNED_ANSWERS_COUNT
+        return percent.toInt()
     }
 
 }
