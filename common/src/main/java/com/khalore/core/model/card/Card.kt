@@ -46,6 +46,7 @@ data class Card(
         if (incorrectResponses >= correctResponses) return 0
         val diff = correctResponses - incorrectResponses
 
+        if (correctResponses > LEARNED_ANSWERS_COUNT) return LEARNED_ANSWERS_COUNT
         val percent = diff * 100 / LEARNED_ANSWERS_COUNT
         return percent.toInt()
     }

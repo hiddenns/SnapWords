@@ -52,7 +52,8 @@ fun FlipCard(
     front: @Composable () -> Unit = {},
     onMoveToBack: (animatedCard: AnimatedCard) -> Unit,
     isSwappable: Boolean = false,
-    onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit = {}
+    onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit = {},
+    onEndAnimation: () -> Unit
 ) {
     val rotation = animateFloatAsState(
         targetValue = animatedCard.cardFace.angle,
@@ -79,10 +80,13 @@ fun FlipCard(
                 )
             }.let { mdf ->
                 if (isSwappable)
-                    mdf.swipeToBack(onChangeCardOffsetY) {
-                        onMoveToBack(animatedCard)
-                        if (rotation.value > 90f) onClick(animatedCard)
-                    }
+                    mdf.swipeToBack(
+                        onChangeCardOffsetY,
+                        onEndAnimation = onEndAnimation,
+                        onMoveToBack = {
+                            onMoveToBack(animatedCard)
+                            if (rotation.value > 90f) onClick(animatedCard)
+                        })
                 else {
                     mdf
                 }

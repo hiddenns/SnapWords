@@ -198,7 +198,8 @@ fun CollectionCardsDialog(
                                 )
                             },
                             onMoveToBack = {},
-                            isSwappable = false
+                            isSwappable = false,
+                            onEndAnimation = {}
                         )
 
                         OutlinedTextField(

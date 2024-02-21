@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import com.khalore.core.model.card.Card
 import com.khalore.core.model.word.getOtherWord
 import com.khalore.core.model.word.getWord
+import com.khalore.domain.toShiftList
 import com.khalore.features.screens.home.HomeViewState
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.joinAll
@@ -65,7 +66,7 @@ fun SwappableCards(
 
     var cardList by remember {
         mutableStateOf(
-            state.cardsList.sortedByDescending { it.lastResponseDate }
+            state.cardsList.toShiftList()
         )
     }
 
@@ -115,13 +116,14 @@ fun SwappableCards(
 
     Box(
         Modifier
-            .background(brush = gradientColor, alpha = 0.6f)
+//            .background(brush = gradientColor, alpha = 0.6f)
+            .background(backgroundColor)
             .padding(vertical = 32.dp)
             .fillMaxSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
         colors.forEachIndexed { idx, color ->
-            if (idx >= cardList.size) return
+            if (idx >= cardList.size()) return
             val card = cardList[idx]
             key(color) {
                 SwappableCard(
@@ -131,21 +133,16 @@ fun SwappableCards(
                     backgroundColor = color,
                     onChangeCardOffsetY = onChangeCardOffsetY,
                     onMoveToBack = { animatedCard ->
-                        val goalCard = animatedCard.card
-                        onSwippedCard(
-                            SwippedCardState(
-                                card = goalCard,
-                                isPositiveAnswer = lastOffsetValue < 0
-                            )
-                        )
+//                        onSwippedCard(
+//                            SwippedCardState(
+//                                card = animatedCard.card,
+//                                isPositiveAnswer = lastOffsetValue < 0
+//                            )
+//                        )
                         colors = listOf(color) + (colors - color)
-                        cardList = cardList.map {
-                            if (it.cardId == goalCard.cardId) {
-                                it.copy(lastResponseDate = System.currentTimeMillis())
-                            } else it
-
-                        }.sortedByDescending { it.lastResponseDate }
-                    }
+                        cardList.rotateList()
+                    },
+                    onEndAnimation = {}
                 )
             }
         }
@@ -158,6 +155,7 @@ fun SwappableCard(
     order: Int,
     totalCount: Int,
     backgroundColor: Color = Color.White,
+    onEndAnimation: () -> Unit,
     onMoveToBack: (animatedCard: AnimatedCard) -> Unit,
     onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit
 ) {
@@ -168,9 +166,9 @@ fun SwappableCard(
         targetValue = ((totalCount - order) * -12).dp, label = "",
     )
     var animatedCard = AnimatedCard(
-            cardFace = CardFace.Front,
-            card = card
-        )
+        cardFace = CardFace.Front,
+        card = card
+    )
 
     FlipCard(
         animatedCard = animatedCard,
@@ -198,13 +196,15 @@ fun SwappableCard(
             )
         },
         isSwappable = true,
-        onChangeCardOffsetY = onChangeCardOffsetY
+        onChangeCardOffsetY = onChangeCardOffsetY,
+        onEndAnimation = onEndAnimation
     )
 }
 
 fun Modifier.swipeToBack(
     onChangeCardOffsetY: (Pair<Boolean, Animatable<Float, AnimationVector1D>>) -> Unit,
-    onMoveToBack: () -> Unit
+    onMoveToBack: () -> Unit,
+    onEndAnimation: () -> Unit,
 ): Modifier = composed {
     val offsetY = remember { Animatable(0f) }
     var isDropOnBottom by remember { mutableStateOf(false) }
@@ -288,6 +288,7 @@ fun Modifier.swipeToBack(
                         }
                     )
                     animationJobs.joinAll()
+                    onEndAnimation()
                     isDropOnBottom = false
                     clearedHurdle = false
                 }

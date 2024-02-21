@@ -2,6 +2,11 @@ package com.khalore.domain
 
 class ShiftList<T>(private var values: List<T>) {
 
+    val data: List<T>
+        get() {
+            return values
+        }
+
     operator fun get(idx: Int): T = kotlin.runCatching {
         values[idx]
     }.getOrElse {
