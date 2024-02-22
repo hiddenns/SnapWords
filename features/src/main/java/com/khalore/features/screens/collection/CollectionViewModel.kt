@@ -5,14 +5,16 @@ import androidx.lifecycle.viewModelScope
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
-import com.khalore.core.repository.CardsRepository
+import com.khalore.core.repository.cards.CardsRepository
+import com.khalore.core.usecase.analytics.IncreaseAddedCardsCountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CollectionViewModel @Inject constructor(
-    private val cardsRepository: CardsRepository
+    private val cardsRepository: CardsRepository,
+    private val increaseAddedCardsCountUseCase: IncreaseAddedCardsCountUseCase
 ) : BaseViewModel<
         CollectionScreenContract.Event,
         CollectionScreenContract.State,

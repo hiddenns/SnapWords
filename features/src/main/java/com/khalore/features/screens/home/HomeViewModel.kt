@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
-import com.khalore.core.repository.CardsRepository
+import com.khalore.core.repository.cards.CardsRepository
+import com.khalore.core.usecase.cards.AddCardUseCase
+import com.khalore.features.components.cards.SwippedCardState
 import com.khalore.features.components.cards.cardsColors
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.firstOrNull
@@ -13,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val cardsRepository: CardsRepository
+    private val cardsRepository: CardsRepository,
+    private val addCardUseCase: AddCardUseCase
 ) : BaseViewModel<
         HomeScreenContract.Event,
         HomeScreenContract.State,
@@ -32,17 +35,31 @@ class HomeViewModel @Inject constructor(
             }
             is HomeScreenContract.Event.SwipeCard -> {
                 viewModelScope.launch {
-                    val updatedCard = event.swippedCardState.card.apply {
-                        if (event.swippedCardState.isPositiveAnswer) {
-                            this.correctResponses++
-                        } else {
-                            this.incorrectResponses++
-                        }
-                    }.copy(lastResponseDate = System.currentTimeMillis())
-
-                    cardsRepository.update(updatedCard)
+                    saveSwipedCardUpdate(event.swippedCardState)
+                    saveDailyAnalytics(event.swippedCardState)
                 }
             }
+        }
+    }
+
+    private fun saveDailyAnalytics(swippedCardState: SwippedCardState) {
+        viewModelScope.launch {
+            addCardUseCase.invoke(swippedCardState.card)
+        }
+    }
+
+    private fun saveSwipedCardUpdate(swippedCardState: SwippedCardState) {
+        viewModelScope.launch {
+            val updatedCard = swippedCardState.card.apply {
+                if (swippedCardState.isPositiveAnswer) {
+                    this.correctResponses++
+                } else {
+                    this.incorrectResponses++
+                }
+            }.copy(lastResponseDate = System.currentTimeMillis())
+
+            cardsRepository.update(updatedCard)
+
         }
     }
 

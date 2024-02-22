@@ -1,4 +1,4 @@
-package com.khalore.core.repository
+package com.khalore.core.repository.cards
 
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.flow.Flow

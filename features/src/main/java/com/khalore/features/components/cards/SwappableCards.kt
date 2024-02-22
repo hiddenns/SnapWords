@@ -133,12 +133,13 @@ fun SwappableCards(
                     backgroundColor = color,
                     onChangeCardOffsetY = onChangeCardOffsetY,
                     onMoveToBack = { animatedCard ->
-//                        onSwippedCard(
-//                            SwippedCardState(
-//                                card = animatedCard.card,
-//                                isPositiveAnswer = lastOffsetValue < 0
-//                            )
-//                        )
+                        // incorrect card
+                        onSwippedCard(
+                            SwippedCardState(
+                                card = animatedCard.card,
+                                isPositiveAnswer = lastOffsetValue < 0
+                            )
+                        )
                         colors = listOf(color) + (colors - color)
                         cardList.rotateList()
                     },

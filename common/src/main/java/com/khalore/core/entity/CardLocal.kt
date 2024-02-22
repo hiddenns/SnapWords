@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
+import com.khalore.core.entity.analytics.DailyAnalyticLocal
 
 
 @Entity(
@@ -13,7 +14,11 @@ import androidx.room.PrimaryKey
         childColumns = ["wordCombinationId"],
         onDelete = CASCADE,
         onUpdate = CASCADE
-    )]
+    ), ForeignKey(
+            entity = DailyAnalyticLocal::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("cardId")
+        )]
 )
 data class CardLocal(
     @PrimaryKey(autoGenerate = true)

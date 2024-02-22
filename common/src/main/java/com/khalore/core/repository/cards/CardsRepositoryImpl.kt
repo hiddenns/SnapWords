@@ -1,4 +1,4 @@
-package com.khalore.core.repository
+package com.khalore.core.repository.cards
 
 import com.khalore.core.datasource.cards.CardsLocalDataSource
 import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource

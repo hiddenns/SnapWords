@@ -1,6 +1,8 @@
 package com.khalore.core.di
 
 
+import com.khalore.core.datasource.analytics.AnalyticsLocalDataSource
+import com.khalore.core.datasource.analytics.AnalyticsLocalDataSourceImpl
 import com.khalore.core.datasource.cards.CardsLocalDataSource
 import com.khalore.core.datasource.cards.CardsLocalDataSourceImpl
 import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
@@ -26,5 +28,11 @@ interface LocalSourceModule {
     fun bindsWordsCombinationSource(
         wordCombinationLocalDataSource: WordCombinationLocalDataSourceImpl
     ): WordCombinationLocalDataSource
+
+    @Singleton
+    @Binds
+    fun bindsAnalyticsSource(
+        analyticsLocalDataSourceImpl: AnalyticsLocalDataSourceImpl
+    ): AnalyticsLocalDataSource
 
 }

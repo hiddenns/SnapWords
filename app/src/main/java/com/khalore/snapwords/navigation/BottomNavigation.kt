@@ -9,23 +9,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.khalore.features.screens.analytics.AnalyticsScreen
 import com.khalore.features.screens.collection.CollectionScreen
 import com.khalore.features.screens.home.HomeScreen
 import com.khalore.features.screens.settings.SettingsScreen
-import com.khalore.features.screens.shop.ShopScreen
 import com.khalore.snapwords.R
 
 sealed class Screen(val route: String, val name: String) {
     data object Home : Screen(route = "home_screen", name = "Home")
     data object Collection : Screen(route = "collection_screen", name = "Collection")
-    data object Shop : Screen(route = "shop_screen", name = "Shop")
+    data object Analytics : Screen(route = "analytics_screen", name = "Analytics")
     data object Settings : Screen(route = "settings_screen", name = "Settings")
 }
 
 val navigationItems = listOf(
     Screen.Home,
     Screen.Collection,
-    Screen.Shop,
+    Screen.Analytics,
     Screen.Settings
 )
 
@@ -47,8 +47,8 @@ fun SetupNavGraph(
                     onSelectedScreenChanged(navigationItems.indexOf(Screen.Collection))
                 },
                 onClickShop = {
-                    navController.navigate(Screen.Shop.route)
-                    onSelectedScreenChanged(navigationItems.indexOf(Screen.Shop))
+                    navController.navigate(Screen.Analytics.route)
+                    onSelectedScreenChanged(navigationItems.indexOf(Screen.Analytics))
                 }
             )
         }
@@ -60,9 +60,9 @@ fun SetupNavGraph(
         }
 
         composable(
-            route = Screen.Shop.route
+            route = Screen.Analytics.route
         ) {
-            ShopScreen()
+            AnalyticsScreen()
         }
 
         composable(
@@ -118,7 +118,7 @@ fun NavigationBarItemIcon(screen: Screen) {
                 contentDescription = null
             )
         }
-        is Screen.Shop -> {
+        is Screen.Analytics -> {
             Icon(
                 painterResource(
                     id = R.drawable.ic_shop

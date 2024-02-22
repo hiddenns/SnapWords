@@ -18,6 +18,7 @@ package com.khalore.core.di
 
 import android.content.Context
 import androidx.room.Room
+import com.khalore.core.dao.AnalyticsDao
 import com.khalore.core.dao.CardDao
 import com.khalore.core.dao.DeckDao
 import com.khalore.core.dao.WordCombinationDao
@@ -48,6 +49,10 @@ class DatabaseModule {
         return appDatabase.deckDao()
     }
 
+    @Provides
+    fun provideAnalyticsDao(appDatabase: AppDatabase): AnalyticsDao {
+        return appDatabase.analyticsDao()
+    }
 
 
     @Provides
