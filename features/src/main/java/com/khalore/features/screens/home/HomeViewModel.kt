@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
+import com.khalore.core.repository.analytics.AnalyticsRepository
 import com.khalore.core.repository.cards.CardsRepository
-import com.khalore.core.usecase.cards.AddCardUseCase
 import com.khalore.features.components.cards.SwippedCardState
 import com.khalore.features.components.cards.cardsColors
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
-    private val addCardUseCase: AddCardUseCase
+    private val analyticsRepository: AnalyticsRepository
 ) : BaseViewModel<
         HomeScreenContract.Event,
         HomeScreenContract.State,
@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
 
     private fun saveDailyAnalytics(swippedCardState: SwippedCardState) {
         viewModelScope.launch {
-            addCardUseCase.invoke(swippedCardState.card)
+            analyticsRepository.increaseSwipesCount(swippedCardState.card, swippedCardState.isPositiveAnswer)
         }
     }
 

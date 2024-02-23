@@ -9,6 +9,7 @@ import com.khalore.core.model.word.WordsCombination
 data class Card(
     val cardId: Long = -1,
     val wordCombination: WordsCombination,
+    val dateUtc: Long = 0,
     val rate: Long,
     var correctResponses: Long = 0,
     var incorrectResponses: Long = 0,

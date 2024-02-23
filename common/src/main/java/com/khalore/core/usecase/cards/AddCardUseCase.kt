@@ -15,8 +15,8 @@ class AddCardUseCase @Inject constructor(
     suspend operator fun invoke(
         card: Card
     ) = withContext(Dispatchers.IO) {
-         cardsRepository.insert(card)
-         analyticsRepository.increaseAddedCardsCount(card)
+        val dateUtcId = analyticsRepository.increaseAddedCardsCount(card)
+        cardsRepository.insert(card.copy(dateUtc = dateUtcId))
     }
 
 }

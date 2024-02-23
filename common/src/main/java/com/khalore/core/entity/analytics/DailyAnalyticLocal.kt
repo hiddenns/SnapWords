@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class DailyAnalyticLocal(
     @PrimaryKey
-    var dayUtc: Long = 0,
+    val dayUtc: Long,
     val swipesCount: Long,
     val addedCardsCount: Long,
     val positiveSwipesCount: Long

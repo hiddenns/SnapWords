@@ -11,6 +11,14 @@ class AnalyticsLocalDataSourceImpl @Inject constructor(
     private val dao: AnalyticsDao
 ) : AnalyticsLocalDataSource {
 
+    override fun getTotalSwipes(): Long {
+        return dao.getTotalSwipes()
+    }
+
+    override fun getTotalCards(): Long {
+        return dao.getTotalCards()
+    }
+
     override fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic? {
         return dao.getOneDayAnalyticsByDay(utc)?.toDomain()
     }
@@ -25,7 +33,7 @@ class AnalyticsLocalDataSourceImpl @Inject constructor(
         })
     }
 
-    override suspend fun update(dailyAnalytic: DailyAnalytic) {
+    override suspend fun update(dailyAnalytic: DailyAnalytic) : Long {
         Log.d("anal", "update: ${dailyAnalytic.dayUtc}")
         return dao.update(dailyAnalytic.toLocal().also {
             Log.d("anal", "update local: ${dailyAnalytic.dayUtc}")

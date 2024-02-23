@@ -19,18 +19,8 @@ fun Card.toLocal(): CardLocal {
         rate = this@toLocal.rate,
         correctResponses = this@toLocal.correctResponses,
         incorrectResponses = this@toLocal.incorrectResponses,
-        lastResponseDate = this@toLocal.lastResponseDate
-    )
-}
-
-fun Card.toLocalWithId(): CardLocal {
-    return CardLocal(
-        cardId = this@toLocalWithId.cardId,
-        wordCombinationId = this@toLocalWithId.wordCombination.toLocalWithId().wordCombinationId,
-        rate = this@toLocalWithId.rate,
-        correctResponses = this@toLocalWithId.correctResponses,
-        incorrectResponses = this@toLocalWithId.incorrectResponses,
-        lastResponseDate = this@toLocalWithId.lastResponseDate
+        lastResponseDate = this@toLocal.lastResponseDate,
+        dayUtc = 0
     )
 }
 

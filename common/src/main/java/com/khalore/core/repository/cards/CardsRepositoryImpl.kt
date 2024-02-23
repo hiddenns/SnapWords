@@ -6,6 +6,7 @@ import com.khalore.core.mappers.toLocal
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -15,11 +16,11 @@ class CardsRepositoryImpl @Inject constructor(
 ) : CardsRepository {
 
     override fun getCardsFlow(): Flow<List<Card>> {
-        return cardsLocalDataSource.getCardsFlow()
+        return cardsLocalDataSource.getCardsFlow().flowOn(Dispatchers.IO)
     }
 
-    override fun getCardByIdFlow(cardId: Long): Flow<Card> {
-        return cardsLocalDataSource.getCardByIdFlow(cardId)
+    override fun getCardByIdFlow(cardId: Long): Flow<Card>  {
+        return cardsLocalDataSource.getCardByIdFlow(cardId).flowOn(Dispatchers.IO)
     }
 
     override suspend fun insert(card: Card): Unit = withContext(Dispatchers.IO) {

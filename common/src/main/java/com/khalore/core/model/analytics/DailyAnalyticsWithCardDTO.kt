@@ -2,15 +2,15 @@ package com.khalore.core.model.analytics
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.khalore.core.entity.CardLocal
 import com.khalore.core.entity.analytics.DailyAnalyticLocal
-import com.khalore.core.model.card.Card
 
-data class DailyAnalyticsWithCard(
+data class DailyAnalyticsWithCardDTO(
     @Embedded
     val dailyAnalyticLocal: DailyAnalyticLocal,
     @Relation(
-        parentColumn = "cardId",
+        parentColumn = "dayUtc",
         entityColumn = "dayUtc"
     )
-    val albums: List<Card>
+    val cards: List<CardLocal>
 )

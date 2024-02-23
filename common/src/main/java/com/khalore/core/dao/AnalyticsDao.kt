@@ -5,11 +5,16 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.khalore.core.entity.analytics.DailyAnalyticLocal
 
 @Dao
 interface AnalyticsDao {
+
+    @Query("SELECT SUM(DailyAnalyticLocal.swipesCount) FROM DailyAnalyticLocal")
+    fun getTotalSwipes(): Long
+
+    @Query("SELECT COUNT(CardLocal.cardId) FROM CardLocal")
+    fun getTotalCards(): Long
 
     @Query("SELECT * FROM DailyAnalyticLocal WHERE dayUtc = :utc")
     fun getOneDayAnalyticsByDay(utc: Long): DailyAnalyticLocal?
@@ -20,8 +25,8 @@ interface AnalyticsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(dailyAnalytic: List<DailyAnalyticLocal>)
 
-    @Update
-    suspend fun update(dailyAnalytic: DailyAnalyticLocal)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun update(dailyAnalytic: DailyAnalyticLocal) : Long
 
     @Query("DELETE FROM DailyAnalyticLocal WHERE dayUtc = :dateUtc")
     suspend fun deleteByDate(dateUtc: Long)

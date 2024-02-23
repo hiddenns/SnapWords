@@ -4,26 +4,23 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.PrimaryKey
-import com.khalore.core.entity.analytics.DailyAnalyticLocal
 
 
 @Entity(
-    foreignKeys = [ForeignKey(
-        entity = WordCombinationLocal::class,
-        parentColumns = ["wordCombinationId"],
-        childColumns = ["wordCombinationId"],
-        onDelete = CASCADE,
-        onUpdate = CASCADE
-    ), ForeignKey(
-            entity = DailyAnalyticLocal::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("cardId")
+    foreignKeys = [
+        ForeignKey(
+            entity = WordCombinationLocal::class,
+            parentColumns = ["wordCombinationId"],
+            childColumns = ["wordCombinationId"],
+            onDelete = CASCADE,
+            onUpdate = CASCADE
         )]
 )
 data class CardLocal(
     @PrimaryKey(autoGenerate = true)
     val cardId: Long = 0,
     val wordCombinationId: Long,
+    val dayUtc: Long,
     val rate: Long,
     val correctResponses: Long = 0,
     val incorrectResponses: Long = 0,

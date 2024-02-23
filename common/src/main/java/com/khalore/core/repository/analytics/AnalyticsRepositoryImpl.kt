@@ -5,46 +5,57 @@ import com.khalore.core.datasource.analytics.AnalyticsLocalDataSource
 import com.khalore.core.ext.timeTodayMillis
 import com.khalore.core.model.analytics.DailyAnalytic
 import com.khalore.core.model.card.Card
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class AnalyticsRepositoryImpl @Inject constructor(
     private val local: AnalyticsLocalDataSource
 ) : AnalyticsRepository {
 
+    override fun getTotalSwipes(): Long {
+        return local.getTotalSwipes()
+    }
+
+    override fun getTotalCards(): Long {
+        return local.getTotalCards()
+    }
+
     override fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic? {
         return local.getOneDayAnalyticsByDay(utc)
     }
 
-    override suspend fun insert(dailyAnalytic: DailyAnalytic): Long {
-        return local.insert(dailyAnalytic)
+    override suspend fun insert(dailyAnalytic: DailyAnalytic): Long = withContext(Dispatchers.IO) {
+        local.insert(dailyAnalytic)
     }
 
-    override suspend fun insert(dailyAnalytic: List<DailyAnalytic>) {
-        return local.insert(dailyAnalytic)
+    override suspend fun insert(dailyAnalytic: List<DailyAnalytic>) = withContext(Dispatchers.IO) {
+        local.insert(dailyAnalytic)
     }
 
-    override suspend fun increaseSwipesCount(card: Card, positiveAnswer: Boolean) {
-        val calendar = Calendar.getInstance()
-        val timeTodayMillis = calendar.timeTodayMillis
+    override suspend fun increaseSwipesCount(card: Card, positiveAnswer: Boolean): Unit =
+        withContext(Dispatchers.IO) {
+            val calendar = Calendar.getInstance()
+            val timeTodayMillis = calendar.timeTodayMillis
 
-        val todayAnalytics = getOneDayAnalyticsByDay(timeTodayMillis)
-        val todayAnalyticUpdated = todayAnalytics?.let { today ->
-            val result = if (positiveAnswer) {
-                today.copy(positiveSwipesCount = todayAnalytics.positiveSwipesCount + 1)
-            } else {
-                today
+            val todayAnalytics = getOneDayAnalyticsByDay(timeTodayMillis)
+            val todayAnalyticUpdated = todayAnalytics?.let { today ->
+                val result = if (positiveAnswer) {
+                    today.copy(positiveSwipesCount = todayAnalytics.positiveSwipesCount + 1)
+                } else {
+                    today
+                }
+                result.copy(swipesCount = todayAnalytics.swipesCount + 1)
             }
-            result.copy(swipesCount = todayAnalytics.swipesCount + 1)
+
+            if (todayAnalyticUpdated == null) {
+                insert(DailyAnalytic(timeTodayMillis).copy(swipesCount = 1))
+            } else {
+                update(todayAnalyticUpdated)
+            }
         }
 
-        if (todayAnalyticUpdated == null) {
-            insert(DailyAnalytic(timeTodayMillis).copy(swipesCount = 1))
-        } else {
-            update(todayAnalyticUpdated)
-        }
-    }
-
-    override suspend fun increaseAddedCardsCount(card: Card) {
+    override suspend fun increaseAddedCardsCount(card: Card): Long = withContext(Dispatchers.IO) {
         val calendar = Calendar.getInstance()
         val timeTodayMillis = calendar.timeTodayMillis
 
@@ -59,16 +70,16 @@ class AnalyticsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun update(dailyAnalytic: DailyAnalytic) {
-        return local.update(dailyAnalytic)
+    override suspend fun update(dailyAnalytic: DailyAnalytic): Long = withContext(Dispatchers.IO) {
+        local.update(dailyAnalytic)
     }
 
-    override suspend fun deleteByDate(dateUtc: Long) {
-        return local.deleteByDate(dateUtc)
+    override suspend fun deleteByDate(dateUtc: Long) = withContext(Dispatchers.IO) {
+        local.deleteByDate(dateUtc)
     }
 
-    override suspend fun delete(dailyAnalytic: DailyAnalytic) {
-        return local.delete(dailyAnalytic)
+    override suspend fun delete(dailyAnalytic: DailyAnalytic) = withContext(Dispatchers.IO) {
+        local.delete(dailyAnalytic)
     }
 
 
