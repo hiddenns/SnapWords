@@ -66,10 +66,10 @@ class AnalyticsViewModel @Inject constructor(
                     atomicTotalCards.set(analyticsRepository.getTotalCards())
                 },
                 viewModelScope.launch(Dispatchers.IO) {
-
+                    atomicAvgAddedCards.set(analyticsRepository.getAverageSwipesPerDays())
                 },
                 viewModelScope.launch(Dispatchers.IO) {
-
+                    atomicDaysInRow.set(analyticsRepository.getSwipesDaysInRow())
                 },
                 viewModelScope.launch(Dispatchers.IO) {
 

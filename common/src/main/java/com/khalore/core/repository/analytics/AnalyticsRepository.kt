@@ -5,11 +5,15 @@ import com.khalore.core.model.card.Card
 
 interface AnalyticsRepository {
 
-    fun getTotalSwipes(): Long
+    suspend fun getTotalSwipes(): Long
 
-    fun getTotalCards(): Long
+    suspend fun getTotalCards(): Long
 
-    fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic?
+    suspend fun getAverageSwipesPerDays(): Long
+
+    suspend fun getSwipesDaysInRow(): Long
+
+    suspend fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic?
 
     suspend fun increaseSwipesCount(card: Card, positiveAnswer: Boolean)
 

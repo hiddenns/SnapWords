@@ -13,16 +13,24 @@ class AnalyticsRepositoryImpl @Inject constructor(
     private val local: AnalyticsLocalDataSource
 ) : AnalyticsRepository {
 
-    override fun getTotalSwipes(): Long {
-        return local.getTotalSwipes()
+    override suspend fun getTotalSwipes(): Long = withContext(Dispatchers.IO) {
+        local.getTotalSwipes()
     }
 
-    override fun getTotalCards(): Long {
-        return local.getTotalCards()
+    override suspend fun getTotalCards(): Long = withContext(Dispatchers.IO) {
+        local.getTotalCards()
     }
 
-    override fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic? {
-        return local.getOneDayAnalyticsByDay(utc)
+    override suspend fun getAverageSwipesPerDays(): Long = withContext(Dispatchers.IO) {
+        local.getAverageSwipesPerDays()
+    }
+
+    override suspend fun getSwipesDaysInRow(): Long = withContext(Dispatchers.IO) {
+        local.getSwipesDaysInRow()
+    }
+
+    override suspend fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic? = withContext(Dispatchers.IO) {
+        local.getOneDayAnalyticsByDay(utc)
     }
 
     override suspend fun insert(dailyAnalytic: DailyAnalytic): Long = withContext(Dispatchers.IO) {

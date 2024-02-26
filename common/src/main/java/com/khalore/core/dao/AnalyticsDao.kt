@@ -11,13 +11,19 @@ import com.khalore.core.entity.analytics.DailyAnalyticLocal
 interface AnalyticsDao {
 
     @Query("SELECT SUM(DailyAnalyticLocal.swipesCount) FROM DailyAnalyticLocal")
-    fun getTotalSwipes(): Long
+    suspend fun getTotalSwipes(): Long
 
     @Query("SELECT COUNT(CardLocal.cardId) FROM CardLocal")
-    fun getTotalCards(): Long
+    suspend fun getTotalCards(): Long
 
     @Query("SELECT * FROM DailyAnalyticLocal WHERE dayUtc = :utc")
-    fun getOneDayAnalyticsByDay(utc: Long): DailyAnalyticLocal?
+    suspend fun getOneDayAnalyticsByDay(utc: Long): DailyAnalyticLocal?
+
+    @Query("SELECT AVG(DailyAnalyticLocal.swipesCount) FROM DailyAnalyticLocal")
+    suspend fun getAverageSwipesPerDays(): Long
+
+    @Query("SELECT * FROM DailyAnalyticLocal ORDER BY DailyAnalyticLocal.dayUtc DESC")
+    suspend fun getAllDailyAnalytics(): List<DailyAnalyticLocal>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(dailyAnalytic: DailyAnalyticLocal) : Long
