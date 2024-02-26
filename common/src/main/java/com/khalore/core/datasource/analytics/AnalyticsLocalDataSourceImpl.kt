@@ -76,4 +76,10 @@ class AnalyticsLocalDataSourceImpl @Inject constructor(
         dao.delete(dailyAnalytic.toLocal())
     }
 
+    override suspend fun getWeekDailyAnalytics(): List<DailyAnalytic> {
+        return dao.getWeekDailyAnalytics().map {
+            it.toDomain()
+        }
+    }
+
 }

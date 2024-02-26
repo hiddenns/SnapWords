@@ -1,5 +1,6 @@
 package com.khalore.core.ext
 
+import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 
 
@@ -42,3 +43,11 @@ val Calendar.timeTodayMillis: Long
         clear()
         return today
     }
+
+
+fun Long.getDate(dateFormat: String = "dd/MM/yyyy hh:mm:ss.SSS"): String {
+    val formatter = SimpleDateFormat(dateFormat);
+    val calendar = Calendar.getInstance();
+    calendar.timeInMillis = this;
+    return formatter.format(calendar.time);
+}

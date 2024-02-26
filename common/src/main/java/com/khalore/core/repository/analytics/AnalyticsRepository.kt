@@ -28,4 +28,6 @@ interface AnalyticsRepository {
     suspend fun deleteByDate(dateUtc: Long)
 
     suspend fun delete(dailyAnalytic: DailyAnalytic)
+
+    suspend fun getWeekDailyAnalytics(): List<DailyAnalytic?>
 }

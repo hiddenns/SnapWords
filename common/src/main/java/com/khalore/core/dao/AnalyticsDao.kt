@@ -25,6 +25,9 @@ interface AnalyticsDao {
     @Query("SELECT * FROM DailyAnalyticLocal ORDER BY DailyAnalyticLocal.dayUtc DESC")
     suspend fun getAllDailyAnalytics(): List<DailyAnalyticLocal>
 
+    @Query("SELECT * FROM DailyAnalyticLocal ORDER BY DailyAnalyticLocal.dayUtc DESC LIMIT 7")
+    suspend fun getWeekDailyAnalytics(): List<DailyAnalyticLocal>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(dailyAnalytic: DailyAnalyticLocal) : Long
 

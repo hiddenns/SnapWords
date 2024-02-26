@@ -7,6 +7,7 @@ import com.khalore.core.model.analytics.DailyAnalytic
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AnalyticsRepositoryImpl @Inject constructor(
@@ -29,9 +30,10 @@ class AnalyticsRepositoryImpl @Inject constructor(
         local.getSwipesDaysInRow()
     }
 
-    override suspend fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic? = withContext(Dispatchers.IO) {
-        local.getOneDayAnalyticsByDay(utc)
-    }
+    override suspend fun getOneDayAnalyticsByDay(utc: Long): DailyAnalytic? =
+        withContext(Dispatchers.IO) {
+            local.getOneDayAnalyticsByDay(utc)
+        }
 
     override suspend fun insert(dailyAnalytic: DailyAnalytic): Long = withContext(Dispatchers.IO) {
         local.insert(dailyAnalytic)
@@ -90,5 +92,23 @@ class AnalyticsRepositoryImpl @Inject constructor(
         local.delete(dailyAnalytic)
     }
 
+    override suspend fun getWeekDailyAnalytics(): List<DailyAnalytic?> =
+        withContext(Dispatchers.IO) {
+            val analytics = local.getWeekDailyAnalytics()
+            val result = mutableListOf<Long?>()
+            val oneDayInMillis = TimeUnit.DAYS.toMillis(1)
+
+            if (analytics.isEmpty()) return@withContext emptyList()
+            val start = analytics.firstOrNull()?.dayUtc
+            result.add(start)
+
+            for (i in 1..6) {
+                result.add(result.lastOrNull()?.minus(oneDayInMillis))
+            }
+
+            result.map { day ->
+                analytics.find { it.dayUtc == day }
+            }
+        }
 
 }
