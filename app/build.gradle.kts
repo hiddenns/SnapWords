@@ -155,6 +155,8 @@ dependencies {
 //    implementation("com.google.firebase:firebase-auth")
     implementation(libs.play.services.auth)
 
+    //chart
+//    implementation(libs.MPAndroidChart)
 
     //modules
     implementation(project(":common"))

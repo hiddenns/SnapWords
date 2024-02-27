@@ -23,6 +23,7 @@ ksp = "1.9.10-1.0.13"
 lifecycleRuntimeKtx = "2.7.0"
 lottie = "6.0.0"
 lottieCompose = "6.0.0"
+MPAndroidChart = "v3.1.0"
 playServicesAuth = "20.7.0"
 runtimeLivedata = "1.5.4"
 
@@ -87,6 +88,7 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", ve
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase-messaging" }
 gms-googleServices = { module = "com.google.gms:google-services", version.ref = "gms-googleServices" }
+MPAndroidChart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "MPAndroidChart" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 
 [plugins]
