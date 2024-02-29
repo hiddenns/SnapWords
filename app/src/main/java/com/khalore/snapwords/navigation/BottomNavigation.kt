@@ -113,7 +113,7 @@ fun NavigationBarItemIcon(screen: Screen) {
         is Screen.Collection -> {
             Icon(
                 painterResource(
-                    id = R.drawable.ic_collection_cards
+                    id = R.drawable.ic_box
                 ),
                 contentDescription = null
             )
@@ -121,7 +121,7 @@ fun NavigationBarItemIcon(screen: Screen) {
         is Screen.Analytics -> {
             Icon(
                 painterResource(
-                    id = R.drawable.ic_shop
+                    id = R.drawable.ic_column_chart
                 ),
                 contentDescription = null
             )

@@ -1,5 +1,6 @@
 package com.khalore.features.screens.analytics
 
+import androidx.annotation.DrawableRes
 import com.khalore.core.model.analytics.DailyAnalytic
 
 data class AnalyticsViewState(
@@ -9,5 +10,6 @@ data class AnalyticsViewState(
 
 data class TextToNumberAnalyticsItem(
     val message: String,
-    val count: Long
+    val count: Long,
+    @DrawableRes val icon: Int
 )

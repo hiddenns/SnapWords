@@ -6,6 +6,7 @@ import com.khalore.core.base.State
 import com.khalore.core.model.analytics.DailyAnalytic
 import com.khalore.core.repository.analytics.AnalyticsRepository
 import com.khalore.core.repository.cards.CardsRepository
+import com.khalore.snapwords.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.joinAll
@@ -79,20 +80,24 @@ class AnalyticsViewModel @Inject constructor(
 
             val textToNumberList = listOf(
                 TextToNumberAnalyticsItem(
-                    message = "average",
-                    count = atomicAvgAddedCards.toLong()
+                    message = "Total swipes",
+                    count = atomicTotalSwipes.toLong(),
+                    icon = R.drawable.ic_hand_cursor
                 ),
                 TextToNumberAnalyticsItem(
-                    message = "total swipes",
-                    count = atomicTotalSwipes.toLong()
+                    message = "Total cards",
+                    count = atomicTotalCards.toLong(),
+                    icon = R.drawable.ic_idea
                 ),
                 TextToNumberAnalyticsItem(
-                    message = "total cards",
-                    count = atomicTotalCards.toLong()
+                    message = "Average swipes",
+                    count = atomicAvgAddedCards.toLong(),
+                    icon = R.drawable.ic_tinder
                 ),
                 TextToNumberAnalyticsItem(
-                    message = "days in a row",
-                    count = atomicDaysInRow.toLong()
+                    message = "Swipes days in a row",
+                    count = atomicDaysInRow.toLong(),
+                    icon = R.drawable.ic_clock
                 )
             )
 
