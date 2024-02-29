@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.khalore.features.components.SoonDevelopButton
 import com.khalore.features.screens.analytics.charts.SwipesColumnBarChart
 
 @Composable
@@ -33,11 +34,18 @@ fun AnalyticsScreenMainContent(
     Column(
         Modifier
             .padding(top = 42.dp, start = 8.dp, end = 8.dp)
-            .fillMaxSize()
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         SwipesColumnBarChart(state.weekDailyAnalyticsList.reversed())
         TextToNumberAnalyticList(state.textToNumberAnalyticsList)
+
+        SoonDevelopButton(
+            modifier = Modifier.fillMaxWidth(.6f),
+            text = "More analytics",
+            description = "Exciting news! We're planning to expand our analytics features very soon. Stay tuned for updates!"
+        )
     }
 }
 
@@ -78,7 +86,7 @@ fun ItemTextToNumber(
                     id = item.icon
                 ),
                 contentDescription = null,
-                modifier = Modifier.padding(end = 6.dp),
+                modifier = Modifier.padding(end = 8.dp),
             )
 
             Text(text = item.message, modifier = Modifier.fillMaxWidth(.7f))
