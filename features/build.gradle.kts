@@ -47,6 +47,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.appcompat)
+    implementation(libs.firebase.crashlytics.buildtools)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -90,6 +91,15 @@ dependencies {
     implementation(libs.lottie.compose)
 
     implementation(libs.play.services.auth)
+
+    //chart
+    implementation(libs.android.chart)
+    implementation(libs.charts)
+    implementation(libs.vico.compose)
+    implementation(libs.vico.compose.m2)
+    implementation(libs.vico.compose.m3)
+    implementation(libs.vico.core)
+    implementation(libs.vico.views)
 
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)

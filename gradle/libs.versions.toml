@@ -12,6 +12,7 @@ androidxRoom = "2.6.1"
 androidxTest = "1.5.0"
 androidxTestExt = "1.1.5"
 androidxTestRunner = "1.5.2"
+charts = "0.2.4-alpha"
 constraintlayout = "2.2.0-alpha13"
 coreSplashscreen = "1.1.0-alpha02"
 coroutines = "1.7.3"
@@ -23,9 +24,10 @@ ksp = "1.9.10-1.0.13"
 lifecycleRuntimeKtx = "2.7.0"
 lottie = "6.0.0"
 lottieCompose = "6.0.0"
-#MPAndroidChart = "3.1.0"
+androidChart = "3.1.0"
 playServicesAuth = "20.7.0"
 runtimeLivedata = "1.5.4"
+vico = "1.14.0"
 
 # Firebase Services
 # https://firebase.google.com/support/release-notes/android
@@ -67,6 +69,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTest" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExt" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
+charts = { module = "com.github.tehras:charts", version.ref = "charts" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
@@ -88,8 +91,16 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", ve
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase-crashlytics-gradle" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase-messaging" }
 gms-googleServices = { module = "com.google.gms:google-services", version.ref = "gms-googleServices" }
-#MPAndroidChart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "MPAndroidChart" }
+android-chart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "androidChart" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+
+
+vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico" }
+vico-compose-m2 = { group = "com.patrykandpatrick.vico", name = "compose-m2", version.ref = "vico" }
+vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
+vico-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "vico" }
+vico-views = { group = "com.patrykandpatrick.vico", name = "views", version.ref = "vico" }
+firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version = "2.9.9" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -166,13 +166,17 @@ fun SwappableCard(
     val animatedYOffset by animateDpAsState(
         targetValue = ((totalCount - order) * -12).dp, label = "",
     )
-    var animatedCard = AnimatedCard(
-        cardFace = CardFace.Front,
-        card = card
-    )
+    val animatedCard = remember {
+        mutableStateOf(
+            AnimatedCard(
+                cardFace = CardFace.Front,
+                card = card
+            )
+        )
+    }
 
     FlipCard(
-        animatedCard = animatedCard,
+        animatedCard = animatedCard.value,
         modifier = Modifier
             .offset { IntOffset(x = 0, y = animatedYOffset.roundToPx()) }
             .graphicsLayer {
@@ -180,7 +184,7 @@ fun SwappableCard(
                 scaleY = animatedScale
             },
         onClick = {
-            animatedCard = animatedCard.next()
+            animatedCard.value = animatedCard.value.next()
         },
         onMoveToBack = onMoveToBack,
         axis = RotationAxis.AxisY,

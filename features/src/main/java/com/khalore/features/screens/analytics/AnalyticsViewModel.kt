@@ -1,10 +1,8 @@
 package com.khalore.features.screens.analytics
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
-import com.khalore.core.ext.getDate
 import com.khalore.core.model.analytics.DailyAnalytic
 import com.khalore.core.repository.analytics.AnalyticsRepository
 import com.khalore.core.repository.cards.CardsRepository
@@ -57,7 +55,7 @@ class AnalyticsViewModel @Inject constructor(
             val atomicAvgAddedCards = AtomicLong(0)
             val atomicDaysInRow = AtomicLong(0)
 
-            var analyticsDailyList = mutableListOf<DailyAnalytic?>()
+            var analyticsDailyList = mutableListOf<DailyAnalytic>()
 
             val jobs = listOf(
                 viewModelScope.launch(Dispatchers.IO) {
@@ -98,16 +96,10 @@ class AnalyticsViewModel @Inject constructor(
                 )
             )
 
-            Log.d("anal", "setupAnalyticsState: $textToNumberList")
-
-            analyticsDailyList.forEachIndexed { i, analytic ->
-                Log.d("anal", "setupAnalyticsState: $i - ${analytic?.dayUtc?.getDate()}")
-            }
-
             val event = AnalyticsScreenContract.Event.SetupAnalyticState(
                 AnalyticsViewState(
                     textToNumberAnalyticsList = textToNumberList,
-                    weekDailyAnalyticsList = emptyList()
+                    weekDailyAnalyticsList = analyticsDailyList.toList()
                 )
             )
 

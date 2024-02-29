@@ -29,5 +29,5 @@ interface AnalyticsRepository {
 
     suspend fun delete(dailyAnalytic: DailyAnalytic)
 
-    suspend fun getWeekDailyAnalytics(): List<DailyAnalytic?>
+    suspend fun getWeekDailyAnalytics(): List<DailyAnalytic>
 }

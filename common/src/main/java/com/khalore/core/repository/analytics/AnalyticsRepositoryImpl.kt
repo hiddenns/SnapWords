@@ -92,22 +92,25 @@ class AnalyticsRepositoryImpl @Inject constructor(
         local.delete(dailyAnalytic)
     }
 
-    override suspend fun getWeekDailyAnalytics(): List<DailyAnalytic?> =
+    override suspend fun getWeekDailyAnalytics(): List<DailyAnalytic> =
         withContext(Dispatchers.IO) {
             val analytics = local.getWeekDailyAnalytics()
-            val result = mutableListOf<Long?>()
+            val result = mutableListOf<Long>()
             val oneDayInMillis = TimeUnit.DAYS.toMillis(1)
 
             if (analytics.isEmpty()) return@withContext emptyList()
-            val start = analytics.firstOrNull()?.dayUtc
+            val start = analytics.firstOrNull()?.dayUtc ?: return@withContext emptyList()
             result.add(start)
 
             for (i in 1..6) {
-                result.add(result.lastOrNull()?.minus(oneDayInMillis))
+                result.add(result.last().minus(oneDayInMillis))
             }
 
             result.map { day ->
-                analytics.find { it.dayUtc == day }
+                analytics.find { it.dayUtc == day } ?: DailyAnalytic(
+                    dayUtc = day,
+                    swipesCount = 0
+                )
             }
         }
 
