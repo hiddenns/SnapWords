@@ -66,7 +66,7 @@ fun SwappableCards(
 
     var cardList by remember {
         mutableStateOf(
-            state.cardsList.toShiftList()
+            state.cardsList.shuffled().toShiftList()
         )
     }
 

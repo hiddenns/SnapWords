@@ -5,7 +5,6 @@ import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.analytics.DailyAnalytic
 import com.khalore.core.repository.analytics.AnalyticsRepository
-import com.khalore.core.repository.cards.CardsRepository
 import com.khalore.snapwords.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AnalyticsViewModel @Inject constructor(
-    private val cardsRepository: CardsRepository,
     private val analyticsRepository: AnalyticsRepository
 ) : BaseViewModel<
         AnalyticsScreenContract.Event,
@@ -56,7 +54,7 @@ class AnalyticsViewModel @Inject constructor(
             val atomicAvgAddedCards = AtomicLong(0)
             val atomicDaysInRow = AtomicLong(0)
 
-            var analyticsDailyList = mutableListOf<DailyAnalytic>()
+            val analyticsDailyList = mutableListOf<DailyAnalytic>()
 
             val jobs = listOf(
                 viewModelScope.launch(Dispatchers.IO) {
