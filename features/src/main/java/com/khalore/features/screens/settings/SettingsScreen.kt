@@ -1,5 +1,9 @@
 package com.khalore.features.screens.settings
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,21 +25,44 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.khalore.core.base.State
+import com.khalore.features.components.Error
 import com.khalore.snapwords.R
+
 
 @Preview
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
 
+    val state = viewModel.viewState.value.state
+
+    when (state) {
+        is State.Data -> SettingsContent(state.asData())
+        is State.Error -> Error()
+        is State.Loading -> Error()
+        is State.None -> Error()
+    }
+
+}
+
+@Composable
+fun SettingsContent(state: SettingsViewState) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val context = LocalContext.current
 
         Card(
             modifier = Modifier
@@ -89,7 +116,21 @@ fun SettingsScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, top = 32.dp, bottom = 4.dp),
-            onClick = { }) {
+            onClick = {
+                try {
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, state.googlePlayLink)
+                        type = "text/plain"
+                    }
+
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(context, shareIntent, bundleOf())
+                } catch (e: ActivityNotFoundException) {
+                    Log.e("SettingsScreen", "SettingsContent:", e)
+                }
+
+            }) {
 
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -102,11 +143,26 @@ fun SettingsScreen() {
             }
 
         }
+
         FilledTonalButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
-            onClick = { }) {
+            onClick = {
+                val tgIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("tg://openmessage?user_id=${state.telegramContactUserId}")
+                )
+                tgIntent.setPackage("org.telegram.messenger")
+
+                println("some ${state.telegramContactUserId}, ${state.googlePlayLink}")
+
+                kotlin.runCatching {
+                    startActivity(context, tgIntent, bundleOf())
+                }.getOrElse {
+
+                }
+            }) {
             Text(text = "Contact in Telegram ")
             Icon(
                 Icons.AutoMirrored.Rounded.Send,
