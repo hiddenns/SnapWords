@@ -10,7 +10,7 @@ data class Card(
     val cardId: Long = -1,
     val wordCombination: WordsCombination,
     val dateUtc: Long = 0,
-    val rate: Long,
+    val rate: Long = 0,
     var correctResponses: Long = 0,
     var incorrectResponses: Long = 0,
     val lastResponseDate: Long = System.currentTimeMillis()

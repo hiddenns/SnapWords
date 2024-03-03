@@ -33,13 +33,13 @@ fun SwipesColumnBarChart(analyticList: List<DailyAnalytic>) {
 
     val data = analyticList.associate {
         val instant = Instant.ofEpochMilli(it.dayUtc)
-        val localDate = instant.atZone(ZoneOffset.UTC).toLocalDate()
+        val localDate = instant.atZone(ZoneOffset.systemDefault()).toLocalDate()
         localDate to it.swipesCount
     }
 
     val xValuesToDates = data.keys.associateBy { it.toEpochDay().toFloat() }
     val chartEntryModel = entryModelOf(xValuesToDates.keys.zip(data.values, ::entryOf))
-    val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM")
+    val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EE")
     val horizontalAxisValueFormatter =
         AxisValueFormatter<AxisPosition.Horizontal.Bottom> { value, _ ->
             (xValuesToDates[value]
@@ -49,15 +49,15 @@ fun SwipesColumnBarChart(analyticList: List<DailyAnalytic>) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 16.dp),
+            .padding(horizontal = 0.dp, vertical = 16.dp),
         border = BorderStroke(1.dp, Color.Gray)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
         ) {
             Text(
                 text = "Swipes chart",
-                modifier = Modifier.padding(bottom = 16.dp),
+                modifier = Modifier.padding(bottom = 16.dp, start = 8.dp),
                 color = MaterialTheme.colorScheme.onBackground
             )
             Chart(

@@ -62,7 +62,8 @@ fun CollectionCardsDialog(
     onSaveCard: (card: Card) -> Unit,
     onUpdateCard: (card: Card) -> Unit,
     viewState: State<CollectionViewState>,
-    onRemoveCard: (Card) -> Unit
+    onRemoveCard: (Card) -> Unit,
+    onAddDefaults: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
@@ -95,7 +96,9 @@ fun CollectionCardsDialog(
 
             is State.Error -> Error()
             is State.Loading -> Error()
-            is State.None -> EmptyCollection()
+            is State.None -> EmptyCollection(
+                onAddDefaults = onAddDefaults
+            )
         }
 
         if (showBottomSheet) {

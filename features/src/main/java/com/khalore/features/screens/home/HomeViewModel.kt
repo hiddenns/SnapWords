@@ -35,7 +35,7 @@ class HomeViewModel @Inject constructor(
             }
             is HomeScreenContract.Event.SwipeCard -> {
                 viewModelScope.launch {
-                    saveSwipedCardUpdate(event.swippedCardState)
+                    //saveSwipedCardUpdate(event.swippedCardState)
                     saveDailyAnalytics(event.swippedCardState)
                 }
             }

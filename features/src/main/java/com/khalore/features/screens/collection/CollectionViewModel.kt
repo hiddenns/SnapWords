@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
+import com.khalore.core.model.word.WordsCombination
 import com.khalore.core.repository.cards.CardsRepository
 import com.khalore.core.usecase.cards.AddCardUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +33,7 @@ class CollectionViewModel @Inject constructor(
             is CollectionScreenContract.Event.DeleteCard -> deleteCard(event.card)
             is CollectionScreenContract.Event.UpdateCard -> updateCard(event.card)
             is CollectionScreenContract.Event.SetupCards -> setupCards(event.cards)
+            is CollectionScreenContract.Event.AddDefaultCards -> addDefaultCards()
         }
     }
 
@@ -83,5 +85,37 @@ class CollectionViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private fun addDefaultCards() {
+        viewModelScope.launch {
+            getDefaultCards().forEach {
+                addCard(it)
+            }
+        }
+    }
+
+    private fun getDefaultCards() : List<Card> {
+        return listOf(
+            Card(
+                wordCombination = WordsCombination(
+                    word = "Achieve the goal",
+                    otherWord = "Досягти мети",
+                    description = "What makes SnapWords closer to you"
+                )
+            ),
+            Card(
+                wordCombination = WordsCombination(
+                    word = "September 14, 1812",
+                    otherWord = "Napoleon Bonaparte burned moscow"
+                )
+            ),
+            Card(
+                wordCombination = WordsCombination(
+                    word = "Cotton",
+                    otherWord = "A plant grown to produce fiber, which is used in the textile industry to make fabrics and other materials."
+                )
+            ),
+        )
     }
 }

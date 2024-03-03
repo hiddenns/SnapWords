@@ -19,7 +19,7 @@ sealed class Screen(val route: String, val name: String) {
     data object Home : Screen(route = "home_screen", name = "Home")
     data object Collection : Screen(route = "collection_screen", name = "Collection")
     data object Analytics : Screen(route = "analytics_screen", name = "Analytics")
-    data object Settings : Screen(route = "settings_screen", name = "Settings")
+    data object Settings : Screen(route = "settings_screen", name = "Info")
 }
 
 val navigationItems = listOf(
@@ -129,7 +129,7 @@ fun NavigationBarItemIcon(screen: Screen) {
         is Screen.Settings -> {
             Icon(
                 painterResource(
-                    id = R.drawable.ic_settings
+                    id = R.drawable.ic_idea
                 ),
                 contentDescription = null
             )

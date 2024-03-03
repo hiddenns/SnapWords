@@ -23,6 +23,8 @@ class CollectionScreenContract {
         data class SetupCards(
             val cards: List<Card>
         ) : Event()
+
+        data object AddDefaultCards : Event()
     }
 
     data class State(
