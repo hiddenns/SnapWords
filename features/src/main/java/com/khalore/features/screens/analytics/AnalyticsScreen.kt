@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
 import com.khalore.features.components.Error
+import com.khalore.features.components.LoadingScreen
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -45,8 +46,8 @@ fun AnalyticsContent(
     when (state) {
         is State.Data -> AnalyticsScreenMainContent(state.asData())
         is State.Error -> Error()
-        is State.Loading -> Error()
-        is State.None -> Error()
+        is State.Loading -> LoadingScreen()
+        is State.None -> LoadingScreen()
     }
 }
 

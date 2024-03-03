@@ -34,6 +34,7 @@ import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
 import com.khalore.features.components.Error
+import com.khalore.features.components.LoadingScreen
 import com.khalore.snapwords.R
 
 
@@ -48,8 +49,8 @@ fun SettingsScreen(
     when (state) {
         is State.Data -> SettingsContent(state.asData())
         is State.Error -> Error()
-        is State.Loading -> Error()
-        is State.None -> Error()
+        is State.Loading -> LoadingScreen()
+        is State.None -> LoadingScreen()
     }
 
 }
@@ -106,7 +107,7 @@ fun SettingsContent(state: SettingsViewState) {
                 Text(
                     text = "Stay connected! Now, every swipe in SnapWords brings you closer to your goal!",
                     modifier = Modifier
-                        .padding(top = 4.dp),
+                        .padding(vertical = 4.dp),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }

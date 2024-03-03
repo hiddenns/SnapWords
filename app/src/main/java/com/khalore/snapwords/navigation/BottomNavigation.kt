@@ -49,6 +49,10 @@ fun SetupNavGraph(
                 onClickShop = {
                     navController.navigate(Screen.Analytics.route)
                     onSelectedScreenChanged(navigationItems.indexOf(Screen.Analytics))
+                },
+                onClickInfo = {
+                    navController.navigate(Screen.Settings.route)
+                    onSelectedScreenChanged(navigationItems.indexOf(Screen.Settings))
                 }
             )
         }

@@ -47,6 +47,7 @@ import com.khalore.core.model.word.WordsCombination
 import com.khalore.core.model.word.getOtherWord
 import com.khalore.core.model.word.getWord
 import com.khalore.features.components.Error
+import com.khalore.features.components.LoadingScreen
 import com.khalore.features.components.cardlist.CollectionList
 import com.khalore.features.components.cards.AnimatedCard
 import com.khalore.features.components.cards.CardFace
@@ -95,7 +96,7 @@ fun CollectionCardsDialog(
             )
 
             is State.Error -> Error()
-            is State.Loading -> Error()
+            is State.Loading -> LoadingScreen()
             is State.None -> EmptyCollection(
                 onAddDefaults = onAddDefaults
             )
