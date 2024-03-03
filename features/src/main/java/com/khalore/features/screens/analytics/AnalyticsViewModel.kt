@@ -1,6 +1,8 @@
 package com.khalore.features.screens.analytics
 
 import androidx.lifecycle.viewModelScope
+import com.khalore.core.analyticmanager.AnalyticManager
+import com.khalore.core.analyticmanager.AnalyticsEvents
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.analytics.DailyAnalytic
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AnalyticsViewModel @Inject constructor(
-    private val analyticsRepository: AnalyticsRepository
+    private val analyticsRepository: AnalyticsRepository,
+    private val analyticManager: AnalyticManager
 ) : BaseViewModel<
         AnalyticsScreenContract.Event,
         AnalyticsScreenContract.State,
@@ -41,9 +44,9 @@ class AnalyticsViewModel @Inject constructor(
                     )
                 }
             }
-
-
-            else -> {}
+            is AnalyticsScreenContract.Event.OnClickSoonButton -> {
+                analyticManager.logEvent(AnalyticsEvents.MORE_ANALYTICS)
+            }
         }
     }
 

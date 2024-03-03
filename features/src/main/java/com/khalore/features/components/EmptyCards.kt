@@ -20,13 +20,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.khalore.features.screens.home.HomeScreenContract
 import com.khalore.snapwords.R
 
 @Preview
 @Composable
 fun EmptyCardsScreen(
     onClickInfo: () -> Unit = {},
-    onClickCollection: () -> Unit = {},
+    onEventSent: (event: HomeScreenContract.Event) -> Unit = {},
 ) {
     Box(
         modifier = Modifier
@@ -39,15 +40,19 @@ fun EmptyCardsScreen(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            WelcomeEmptyCard(onClickCollection)
-            InfoSection(onClickInfo)
+            WelcomeEmptyCard(onCollectionClick = {
+                onEventSent(HomeScreenContract.Event.Navigation.ToCollectionScreen)
+            })
+            InfoSection(onInfoClick = {
+                onEventSent(HomeScreenContract.Event.Navigation.ToInfoScreen)
+            })
         }
     }
 }
 
 @Composable
 fun WelcomeEmptyCard(
-    onClick: () -> Unit
+    onCollectionClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -72,7 +77,7 @@ fun WelcomeEmptyCard(
             FilledTonalButton(
                 modifier = Modifier
                     .padding(top = 16.dp),
-                onClick = onClick
+                onClick = onCollectionClick
             ) {
                 Text(
                     text = stringResource(id = R.string.add_cards),
@@ -88,7 +93,7 @@ fun WelcomeEmptyCard(
 
 @Composable
 fun InfoSection(
-    onClick: () -> Unit = {}
+    onInfoClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -110,7 +115,7 @@ fun InfoSection(
             OutlinedButton(
                 modifier = Modifier
                     .padding(top = 12.dp),
-                onClick = onClick,
+                onClick = onInfoClick,
             ) {
                 Text(
                     text = stringResource(id = R.string.about_snap_words),

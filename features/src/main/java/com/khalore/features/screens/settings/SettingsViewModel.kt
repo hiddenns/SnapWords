@@ -1,6 +1,8 @@
 package com.khalore.features.screens.settings
 
 import androidx.lifecycle.viewModelScope
+import com.khalore.core.analyticmanager.AnalyticManager
+import com.khalore.core.analyticmanager.AnalyticsEvents
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.remoteconfig.RemoteConfigManager
@@ -10,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val remoteConfigManager: RemoteConfigManager
+    private val remoteConfigManager: RemoteConfigManager,
+    private val analyticManager: AnalyticManager
 ) : BaseViewModel<
         SettingsScreenContract.Event,
         SettingsScreenContract.State,
@@ -24,7 +27,8 @@ class SettingsViewModel @Inject constructor(
 
     override fun handleEvents(event: SettingsScreenContract.Event) {
         when (event) {
-            else -> {}
+            is SettingsScreenContract.Event.OnShareAppClick -> analyticManager.logEvent(AnalyticsEvents.SHARE_APP)
+            is SettingsScreenContract.Event.OnTelegramContactClick -> analyticManager.logEvent(AnalyticsEvents.CONTACT_IN_TELEGRAM)
         }
     }
 

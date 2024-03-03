@@ -65,7 +65,8 @@ fun CollectionCardsDialog(
     onUpdateCard: (card: Card) -> Unit,
     viewState: State<CollectionViewState>,
     onRemoveCard: (Card) -> Unit,
-    onAddDefaults: () -> Unit
+    onAddDefaults: () -> Unit,
+    onAddClickFloatButton: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
@@ -83,6 +84,7 @@ fun CollectionCardsDialog(
                 text = { Text(stringResource(id = R.string.create_card)) },
                 icon = { Icon(Icons.Rounded.Add, contentDescription = "") },
                 onClick = {
+                    onAddClickFloatButton()
                     showBottomSheet = true
                 }
             )

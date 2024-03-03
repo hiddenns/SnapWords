@@ -7,7 +7,8 @@ import com.khalore.core.base.State as BaseState
 
 class SettingsScreenContract {
     sealed class Event : ViewEvent {
-
+        data object OnTelegramContactClick : Event()
+        data object OnShareAppClick : Event()
     }
 
     data class State(

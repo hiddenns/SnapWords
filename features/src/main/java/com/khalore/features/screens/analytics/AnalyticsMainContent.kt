@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -33,6 +32,7 @@ import com.khalore.snapwords.R
 @Composable
 fun AnalyticsScreenMainContent(
     state: AnalyticsViewState,
+    onEventSent: (event: AnalyticsScreenContract.Event) -> Unit,
 ) {
 
     Column(
@@ -42,29 +42,38 @@ fun AnalyticsScreenMainContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SwipesColumnBarChart(state.weekDailyAnalyticsList.reversed())
-        TextToNumberAnalyticList(state.textToNumberAnalyticsList)
+        TextToNumberAnalyticList(state.textToNumberAnalyticsList, onClickSoonButton = {
+            onEventSent(AnalyticsScreenContract.Event.OnClickSoonButton)
+        })
     }
 }
 
 @Composable
-fun TextToNumberAnalyticList(analyticsList: List<TextToNumberAnalyticsItemUI>) {
+fun TextToNumberAnalyticList(
+    analyticsList: List<TextToNumberAnalyticsItemUI>,
+    onClickSoonButton: () -> Unit
+) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         items(analyticsList) { item ->
-            when(item.viewType) {
+            when (item.viewType) {
                 AnalyticsViewType.DATA -> ItemTextToNumber(item)
-                AnalyticsViewType.MORE -> MoreAnalyticsButton()
+                AnalyticsViewType.MORE -> MoreAnalyticsButton(onClickSoonButton = onClickSoonButton)
             }
         }
     }
 }
 
 @Composable
-fun MoreAnalyticsButton() {
+fun MoreAnalyticsButton(
+    onClickSoonButton: () -> Unit
+) {
     SoonDevelopButton(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
             .padding(vertical = 4.dp),
         text = stringResource(id = R.string.more_analytics),
-        description = stringResource(id = R.string.develop_soon_analytics)
+        description = stringResource(id = R.string.develop_soon_analytics),
+        onClickSoonButton = onClickSoonButton
     )
 }
 

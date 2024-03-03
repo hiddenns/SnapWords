@@ -35,7 +35,8 @@ import com.khalore.snapwords.R
 fun SoonDevelopButton(
     text: String,
     description: String,
-    modifier: Modifier
+    modifier: Modifier,
+    onClickSoonButton: () -> Unit,
 ) {
     val openDialog = remember { mutableStateOf(false) }
 
@@ -51,6 +52,7 @@ fun SoonDevelopButton(
     if (openDialog.value) {
         BasicAlertDialog(
             onDismissRequest = {
+                onClickSoonButton()
                 openDialog.value = false
             },
             modifier = Modifier.fillMaxWidth(1f)

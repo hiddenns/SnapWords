@@ -1,6 +1,9 @@
 package com.khalore.features.screens.home
 
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
+import com.khalore.core.analyticmanager.AnalyticManager
+import com.khalore.core.analyticmanager.AnalyticsEvents
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
@@ -16,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
-    private val analyticsRepository: AnalyticsRepository
+    private val analyticsRepository: AnalyticsRepository,
+    private val analyticManager: AnalyticManager
 ) : BaseViewModel<
         HomeScreenContract.Event,
         HomeScreenContract.State,
@@ -33,18 +37,40 @@ class HomeViewModel @Inject constructor(
             is HomeScreenContract.Event.SetupCards -> {
                 setupCards(event.cardList)
             }
+
             is HomeScreenContract.Event.SwipeCard -> {
                 viewModelScope.launch {
+                    sendSwipeAnalyticEvent(event.swippedCardState)
                     //saveSwipedCardUpdate(event.swippedCardState)
                     saveDailyAnalytics(event.swippedCardState)
                 }
             }
+
+            is HomeScreenContract.Event.RotateCard -> {
+                sendRotateCardAnalyticEvent()
+            }
+
+            is HomeScreenContract.Event.Navigation.ToCollectionScreen -> {
+                analyticManager.logEvent(AnalyticsEvents.NAVIGATE_TO_COLLECTION_FROM_HOME_EMPTY_SCREEN)
+                setEffect { HomeScreenContract.Effect.Navigation.ToCollectionScreen }
+            }
+            is HomeScreenContract.Event.Navigation.ToInfoScreen -> {
+                analyticManager.logEvent(AnalyticsEvents.NAVIGATE_TO_INFO_FROM_HOME_EMPTY_SCREEN)
+                setEffect { HomeScreenContract.Effect.Navigation.ToInfoScreen }
+            }
+            is HomeScreenContract.Event.Navigation.ToAnalyticScreen -> {
+                setEffect { HomeScreenContract.Effect.Navigation.ToAnalyticScreen }
+            }
         }
     }
 
+
     private fun saveDailyAnalytics(swippedCardState: SwippedCardState) {
         viewModelScope.launch {
-            analyticsRepository.increaseSwipesCount(swippedCardState.card, swippedCardState.isPositiveAnswer)
+            analyticsRepository.increaseSwipesCount(
+                swippedCardState.card,
+                swippedCardState.isPositiveAnswer
+            )
         }
     }
 
@@ -92,4 +118,16 @@ class HomeViewModel @Inject constructor(
             )
         }
     }
+
+    private fun sendSwipeAnalyticEvent(swipedCardState: SwippedCardState) {
+        val swipeAnalyticBundle = bundleOf(
+            "isPositive" to swipedCardState.isPositiveAnswer
+        )
+        analyticManager.logEvent(AnalyticsEvents.CARD_SWIPE, swipeAnalyticBundle)
+    }
+
+    private fun sendRotateCardAnalyticEvent() {
+        analyticManager.logEvent(AnalyticsEvents.ROTATE_CARD)
+    }
+
 }

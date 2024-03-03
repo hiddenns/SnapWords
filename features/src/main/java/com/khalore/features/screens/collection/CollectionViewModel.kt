@@ -1,7 +1,9 @@
 package com.khalore.features.screens.collection
 
-import android.util.Log
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
+import com.khalore.core.analyticmanager.AnalyticManager
+import com.khalore.core.analyticmanager.AnalyticsEvents
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CollectionViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
-    private val addCardUseCase: AddCardUseCase
+    private val addCardUseCase: AddCardUseCase,
+    private val analyticManager: AnalyticManager
 ) : BaseViewModel<
         CollectionScreenContract.Event,
         CollectionScreenContract.State,
@@ -34,6 +37,7 @@ class CollectionViewModel @Inject constructor(
             is CollectionScreenContract.Event.UpdateCard -> updateCard(event.card)
             is CollectionScreenContract.Event.SetupCards -> setupCards(event.cards)
             is CollectionScreenContract.Event.AddDefaultCards -> addDefaultCards()
+            is CollectionScreenContract.Event.OnClickFloatAdd -> setupClickFloatCreateAnalyticEvent()
         }
     }
 
@@ -51,20 +55,31 @@ class CollectionViewModel @Inject constructor(
 
     private fun addCard(card: Card) {
         viewModelScope.launch {
+            analyticManager.logEvent(
+                AnalyticsEvents.SAVE_CARD,
+                bundleOf(
+                    "word" to card.wordCombination.word,
+                    "other" to card.wordCombination.otherWord,
+                    "hasDescription" to card.hasDescription()
+                )
+            )
             addCardUseCase(card)
         }
     }
 
     private fun deleteCard(card: Card) {
         viewModelScope.launch {
-            Log.d("anal", "deleteCard: $card")
+            analyticManager.logEvent(AnalyticsEvents.DELETE_CARD)
             cardsRepository.delete(card)
         }
     }
 
     private fun updateCard(card: Card) {
         viewModelScope.launch {
-            Log.d("anal", "update vm: $card")
+            analyticManager.logEvent(
+                AnalyticsEvents.UPDATE_CARD,
+                bundleOf("hasDescription" to card.hasDescription())
+            )
             cardsRepository.update(card)
         }
     }
@@ -89,13 +104,18 @@ class CollectionViewModel @Inject constructor(
 
     private fun addDefaultCards() {
         viewModelScope.launch {
+            analyticManager.logEvent(AnalyticsEvents.ADD_DEFAULT_CARDS)
             getDefaultCards().forEach {
                 addCard(it)
             }
         }
     }
 
-    private fun getDefaultCards() : List<Card> {
+    private fun setupClickFloatCreateAnalyticEvent() {
+        analyticManager.logEvent(AnalyticsEvents.CLICK_CARD_FLOAT_BUTTON)
+    }
+
+    private fun getDefaultCards(): List<Card> {
         return listOf(
             Card(
                 wordCombination = WordsCombination(

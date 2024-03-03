@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
 import com.khalore.features.components.Error
 import com.khalore.features.components.LoadingScreen
+import com.khalore.features.screens.home.HomeScreenContract
 import com.khalore.snapwords.R
 
 
@@ -48,7 +49,11 @@ fun SettingsScreen(
     val state = viewModel.viewState.value.state
 
     when (state) {
-        is State.Data -> SettingsContent(state.asData())
+        is State.Data -> SettingsContent(
+            state.asData(),
+            onEventSent = { event -> viewModel.setEvent(event) },
+        )
+
         is State.Error -> Error()
         is State.Loading -> LoadingScreen()
         is State.None -> LoadingScreen()
@@ -57,7 +62,10 @@ fun SettingsScreen(
 }
 
 @Composable
-fun SettingsContent(state: SettingsViewState) {
+fun SettingsContent(
+    state: SettingsViewState,
+    onEventSent: (event: SettingsScreenContract.Event) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -106,7 +114,7 @@ fun SettingsContent(state: SettingsViewState) {
                 )
 
                 Text(
-                    text = stringResource(id = R.string.stay_connected),
+                    text = stringResource(id = R.string.every_swipe),
                     modifier = Modifier
                         .padding(vertical = 4.dp),
                     style = MaterialTheme.typography.bodyLarge
@@ -119,6 +127,7 @@ fun SettingsContent(state: SettingsViewState) {
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, top = 32.dp, bottom = 4.dp),
             onClick = {
+                onEventSent(SettingsScreenContract.Event.OnShareAppClick)
                 try {
                     val sendIntent: Intent = Intent().apply {
                         action = Intent.ACTION_SEND
@@ -151,6 +160,7 @@ fun SettingsContent(state: SettingsViewState) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 4.dp),
             onClick = {
+                onEventSent(SettingsScreenContract.Event.OnTelegramContactClick)
                 val tgIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse("tg://openmessage?user_id=${state.telegramContactUserId}")
