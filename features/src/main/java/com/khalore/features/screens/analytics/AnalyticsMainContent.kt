@@ -13,12 +13,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -35,19 +37,12 @@ fun AnalyticsScreenMainContent(
 
     Column(
         Modifier
-            .padding(top = 42.dp, start = 8.dp, end = 8.dp)
+            .padding(top = 24.dp, start = 8.dp, end = 8.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         SwipesColumnBarChart(state.weekDailyAnalyticsList.reversed())
         TextToNumberAnalyticList(state.textToNumberAnalyticsList)
-
-        SoonDevelopButton(
-            modifier = Modifier.fillMaxWidth(.6f),
-            text = stringResource(id = R.string.more_analytics),
-            description = stringResource(id = R.string.develop_soon_analytics)
-        )
     }
 }
 
@@ -55,16 +50,27 @@ fun AnalyticsScreenMainContent(
 fun TextToNumberAnalyticList(analyticsList: List<TextToNumberAnalyticsItemUI>) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         items(analyticsList) { item ->
-            ItemTextToNumber(item)
+            when(item.viewType) {
+                AnalyticsViewType.DATA -> ItemTextToNumber(item)
+                AnalyticsViewType.MORE -> MoreAnalyticsButton()
+            }
         }
     }
 }
 
+@Composable
+fun MoreAnalyticsButton() {
+    SoonDevelopButton(
+        modifier = Modifier.fillMaxWidth()
+            .padding(vertical = 4.dp),
+        text = stringResource(id = R.string.more_analytics),
+        description = stringResource(id = R.string.develop_soon_analytics)
+    )
+}
+
 
 @Composable
-@Preview(
-    locale = "uk"
-)
+@Preview(locale = "uk")
 fun ItemTextToNumber(
     @PreviewParameter(TextToNumberAnalyticsItemParameter::class) item: TextToNumberAnalyticsItemUI
 ) {
@@ -95,7 +101,8 @@ fun ItemTextToNumber(
 
             Text(
                 text = stringResource(id = item.message),
-                modifier = Modifier.fillMaxWidth(.7f)
+                modifier = Modifier.fillMaxWidth(.7f),
+                style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier)
             Text(
@@ -109,7 +116,7 @@ fun ItemTextToNumber(
 class TextToNumberAnalyticsItemParameter : PreviewParameterProvider<TextToNumberAnalyticsItemUI> {
     override val values = sequenceOf(
         TextToNumberAnalyticsItemUI(
-            count = 110,
+            count = 11043521,
             message = R.string.total_cards,
             icon = androidx.core.R.drawable.ic_call_decline
         )

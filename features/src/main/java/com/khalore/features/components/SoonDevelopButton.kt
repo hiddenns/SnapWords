@@ -79,7 +79,7 @@ fun SoonDevelopButton(
                         text = description,
                         modifier = Modifier
                             .padding(horizontal = 16.dp),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.bodyLarge
                     )
                     FilledTonalButton(
                         onClick = {

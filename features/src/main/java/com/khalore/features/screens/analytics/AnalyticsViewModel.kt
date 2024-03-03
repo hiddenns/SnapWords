@@ -96,6 +96,9 @@ class AnalyticsViewModel @Inject constructor(
                     message = R.string.swipes_days_in_a_row,
                     count = atomicDaysInRow.toLong(),
                     icon = R.drawable.ic_clock
+                ),
+                TextToNumberAnalyticsItemUI(
+                    viewType = AnalyticsViewType.MORE
                 )
             )
 

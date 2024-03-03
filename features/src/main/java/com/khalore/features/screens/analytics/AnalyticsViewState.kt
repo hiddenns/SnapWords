@@ -10,7 +10,12 @@ data class AnalyticsViewState(
 )
 
 data class TextToNumberAnalyticsItemUI(
-    @StringRes val message: Int,
-    @DrawableRes val icon: Int,
-    val count: Long
+    @StringRes val message: Int = 0,
+    @DrawableRes val icon: Int = 0,
+    val count: Long = 0,
+    val viewType: AnalyticsViewType = AnalyticsViewType.DATA
 )
+
+enum class AnalyticsViewType {
+    DATA, MORE;
+}
