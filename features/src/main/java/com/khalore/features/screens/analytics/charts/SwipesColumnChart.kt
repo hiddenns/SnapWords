@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.khalore.core.model.analytics.DailyAnalytic
+import com.khalore.snapwords.R
 import com.patrykandpatrick.vico.compose.axis.horizontal.rememberBottomAxis
 import com.patrykandpatrick.vico.compose.axis.vertical.rememberStartAxis
 import com.patrykandpatrick.vico.compose.chart.Chart
@@ -56,7 +58,7 @@ fun SwipesColumnBarChart(analyticList: List<DailyAnalytic>) {
             modifier = Modifier.padding(vertical = 16.dp, horizontal = 8.dp),
         ) {
             Text(
-                text = "Swipes chart",
+                text = stringResource(id = R.string.swipes_chart),
                 modifier = Modifier.padding(bottom = 16.dp, start = 8.dp),
                 color = MaterialTheme.colorScheme.onBackground
             )

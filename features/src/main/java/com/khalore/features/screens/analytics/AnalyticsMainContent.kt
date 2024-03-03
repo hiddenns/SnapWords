@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -25,6 +26,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.khalore.features.components.SoonDevelopButton
 import com.khalore.features.screens.analytics.charts.SwipesColumnBarChart
+import com.khalore.snapwords.R
 
 @Composable
 fun AnalyticsScreenMainContent(
@@ -43,8 +45,8 @@ fun AnalyticsScreenMainContent(
 
         SoonDevelopButton(
             modifier = Modifier.fillMaxWidth(.6f),
-            text = "More analytics",
-            description = "Exciting news! We're planning to expand our analytics features very soon. Stay tuned for updates!"
+            text = stringResource(id = R.string.more_analytics),
+            description = stringResource(id = R.string.develop_soon_analytics)
         )
     }
 }

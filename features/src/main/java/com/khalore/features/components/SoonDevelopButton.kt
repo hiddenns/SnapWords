@@ -24,8 +24,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.khalore.snapwords.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,10 +69,10 @@ fun SoonDevelopButton(
                 ) {
 
                     Text(
-                        text = "Soon to be developed!",
+                        text = stringResource(id = R.string.soon_be_develop),
                         modifier = Modifier
                             .padding(16.dp),
-                        style = MaterialTheme.typography.headlineMedium
+                        style = MaterialTheme.typography.headlineSmall
                     )
 
                     Text(
@@ -93,10 +95,13 @@ fun SoonDevelopButton(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Okay",
+                                text = stringResource(id = R.string.okay),
                                 textAlign = TextAlign.Center
                             )
-                            Spacer(Modifier.height(8.dp).width(4.dp))
+                            Spacer(
+                                Modifier
+                                    .height(8.dp)
+                                    .width(4.dp))
                             Icon(
                                 Icons.Filled.Favorite,
                                 "",

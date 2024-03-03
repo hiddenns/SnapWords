@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Загальні-->
+    <string name="welcome" translatable="false" >Ласкаво просимо!</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="about_snap_words">Про SnapWords</string>
+    <string name="okay">Гаразд</string>
+
+
+    <!--    Секція "Головна"-->
+    <string name="dont_have_any_cards">Схоже, у вас ще немає жодних карток. Щоб створити свою унікальну картку, перейдіть до розділу "Колекції".</string>
+    <string name="add_cards">Додати картки</string>
+    <string name="learn_more_about_application">Щоб дізнатися більше про додаток, перейдіть до розділу "Інформація".</string>
+
+    <!--    Секція "Колекція"-->
+    <string name="welcome_to_collection">Ласкаво просимо до вашої колекції карток!</string>
+    <string name="collection_description">Тут ви можете поповнювати свій словниковий запас та переглядати слова, які ви вже створили.</string>
+    <string name="tap_create_card">Натисніть кнопку \"Створити картку\" внизу праворуч.</string>
+    <string name="add_default_cards_description">Додати типові картки для кращого розуміння функціоналу додатку</string>
+    <string name="add_default_cards_button">Додати картки за замовчуванням</string>
+    <string name="remove_card">Видалити картку</string>
+    <string name="remove_card_question">Ви впевнені, що хочете видалити картку?</string>
+
+    <!--    Аналітика-->
+    <string name="more_analytics">Більше аналітики</string>
+    <string name="develop_soon_analytics">Ми плануємо розширити функціонал нашої аналітики найближчим часом. Слідкуйте за оновленнями!</string>
+    <string name="swipes_chart">Діаграма свайпів</string>
+    <string name="soon_be_develop">Скоро буде розроблено!</string>
+
+    <!--    Інформація-->
+    <string name="info_snap_words_description">SnapWords - це додаток, який допомагає вам вивчати терміни, іноземні слова, історичні дати та іншу корисну інформацію. Все це представлено у вигляді карток, які ви можете прокручувати, щоб вивчати їх вміст. Якщо ви подвійно торкнетесь картки, вона перевернеться на інше слово. \nЗручно, чи не так?</string>
+    <string name="stay_connected">Залишайтесь на зв\'язку! Тепер кожен свайп у SnapWords наближає вас до вашої мети!</string>
+    <string name="share_app">Поділитися додатком</string>
+    <string name="contact_in_telegram">Зв\'язок у Telegram</string>
+
+    <!--    Діалог створення картки-->
+    <string name="create_card">Створити картку</string>
+    <string name="another_word">Інше слово</string>
+    <string name="write_word">Напишіть слово</string>
+    <string name="word_description">Опис слова</string>
+    <string name="word">Слово</string>
+    <string name="description">Опис</string>
+    <string name="save_card">Зберегти картку</string>
+
+
+</resources>

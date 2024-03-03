@@ -1,0 +1,46 @@
+<resources>
+    <!--    Common-->
+    <string name="welcome" translatable="false" >Welcome!</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="about_snap_words">About SnapWords</string>
+    <string name="okay">Okay</string>
+
+    <!--    Home section-->
+    <string name="dont_have_any_cards">It looks like you don\'t have any cards yet. To create your unique card, navigate to the \"Collections\" section.</string>
+    <string name="add_cards">Add cards</string>
+    <string name="learn_more_about_application">To learn more about the application, go to the \"Info\" section</string>
+
+    <!--    Collection section-->
+    <string name="welcome_to_collection">Welcome to your Card Collection!</string>
+    <string name="collection_description">Here, you can build up your vocabulary and review the words you\'ve already created.</string>
+    <string name="tap_create_card">Tap the \"Create Card\" button at the bottom right.</string>
+    <string name="add_default_cards_description">Add default cards to better understand the functionality of the application</string>
+    <string name="add_default_cards_button">Add default cards</string>
+    <string name="remove_card">Remove card</string>
+    <string name="remove_card_question">Do you want to delete card?</string>
+
+    <!--    Analytics-->
+    <string name="more_analytics">More analytics</string>
+    <string name="develop_soon_analytics">We\'re planning to expand our analytics features very soon. Stay tuned for updates!</string>
+    <string name="swipes_chart">Swipes chart</string>
+    <string name="soon_be_develop">Soon to be developed!</string>
+
+    <!--    Info-->
+    <string name="info_snap_words_description">"SnapWords is an app that helps you learn terms, foreign words, historical dates, and other useful information. All of this is presented in the form of cards that you can swipe to study their content. If you double-tap on a card, it flips to show another word. \nConvenient, isn\'t it?</string>
+    <string name="stay_connected">Stay connected! Now, every swipe in SnapWords brings you closer to your goal!</string>
+    <string name="share_app">Share App </string>
+    <string name="contact_in_telegram">Contact in Telegram </string>
+
+    <!--    Create card dialog-->
+    <string name="create_card">Create Card</string>
+    <string name="another_word">Another word</string>
+    <string name="write_word">Write word</string>
+    <string name="word_description">Word description</string>
+    <string name="word">Word</string>
+    <string name="description">Description</string>
+    <string name="save_card">Save card</string>
+
+
+</resources>

@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
@@ -87,7 +88,7 @@ fun SettingsContent(state: SettingsViewState) {
                 ) {
                     Text(
                         modifier = Modifier,
-                        text = "About SnapWords",
+                        text = stringResource(id = R.string.about_snap_words),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Image(
@@ -99,13 +100,13 @@ fun SettingsContent(state: SettingsViewState) {
                 }
 
                 Text(
-                    text = "SnapWords is an app that helps you learn terms, foreign words, historical dates, and other useful information. All of this is presented in the form of cards that you can swipe to study their content. If you double-tap on a card, it flips to show another word. \nConvenient, isn't it?",
+                    text = stringResource(id = R.string.info_snap_words_description),
                     modifier = Modifier,
                     style = MaterialTheme.typography.bodyLarge
                 )
 
                 Text(
-                    text = "Stay connected! Now, every swipe in SnapWords brings you closer to your goal!",
+                    text = stringResource(id = R.string.stay_connected),
                     modifier = Modifier
                         .padding(vertical = 4.dp),
                     style = MaterialTheme.typography.bodyLarge
@@ -136,7 +137,7 @@ fun SettingsContent(state: SettingsViewState) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Share App ")
+                Text(text = stringResource(id = R.string.share_app))
                 Icon(
                     Icons.Rounded.Share,
                     contentDescription = null
@@ -164,7 +165,7 @@ fun SettingsContent(state: SettingsViewState) {
 
                 }
             }) {
-            Text(text = "Contact in Telegram ")
+            Text(text = stringResource(id = R.string.contact_in_telegram))
             Icon(
                 Icons.AutoMirrored.Rounded.Send,
                 contentDescription = null

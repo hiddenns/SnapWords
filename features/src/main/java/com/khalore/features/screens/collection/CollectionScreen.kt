@@ -16,12 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
+import com.khalore.snapwords.R
 
 
 @Composable
@@ -94,13 +96,14 @@ fun EmptyCollection(
                 .background(MaterialTheme.colorScheme.tertiary),
         ) {
             Text(
-                text = "Welcome to your Card Collection!",
+                text = stringResource(id = R.string.welcome_to_collection),
                 modifier = Modifier.padding(16.dp),
                 style = MaterialTheme.typography.titleLarge,
-                fontStyle = FontStyle.Normal
+                fontStyle = FontStyle.Normal,
+                textAlign = TextAlign.Center
             )
             Text(
-                text = "Here, you can build up your vocabulary and review the words you've already created.",
+                text = stringResource(id = R.string.collection_description),
                 modifier = Modifier.padding(16.dp),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
@@ -117,7 +120,7 @@ fun EmptyCollection(
             )
 
             Text(
-                text = "Tap the \"Create Card\" button at the bottom right.",
+                text = stringResource(id = R.string.tap_create_card),
                 modifier = Modifier.padding(16.dp),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
@@ -134,7 +137,7 @@ fun EmptyCollection(
             )
 
             Text(
-                text = "Add default cards to better understand the functionality of the application",
+                text = stringResource(id = R.string.add_default_cards_description),
                 modifier = Modifier.padding(16.dp),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
@@ -148,7 +151,7 @@ fun EmptyCollection(
                     onAddDefaults()
                 }) {
                 Text(
-                    text = "Add default dards",
+                    text = stringResource(id = R.string.add_default_cards_button),
                     modifier = Modifier
                         .fillMaxWidth(),
                     style = MaterialTheme.typography.bodyLarge,

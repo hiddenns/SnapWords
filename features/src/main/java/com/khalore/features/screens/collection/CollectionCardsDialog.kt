@@ -11,9 +11,9 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
@@ -31,12 +31,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -55,9 +55,10 @@ import com.khalore.features.components.cards.FlipCard
 import com.khalore.features.components.cards.RotationAxis
 import com.khalore.features.components.cards.SmallSampleCard
 import com.khalore.features.components.cards.cardsColors
+import com.khalore.snapwords.R
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CollectionCardsDialog(
     onSaveCard: (card: Card) -> Unit,
@@ -79,7 +80,7 @@ fun CollectionCardsDialog(
     Scaffold(
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                text = { Text("Create Card") },
+                text = { Text(stringResource(id = R.string.create_card)) },
                 icon = { Icon(Icons.Rounded.Add, contentDescription = "") },
                 onClick = {
                     showBottomSheet = true
@@ -187,7 +188,7 @@ fun CollectionCardsDialog(
                                     backgroundColor = randomTranslateCardColor,
                                     word = Word(
                                         word = otherText.takeIf { it.isNotBlank() }
-                                            ?: "Another word",
+                                            ?: stringResource(id = R.string.another_word),
                                         description = otherDescriptionText.takeIf { it.isNotBlank() }
                                     ),
                                 )
@@ -196,7 +197,7 @@ fun CollectionCardsDialog(
                                 SmallSampleCard(
                                     backgroundColor = randomWordCardColor,
                                     word = Word(
-                                        word = wordText.takeIf { it.isNotBlank() } ?: "Write word",
+                                        word = wordText.takeIf { it.isNotBlank() } ?: stringResource(id = R.string.write_word),
                                         description = descriptionText.takeIf { it.isNotBlank() }
                                     ),
                                 )
@@ -213,12 +214,12 @@ fun CollectionCardsDialog(
                                 wordText = it
                                 isValidInputs = wordText.isNotBlank() && otherText.isNotBlank()
                             },
-                            label = { Text("Word") },
+                            label = { Text(stringResource(id = R.string.word)) },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Text
                             ),
                             visualTransformation = VisualTransformation.None,
-                            isError = wordText.isBlank(), // Example error condition (can be adjusted)
+                            isError = wordText.isBlank(),
                             colors = if (wordText.isBlank()) OutlinedTextFieldDefaults.colors(
                                 errorCursorColor = Color.Red,
                                 focusedBorderColor = Color.Red,
@@ -239,7 +240,7 @@ fun CollectionCardsDialog(
                                 animatedCard = animatedCard.copy(cardFace = CardFace.Front)
                                 descriptionText = it
                             },
-                            label = { Text("Word description") },
+                            label = { Text(stringResource(id = R.string.word_description)) },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Text
                             ),
@@ -250,7 +251,7 @@ fun CollectionCardsDialog(
                                 .fillMaxWidth()
                         )
 
-                        Divider(
+                        HorizontalDivider(
                             modifier = Modifier
                                 .padding(
                                     horizontal = 32.dp,
@@ -268,7 +269,7 @@ fun CollectionCardsDialog(
                                 otherText = it
                                 isValidInputs = wordText.isNotBlank() && otherText.isNotBlank()
                             },
-                            label = { Text("Another word") },
+                            label = { Text(stringResource(id = R.string.another_word)) },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Text
                             ),
@@ -292,7 +293,7 @@ fun CollectionCardsDialog(
                                 animatedCard = animatedCard.copy(cardFace = CardFace.Back)
                                 otherDescriptionText = it
                             },
-                            label = { Text("Description") },
+                            label = { Text(stringResource(id = R.string.description)) },
                             keyboardOptions = KeyboardOptions.Default.copy(
                                 keyboardType = KeyboardType.Text
                             ),
@@ -350,7 +351,7 @@ fun CollectionCardsDialog(
                                     otherDescriptionText = ""
                                 }
                             }) {
-                            Text("Save card")
+                            Text(stringResource(id = R.string.save_card))
                         }
 
                     }

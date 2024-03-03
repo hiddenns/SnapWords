@@ -1,6 +1,5 @@
 package com.khalore.features.components.cardlist
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,8 +17,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.khalore.core.model.card.Card
+import com.khalore.snapwords.R
 
 @Composable
 fun CollectionList(
@@ -42,10 +43,10 @@ fun CollectionList(
                 openDeleteDialog.value = false
             },
             title = {
-                Text(text = "Remove card")
+                Text(text = stringResource(id = R.string.remove_card))
             },
             text = {
-                Text(text = "Do you want to delete card?")
+                Text(text = stringResource(id = R.string.remove_card_question))
             },
             confirmButton = {
                 TextButton(
@@ -54,7 +55,7 @@ fun CollectionList(
                         swipedCard.value?.let { onRemoveCard(it) }
                     }
                 ) {
-                    Text("Yes")
+                    Text(stringResource(id = R.string.yes))
                 }
             },
             dismissButton = {
@@ -63,13 +64,11 @@ fun CollectionList(
                         openDeleteDialog.value = false
                     }
                 ) {
-                    Text("No")
+                    Text(stringResource(id = R.string.no))
                 }
             }
         )
     }
-
-    Log.d("anal", "CollectionList: $cardList")
 
     Box(
         modifier = Modifier

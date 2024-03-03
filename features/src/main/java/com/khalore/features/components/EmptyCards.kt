@@ -15,10 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.khalore.snapwords.R
 
 @Preview
 @Composable
@@ -58,12 +60,12 @@ fun WelcomeEmptyCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Welcome!",
+                text = stringResource(R.string.welcome),
                 style = MaterialTheme.typography.titleLarge
             )
             Text(
                 modifier = Modifier.padding(top = 16.dp),
-                text = "It looks like you don't have any cards yet. To create your unique card, navigate to the \"Collections\" section.",
+                text = stringResource(id = R.string.dont_have_any_cards),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )
@@ -73,7 +75,7 @@ fun WelcomeEmptyCard(
                 onClick = onClick
             ) {
                 Text(
-                    text = "Add free cards",
+                    text = stringResource(id = R.string.add_cards),
                     modifier = Modifier,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
@@ -101,7 +103,7 @@ fun InfoSection(
             Text(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
-                text = "To learn more about the application, go to the \"Info\" section",
+                text = stringResource(id = R.string.learn_more_about_application),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center
             )
@@ -111,7 +113,7 @@ fun InfoSection(
                 onClick = onClick,
             ) {
                 Text(
-                    text = "About SnapWords",
+                    text = stringResource(id = R.string.about_snap_words),
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
                 )
