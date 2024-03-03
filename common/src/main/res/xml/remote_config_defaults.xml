@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>connect_telegram_user_id</key>
+        <value></value>
+    </entry>
+
+    <entry>
+        <key>google_play_link</key>
+        <value></value>
+    </entry>
+</defaultsMap>

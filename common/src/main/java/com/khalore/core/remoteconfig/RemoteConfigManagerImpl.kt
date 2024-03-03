@@ -4,6 +4,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.khalore.snapwords.R
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class RemoteConfigManagerImpl: RemoteConfigManager {
@@ -18,6 +19,7 @@ class RemoteConfigManagerImpl: RemoteConfigManager {
 
     override fun fetchConfig() {
         remoteConfig.apply {
+            setDefaultsAsync(R.xml.remote_config_defaults)
             setConfigSettingsAsync(configSettings)
         }.fetchAndActivate().addOnCompleteListener {
             _remoteConfigFlow.value = remoteConfig
