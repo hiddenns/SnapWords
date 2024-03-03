@@ -52,19 +52,21 @@ fun AnalyticsScreenMainContent(
 }
 
 @Composable
-fun TextToNumberAnalyticList(analyticsList: List<TextToNumberAnalyticsItem>) {
+fun TextToNumberAnalyticList(analyticsList: List<TextToNumberAnalyticsItemUI>) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
-        items(analyticsList) { data ->
-            ItemTextToNumber(data)
+        items(analyticsList) { item ->
+            ItemTextToNumber(item)
         }
     }
 }
 
 
 @Composable
-@Preview
+@Preview(
+    locale = "uk"
+)
 fun ItemTextToNumber(
-    @PreviewParameter(TextToNumberAnalyticsItemParameter::class) item: TextToNumberAnalyticsItem
+    @PreviewParameter(TextToNumberAnalyticsItemParameter::class) item: TextToNumberAnalyticsItemUI
 ) {
     Card(
         modifier = Modifier
@@ -91,7 +93,10 @@ fun ItemTextToNumber(
                 modifier = Modifier.padding(end = 8.dp),
             )
 
-            Text(text = item.message, modifier = Modifier.fillMaxWidth(.7f))
+            Text(
+                text = stringResource(id = item.message),
+                modifier = Modifier.fillMaxWidth(.7f)
+            )
             Spacer(modifier = Modifier)
             Text(
                 text = item.count.toString(), modifier = Modifier.fillMaxWidth(),
@@ -101,11 +106,11 @@ fun ItemTextToNumber(
     }
 }
 
-class TextToNumberAnalyticsItemParameter : PreviewParameterProvider<TextToNumberAnalyticsItem> {
+class TextToNumberAnalyticsItemParameter : PreviewParameterProvider<TextToNumberAnalyticsItemUI> {
     override val values = sequenceOf(
-        TextToNumberAnalyticsItem(
+        TextToNumberAnalyticsItemUI(
             count = 110,
-            message = "Analytics with swipes",
+            message = R.string.total_cards,
             icon = androidx.core.R.drawable.ic_call_decline
         )
     )

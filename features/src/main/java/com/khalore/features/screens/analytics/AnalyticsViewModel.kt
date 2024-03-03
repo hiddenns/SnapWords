@@ -77,23 +77,23 @@ class AnalyticsViewModel @Inject constructor(
             jobs.joinAll()
 
             val textToNumberList = listOf(
-                TextToNumberAnalyticsItem(
-                    message = "Total swipes",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.total_swipes,
                     count = atomicTotalSwipes.toLong(),
                     icon = R.drawable.ic_hand_cursor
                 ),
-                TextToNumberAnalyticsItem(
-                    message = "Total cards",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.total_cards,
                     count = atomicTotalCards.toLong(),
                     icon = R.drawable.ic_idea
                 ),
-                TextToNumberAnalyticsItem(
-                    message = "Average swipes",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.average_swipes,
                     count = atomicAvgAddedCards.toLong(),
                     icon = R.drawable.ic_tinder
                 ),
-                TextToNumberAnalyticsItem(
-                    message = "Swipes days in a row",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.swipes_days_in_a_row,
                     count = atomicDaysInRow.toLong(),
                     icon = R.drawable.ic_clock
                 )
