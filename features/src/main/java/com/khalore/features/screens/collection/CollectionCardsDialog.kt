@@ -1,18 +1,25 @@
 package com.khalore.features.screens.collection
 
+import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
@@ -35,6 +42,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -175,7 +186,9 @@ fun CollectionCardsDialog(
                 ) {
                     Column(
                         verticalArrangement = Arrangement.SpaceBetween,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
                     ) {
                         FlipCard(
                             animatedCard = animatedCard,
@@ -199,7 +212,8 @@ fun CollectionCardsDialog(
                                 SmallSampleCard(
                                     backgroundColor = randomWordCardColor,
                                     word = Word(
-                                        word = wordText.takeIf { it.isNotBlank() } ?: stringResource(id = R.string.write_word),
+                                        word = wordText.takeIf { it.isNotBlank() }
+                                            ?: stringResource(id = R.string.write_word),
                                         description = descriptionText.takeIf { it.isNotBlank() }
                                     ),
                                 )
@@ -208,6 +222,56 @@ fun CollectionCardsDialog(
                             isSwappable = false,
                             onEndAnimation = {}
                         )
+
+                        FilledTonalButton(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                            enabled = isValidInputs,
+                            onClick = {
+                                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                                    if (!sheetState.isVisible) {
+                                        showBottomSheet = false
+                                    }
+
+                                    if (editCard.value == null) {
+                                        onSaveCard(
+                                            Card(
+                                                wordCombination = WordsCombination(
+                                                    word = wordText,
+                                                    otherWord = otherText,
+                                                    description = descriptionText,
+                                                    otherDescription = otherDescriptionText
+                                                ),
+                                                rate = 0
+                                            )
+                                        )
+                                    } else {
+                                        editCard.value?.let {
+                                            onUpdateCard(
+                                                Card(
+                                                    cardId = it.cardId,
+                                                    wordCombination = WordsCombination(
+                                                        wordCombinationId = it.wordCombination.wordCombinationId,
+                                                        word = wordText,
+                                                        otherWord = otherText,
+                                                        description = descriptionText,
+                                                        otherDescription = otherDescriptionText
+                                                    ),
+                                                    rate = 0
+                                                )
+                                            )
+                                        }
+                                    }
+                                    editCard.value = null
+                                    wordText = ""
+                                    descriptionText = ""
+                                    otherText = ""
+                                    otherDescriptionText = ""
+                                }
+                            }) {
+                            Text(stringResource(id = R.string.save_card))
+                        }
 
                         OutlinedTextField(
                             value = wordText,
@@ -305,56 +369,6 @@ fun CollectionCardsDialog(
                                 .padding(top = 8.dp, bottom = 8.dp, start = 16.dp, end = 16.dp)
                                 .fillMaxWidth()
                         )
-
-                        Button(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                            enabled = isValidInputs,
-                            onClick = {
-                                scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                    if (!sheetState.isVisible) {
-                                        showBottomSheet = false
-                                    }
-
-                                    if (editCard.value == null) {
-                                        onSaveCard(
-                                            Card(
-                                                wordCombination = WordsCombination(
-                                                    word = wordText,
-                                                    otherWord = otherText,
-                                                    description = descriptionText,
-                                                    otherDescription = otherDescriptionText
-                                                ),
-                                                rate = 0
-                                            )
-                                        )
-                                    } else {
-                                        editCard.value?.let {
-                                            onUpdateCard(
-                                                Card(
-                                                    cardId = it.cardId,
-                                                    wordCombination = WordsCombination(
-                                                        wordCombinationId = it.wordCombination.wordCombinationId,
-                                                        word = wordText,
-                                                        otherWord = otherText,
-                                                        description = descriptionText,
-                                                        otherDescription = otherDescriptionText
-                                                    ),
-                                                    rate = 0
-                                                )
-                                            )
-                                        }
-                                    }
-                                    editCard.value = null
-                                    wordText = ""
-                                    descriptionText = ""
-                                    otherText = ""
-                                    otherDescriptionText = ""
-                                }
-                            }) {
-                            Text(stringResource(id = R.string.save_card))
-                        }
 
                     }
                 }
