@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Comunes-->
+    <string name="welcome" translatable="false">¡Bienvenido!</string>
+
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="about_snap_words">Acerca de SnapWords</string>
+    <string name="okay">De acuerdo</string>
+
+    <!--    Sección de inicio-->
+    <string name="dont_have_any_cards">Parece que aún no tienes ninguna tarjeta. Para crear tu tarjeta única, ve a la sección "Colecciones".</string>
+    <string name="add_cards">Añadir tarjetas</string>
+    <string name="learn_more_about_application">Para obtener más información sobre la aplicación, ve a la sección "Información".</string>
+
+    <!--    Sección de colección-->
+    <string name="welcome_to_collection">¡Bienvenido a tu Colección de Tarjetas!</string>
+    <string name="collection_description">Aquí puedes aumentar tu vocabulario y revisar las palabras que ya has creado.</string>
+    <string name="tap_create_card">Toca el botón "Crear Tarjeta" en la parte inferior derecha.</string>
+    <string name="add_default_cards_description">Añade tarjetas predeterminadas para comprender mejor la funcionalidad de la aplicación.</string>
+    <string name="add_default_cards_button">Añadir tarjetas predeterminadas</string>
+    <string name="remove_card">Eliminar tarjeta</string>
+    <string name="remove_card_question">¿Deseas eliminar la tarjeta?</string>
+
+    <!--    Analítica-->
+    <string name="more_analytics">Más análisis</string>
+    <string name="develop_soon_analytics">Estamos planeando ampliar nuestras funciones de análisis muy pronto. ¡Mantente atento a las actualizaciones!</string>
+    <string name="swipes_chart">Gráfico de deslizamientos</string>
+    <string name="soon_be_develop">¡Próximamente desarrollado!</string>
+
+    <!--    Información-->
+    <string name="info_snap_words_description">"SnapWords es una aplicación que te ayuda a aprender términos, palabras extranjeras, fechas históricas y otra información útil. Todo esto se presenta en forma de tarjetas que puedes deslizar para estudiar su contenido. Si tocas dos veces una tarjeta, se voltea para mostrar otra palabra. \n¡Conveniente, ¿verdad?</string>
+    <string name="stay_connected">¡Mantente conectado! Ahora, ¡cada deslizamiento en SnapWords te acerca a tu objetivo!</string>
+    <string name="share_app">Compartir aplicación</string>
+    <string name="contact_in_telegram">Contacto en Telegram</string>
+
+    <!--    Diálogo de crear tarjeta-->
+    <string name="create_card">Crear Tarjeta</string>
+    <string name="another_word">Otra palabra</string>
+    <string name="write_word">Escribir palabra</string>
+    <string name="word_description">Descripción de la palabra</string>
+    <string name="word">Palabra</string>
+    <string name="description">Descripción</string>
+    <string name="save_card">Guardar tarjeta</string>
+</resources>

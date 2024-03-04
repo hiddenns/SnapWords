@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Comum-->
+    <string name="welcome" translatable="false">Bem-vindo!</string>
+
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+    <string name="about_snap_words">Sobre o SnapWords</string>
+    <string name="okay">Ok</string>
+
+    <!--    Seção inicial-->
+    <string name="dont_have_any_cards">Parece que você ainda não tem nenhum cartão. Para criar seu cartão único, vá para a seção "Coleções".</string>
+    <string name="add_cards">Adicionar cartões</string>
+    <string name="learn_more_about_application">Para saber mais sobre o aplicativo, vá para a seção "Informações".</string>
+
+    <!--    Seção de coleção-->
+    <string name="welcome_to_collection">Bem-vindo à sua Coleção de Cartões!</string>
+    <string name="collection_description">Aqui você pode expandir seu vocabulário e revisar as palavras que já criou.</string>
+    <string name="tap_create_card">Toque no botão "Criar Cartão" na parte inferior direita.</string>
+    <string name="add_default_cards_description">Adicione cartões padrão para entender melhor a funcionalidade do aplicativo.</string>
+    <string name="add_default_cards_button">Adicionar cartões padrão</string>
+    <string name="remove_card">Remover cartão</string>
+    <string name="remove_card_question">Deseja excluir o cartão?</string>
+
+    <!--    Analítica-->
+    <string name="more_analytics">Mais análises</string>
+    <string name="develop_soon_analytics">Estamos planejando expandir nossas funcionalidades de análise em breve. Fique ligado para atualizações!</string>
+    <string name="swipes_chart">Gráfico de deslizamentos</string>
+    <string name="soon_be_develop">Em breve será desenvolvido!</string>
+
+    <!--    Informações-->
+    <string name="info_snap_words_description">"O SnapWords é um aplicativo que ajuda você a aprender termos, palavras estrangeiras, datas históricas e outras informações úteis. Tudo isso é apresentado na forma de cartões que você pode deslizar para estudar seu conteúdo. Se você tocar duas vezes em um cartão, ele vira para mostrar outra palavra. \nConveniente, não é?"</string>
+    <string name="stay_connected">Continue conectado! Agora, cada deslize no SnapWords o aproxima do seu objetivo!</string>
+    <string name="share_app">Compartilhar aplicativo</string>
+    <string name="contact_in_telegram">Contato no Telegram</string>
+
+    <!--    Diálogo de criação de cartão-->
+    <string name="create_card">Criar Cartão</string>
+    <string name="another_word">Outra palavra</string>
+    <string name="write_word">Escrever palavra</string>
+    <string name="word_description">Descrição da palavra</string>
+    <string name="word">Palavra</string>
+    <string name="description">Descrição</string>
+    <string name="save_card">Salvar cartão</string>
+</resources>

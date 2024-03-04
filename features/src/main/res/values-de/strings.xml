@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Allgemein-->
+    <string name="welcome" translatable="false">Willkommen!</string>
+
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="about_snap_words">Über SnapWords</string>
+    <string name="okay">Okay</string>
+
+    <!--    Startseite-->
+    <string name="dont_have_any_cards">Sie haben anscheinend noch keine Karten. Um Ihre einzigartige Karte zu erstellen, gehen Sie zum Abschnitt "Sammlungen".</string>
+    <string name="add_cards">Karten hinzufügen</string>
+    <string name="learn_more_about_application">Um mehr über die Anwendung zu erfahren, gehen Sie zum Abschnitt "Info".</string>
+
+    <!--    Sammlungsabschnitt-->
+    <string name="welcome_to_collection">Willkommen in Ihrer Kartensammlung!</string>
+    <string name="collection_description">Hier können Sie Ihren Wortschatz erweitern und die Wörter überprüfen, die Sie bereits erstellt haben.</string>
+    <string name="tap_create_card">Tippen Sie auf die Schaltfläche "Karte erstellen" unten rechts.</string>
+    <string name="add_default_cards_description">Fügen Sie Standardkarten hinzu, um die Funktionalität der Anwendung besser zu verstehen.</string>
+    <string name="add_default_cards_button">Standardkarten hinzufügen</string>
+    <string name="remove_card">Karte entfernen</string>
+    <string name="remove_card_question">Möchten Sie die Karte löschen?</string>
+
+    <!--    Analytik-->
+    <string name="more_analytics">Mehr Analytik</string>
+    <string name="develop_soon_analytics">Wir planen, unsere Analysefunktionen bald zu erweitern. Bleiben Sie dran für Updates!</string>
+    <string name="swipes_chart">Wischdiagramm</string>
+    <string name="soon_be_develop">Bald entwickelt!</string>
+
+    <!--    Info-->
+    <string name="info_snap_words_description">"SnapWords ist eine App, die Ihnen hilft, Begriffe, Fremdwörter, historische Daten und andere nützliche Informationen zu lernen. All dies wird in Form von Karten präsentiert, die Sie durchblättern können, um ihren Inhalt zu studieren. Wenn Sie zweimal auf eine Karte tippen, wird sie umgedreht, um ein anderes Wort anzuzeigen. \nPraktisch, oder?"</string>
+    <string name="stay_connected">Bleiben Sie verbunden! Jetzt bringt Sie jeder Wisch in SnapWords Ihrem Ziel näher!</string>
+    <string name="share_app">App teilen</string>
+    <string name="contact_in_telegram">Kontakt in Telegram</string>
+
+    <!--    Karten erstellen Dialog-->
+    <string name="create_card">Karte erstellen</string>
+    <string name="another_word">Ein anderes Wort</string>
+    <string name="write_word">Wort eingeben</string>
+    <string name="word_description">Wortbeschreibung</string>
+    <string name="word">Wort</string>
+    <string name="description">Beschreibung</string>
+    <string name="save_card">Karte speichern</string>
+</resources>
