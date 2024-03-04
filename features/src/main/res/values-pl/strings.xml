@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Common-->
+    <string name="welcome" translatable="false">Witaj!</string>
+
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="about_snap_words">O SnapWords</string>
+    <string name="okay">Dobrze</string>
+
+    <!--    Navigation-->
+    <string name="home">Strona główna</string>
+    <string name="collection">Kolekcja</string>
+    <string name="analytics">Analizy</string>
+    <string name="info">Informacje</string>
+
+    <!--    Home section-->
+    <string name="dont_have_any_cards">Wygląda na to, że nie masz jeszcze żadnych kart. Aby stworzyć swoją unikalną kartę, przejdź do sekcji "Kolekcja".</string>
+    <string name="add_cards">Dodaj karty</string>
+    <string name="learn_more_about_application">Aby dowiedzieć się więcej o aplikacji, przejdź do sekcji "Informacje".</string>
+
+    <!--    Collection section-->
+    <string name="welcome_to_collection">Witaj w Twojej Kolekcji Kart!</string>
+    <string name="collection_description">Tutaj możesz zbudować swoje słownictwo i przejrzeć już utworzone przez siebie słowa.</string>
+    <string name="tap_create_card">Kliknij przycisk "Utwórz kartę" w prawym dolnym rogu.</string>
+    <string name="add_default_cards_description">Dodaj domyślne karty, aby lepiej zrozumieć funkcjonalność aplikacji.</string>
+    <string name="add_default_cards_button">Dodaj domyślne karty</string>
+    <string name="remove_card">Usuń kartę</string>
+    <string name="remove_card_question">Czy chcesz usunąć kartę?</string>
+
+    <!--    Analytics-->
+    <string name="more_analytics">Więcej analiz</string>
+    <string name="develop_soon_analytics">Planujemy wkrótce rozbudować nasze funkcje analizy. Bądź na bieżąco z aktualizacjami!</string>
+    <string name="swipes_chart">Wykres przesunięć</string>
+    <string name="soon_be_develop">Wkrótce dostępne!</string>
+    <string name="total_swipes">Łączne przesunięcia</string>
+    <string name="total_cards">Łączne karty</string>
+    <string name="average_swipes">Średnia liczba przesunięć</string>
+    <string name="swipes_days_in_a_row">Dni przesunięć z rzędu</string>
+
+    <!--    Info-->
+    <string name="info_snap_words_description">SnapWords to aplikacja, która pomaga Ci uczyć się terminów, słów obcych, dat historycznych i innych przydatnych informacji. Wszystko to jest prezentowane w formie kart, którymi możesz przesuwać, aby studiować ich treść. Jeśli dwukrotnie klikniesz na karcie, obróci się, aby pokazać inne słowo. Wygodne, prawda?</string>
+    <string name="every_swipe">Teraz każde przesunięcie w SnapWords zbliża Cię do celu!</string>
+    <string name="share_app">Udostępnij aplikację</string>
+    <string name="contact_in_telegram">Kontakt w Telegramie</string>
+
+    <!--    Create card dialog-->
+    <string name="create_card">Utwórz kartę</string>
+    <string name="another_word">Inne słowo</string>
+    <string name="write_word">Napisz słowo</string>
+    <string name="word_description">Opis słowa</string>
+    <string name="word">Słowo</string>
+    <string name="description">Opis</string>
+    <string name="save_card">Zapisz kartę</string>
+</resources>

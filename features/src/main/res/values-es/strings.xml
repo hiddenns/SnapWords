@@ -29,7 +29,7 @@
     <string name="soon_be_develop">¡Próximamente desarrollado!</string>
 
     <!--    Información-->
-    <string name="info_snap_words_description">"SnapWords es una aplicación que te ayuda a aprender términos, palabras extranjeras, fechas históricas y otra información útil. Todo esto se presenta en forma de tarjetas que puedes deslizar para estudiar su contenido. Si tocas dos veces una tarjeta, se voltea para mostrar otra palabra. \n¡Conveniente, ¿verdad?</string>
+    <string name="info_snap_words_description">SnapWords es una aplicación que te ayuda a aprender términos, palabras extranjeras, fechas históricas y otra información útil. Todo esto se presenta en forma de tarjetas que puedes deslizar para estudiar su contenido. Si tocas dos veces una tarjeta, se voltea para mostrar otra palabra. \n¡Conveniente, ¿verdad?</string>
     <string name="stay_connected">¡Mantente conectado! Ahora, ¡cada deslizamiento en SnapWords te acerca a tu objetivo!</string>
     <string name="share_app">Compartir aplicación</string>
     <string name="contact_in_telegram">Contacto en Telegram</string>

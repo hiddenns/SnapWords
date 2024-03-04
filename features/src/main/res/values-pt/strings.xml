@@ -29,7 +29,7 @@
     <string name="soon_be_develop">Em breve será desenvolvido!</string>
 
     <!--    Informações-->
-    <string name="info_snap_words_description">"O SnapWords é um aplicativo que ajuda você a aprender termos, palavras estrangeiras, datas históricas e outras informações úteis. Tudo isso é apresentado na forma de cartões que você pode deslizar para estudar seu conteúdo. Se você tocar duas vezes em um cartão, ele vira para mostrar outra palavra. \nConveniente, não é?"</string>
+    <string name="info_snap_words_description">O SnapWords é um aplicativo que ajuda você a aprender termos, palavras estrangeiras, datas históricas e outras informações úteis. Tudo isso é apresentado na forma de cartões que você pode deslizar para estudar seu conteúdo. Se você tocar duas vezes em um cartão, ele vira para mostrar outra palavra. \nConveniente, não é?"</string>
     <string name="stay_connected">Continue conectado! Agora, cada deslize no SnapWords o aproxima do seu objetivo!</string>
     <string name="share_app">Compartilhar aplicativo</string>
     <string name="contact_in_telegram">Contato no Telegram</string>

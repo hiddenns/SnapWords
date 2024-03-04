@@ -39,7 +39,7 @@
     <string name="swipes_days_in_a_row">Swipes days in a row</string>
 
     <!--    Info-->
-    <string name="info_snap_words_description">"SnapWords is an app that helps you learn terms, foreign words, historical dates, and other useful information. All of this is presented in the form of cards that you can swipe to study their content. If you double-tap on a card, it flips to show another word. \nConvenient, isn\'t it?</string>
+    <string name="info_snap_words_description">SnapWords is an app that helps you learn terms, foreign words, historical dates, and other useful information. All of this is presented in the form of cards that you can swipe to study their content. If you double-tap on a card, it flips to show another word. \nConvenient, isn\'t it?</string>
     <string name="every_swipe">Now, every swipe in SnapWords brings you closer to your goal!</string>
     <string name="share_app">Share App </string>
     <string name="contact_in_telegram">Contact in Telegram </string>
