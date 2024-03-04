@@ -1,6 +1,8 @@
 package com.khalore.features.screens.analytics
 
 import androidx.lifecycle.viewModelScope
+import com.khalore.core.analyticmanager.AnalyticManager
+import com.khalore.core.analyticmanager.AnalyticsEvents
 import com.khalore.core.base.BaseViewModel
 import com.khalore.core.base.State
 import com.khalore.core.model.analytics.DailyAnalytic
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AnalyticsViewModel @Inject constructor(
-    private val analyticsRepository: AnalyticsRepository
+    private val analyticsRepository: AnalyticsRepository,
+    private val analyticManager: AnalyticManager
 ) : BaseViewModel<
         AnalyticsScreenContract.Event,
         AnalyticsScreenContract.State,
@@ -41,9 +44,9 @@ class AnalyticsViewModel @Inject constructor(
                     )
                 }
             }
-
-
-            else -> {}
+            is AnalyticsScreenContract.Event.OnClickSoonButton -> {
+                analyticManager.logEvent(AnalyticsEvents.MORE_ANALYTICS)
+            }
         }
     }
 
@@ -77,25 +80,28 @@ class AnalyticsViewModel @Inject constructor(
             jobs.joinAll()
 
             val textToNumberList = listOf(
-                TextToNumberAnalyticsItem(
-                    message = "Total swipes",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.total_swipes,
                     count = atomicTotalSwipes.toLong(),
                     icon = R.drawable.ic_hand_cursor
                 ),
-                TextToNumberAnalyticsItem(
-                    message = "Total cards",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.total_cards,
                     count = atomicTotalCards.toLong(),
                     icon = R.drawable.ic_idea
                 ),
-                TextToNumberAnalyticsItem(
-                    message = "Average swipes",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.average_swipes,
                     count = atomicAvgAddedCards.toLong(),
                     icon = R.drawable.ic_tinder
                 ),
-                TextToNumberAnalyticsItem(
-                    message = "Swipes days in a row",
+                TextToNumberAnalyticsItemUI(
+                    message = R.string.swipes_days_in_a_row,
                     count = atomicDaysInRow.toLong(),
                     icon = R.drawable.ic_clock
+                ),
+                TextToNumberAnalyticsItemUI(
+                    viewType = AnalyticsViewType.MORE
                 )
             )
 

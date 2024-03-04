@@ -25,6 +25,7 @@ class CollectionScreenContract {
         ) : Event()
 
         data object AddDefaultCards : Event()
+        data object OnClickFloatAdd : Event()
     }
 
     data class State(

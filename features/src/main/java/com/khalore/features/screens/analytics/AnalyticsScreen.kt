@@ -44,7 +44,7 @@ fun AnalyticsContent(
     }
 
     when (state) {
-        is State.Data -> AnalyticsScreenMainContent(state.asData())
+        is State.Data -> AnalyticsScreenMainContent(state.asData(), onEventSent = onEventSent)
         is State.Error -> Error()
         is State.Loading -> LoadingScreen()
         is State.None -> LoadingScreen()

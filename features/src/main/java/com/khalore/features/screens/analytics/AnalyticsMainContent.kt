@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,40 +32,56 @@ import com.khalore.snapwords.R
 @Composable
 fun AnalyticsScreenMainContent(
     state: AnalyticsViewState,
+    onEventSent: (event: AnalyticsScreenContract.Event) -> Unit,
 ) {
 
     Column(
         Modifier
-            .padding(top = 42.dp, start = 8.dp, end = 8.dp)
+            .padding(top = 24.dp, start = 8.dp, end = 8.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         SwipesColumnBarChart(state.weekDailyAnalyticsList.reversed())
-        TextToNumberAnalyticList(state.textToNumberAnalyticsList)
-
-        SoonDevelopButton(
-            modifier = Modifier.fillMaxWidth(.6f),
-            text = stringResource(id = R.string.more_analytics),
-            description = stringResource(id = R.string.develop_soon_analytics)
-        )
+        TextToNumberAnalyticList(state.textToNumberAnalyticsList, onClickSoonButton = {
+            onEventSent(AnalyticsScreenContract.Event.OnClickSoonButton)
+        })
     }
 }
 
 @Composable
-fun TextToNumberAnalyticList(analyticsList: List<TextToNumberAnalyticsItem>) {
+fun TextToNumberAnalyticList(
+    analyticsList: List<TextToNumberAnalyticsItemUI>,
+    onClickSoonButton: () -> Unit
+) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
-        items(analyticsList) { data ->
-            ItemTextToNumber(data)
+        items(analyticsList) { item ->
+            when (item.viewType) {
+                AnalyticsViewType.DATA -> ItemTextToNumber(item)
+                AnalyticsViewType.MORE -> MoreAnalyticsButton(onClickSoonButton = onClickSoonButton)
+            }
         }
     }
 }
 
+@Composable
+fun MoreAnalyticsButton(
+    onClickSoonButton: () -> Unit
+) {
+    SoonDevelopButton(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        text = stringResource(id = R.string.more_analytics),
+        description = stringResource(id = R.string.develop_soon_analytics),
+        onClickSoonButton = onClickSoonButton
+    )
+}
+
 
 @Composable
-@Preview
+@Preview(locale = "uk")
 fun ItemTextToNumber(
-    @PreviewParameter(TextToNumberAnalyticsItemParameter::class) item: TextToNumberAnalyticsItem
+    @PreviewParameter(TextToNumberAnalyticsItemParameter::class) item: TextToNumberAnalyticsItemUI
 ) {
     Card(
         modifier = Modifier
@@ -91,7 +108,11 @@ fun ItemTextToNumber(
                 modifier = Modifier.padding(end = 8.dp),
             )
 
-            Text(text = item.message, modifier = Modifier.fillMaxWidth(.7f))
+            Text(
+                text = stringResource(id = item.message),
+                modifier = Modifier.fillMaxWidth(.7f),
+                style = MaterialTheme.typography.bodyMedium
+            )
             Spacer(modifier = Modifier)
             Text(
                 text = item.count.toString(), modifier = Modifier.fillMaxWidth(),
@@ -101,11 +122,11 @@ fun ItemTextToNumber(
     }
 }
 
-class TextToNumberAnalyticsItemParameter : PreviewParameterProvider<TextToNumberAnalyticsItem> {
+class TextToNumberAnalyticsItemParameter : PreviewParameterProvider<TextToNumberAnalyticsItemUI> {
     override val values = sequenceOf(
-        TextToNumberAnalyticsItem(
-            count = 110,
-            message = "Analytics with swipes",
+        TextToNumberAnalyticsItemUI(
+            count = 11043521,
+            message = R.string.total_cards,
             icon = androidx.core.R.drawable.ic_call_decline
         )
     )

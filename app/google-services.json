@@ -12,7 +12,20 @@
           "package_name": "com.khalore.snapwords"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "202253321863-l0sv8q5bq5b5nq9mbhkt2b9ot4ghs728.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.khalore.snapwords",
+            "certificate_hash": "2527fb69170e749575cdf90212e8f15faad1bddf"
+          }
+        },
+        {
+          "client_id": "202253321863-k4abeshfq44ganba3mevvml3ac84sd4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA3t5g4oAQ-Q-ROJ5HuCqqiX8npwBxNapc"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202253321863-k4abeshfq44ganba3mevvml3ac84sd4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

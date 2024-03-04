@@ -1,15 +1,21 @@
 package com.khalore.features.screens.analytics
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.khalore.core.model.analytics.DailyAnalytic
 
 data class AnalyticsViewState(
-    val textToNumberAnalyticsList: List<TextToNumberAnalyticsItem>,
+    val textToNumberAnalyticsList: List<TextToNumberAnalyticsItemUI>,
     val weekDailyAnalyticsList: List<DailyAnalytic>
 )
 
-data class TextToNumberAnalyticsItem(
-    val message: String,
-    val count: Long,
-    @DrawableRes val icon: Int
+data class TextToNumberAnalyticsItemUI(
+    @StringRes val message: Int = 0,
+    @DrawableRes val icon: Int = 0,
+    val count: Long = 0,
+    val viewType: AnalyticsViewType = AnalyticsViewType.DATA
 )
+
+enum class AnalyticsViewType {
+    DATA, MORE;
+}

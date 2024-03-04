@@ -52,4 +52,6 @@ data class Card(
         return percent.toInt()
     }
 
+    fun hasDescription() = wordCombination.description.isNullOrEmpty().not()
+
 }

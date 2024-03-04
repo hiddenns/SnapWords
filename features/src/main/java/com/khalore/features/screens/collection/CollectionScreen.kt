@@ -48,12 +48,17 @@ fun CollectionScreen(
         viewModel.handleEvents(CollectionScreenContract.Event.AddDefaultCards)
     }
 
+    val onAddClickFloatButton = {
+        viewModel.handleEvents(CollectionScreenContract.Event.OnClickFloatAdd)
+    }
+
     CollectionScreenContent(
         viewState = viewState.state,
         onSaveCard = onSaveCard,
         onRemoveCard = onRemoveCard,
         onUpdateCard = onUpdateCard,
-        onAddDefaults = onAddDefaults
+        onAddDefaults = onAddDefaults,
+        onAddClickFloatButton = onAddClickFloatButton
     )
 }
 
@@ -63,14 +68,16 @@ fun CollectionScreenContent(
     onSaveCard: (card: Card) -> Unit,
     onRemoveCard: (Card) -> Unit,
     onUpdateCard: (Card) -> Unit,
-    onAddDefaults: () -> Unit
+    onAddDefaults: () -> Unit,
+    onAddClickFloatButton: () -> Unit
 ) {
     CollectionCardsDialog(
         viewState = viewState,
         onSaveCard = onSaveCard,
         onRemoveCard = onRemoveCard,
         onUpdateCard = onUpdateCard,
-        onAddDefaults = onAddDefaults
+        onAddDefaults = onAddDefaults,
+        onAddClickFloatButton = onAddClickFloatButton
     )
 }
 

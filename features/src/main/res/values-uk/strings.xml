@@ -8,6 +8,11 @@
     <string name="about_snap_words">Про SnapWords</string>
     <string name="okay">Гаразд</string>
 
+    <!--    Навігація -->
+    <string name="home">Картки</string>
+    <string name="collection">Колекція</string>
+    <string name="analytics">Аналітика</string>
+    <string name="info">Інфо</string>
 
     <!--    Секція "Головна"-->
     <string name="dont_have_any_cards">Схоже, у вас ще немає жодних карток. Щоб створити свою унікальну картку, перейдіть до розділу "Колекції".</string>
@@ -28,12 +33,17 @@
     <string name="develop_soon_analytics">Ми плануємо розширити функціонал нашої аналітики найближчим часом. Слідкуйте за оновленнями!</string>
     <string name="swipes_chart">Діаграма свайпів</string>
     <string name="soon_be_develop">Скоро буде розроблено!</string>
+    <string name="total_swipes">Загальна кількість свайпів</string>
+    <string name="total_cards">Загальна кількість карток</string>
+    <string name="average_swipes">Середня кількість свайпів</string>
+    <string name="swipes_days_in_a_row">Дні свайпів підряд</string>
+
 
     <!--    Інформація-->
     <string name="info_snap_words_description">SnapWords - це додаток, який допомагає вам вивчати терміни, іноземні слова, історичні дати та іншу корисну інформацію. Все це представлено у вигляді карток, які ви можете прокручувати, щоб вивчати їх вміст. Якщо ви подвійно торкнетесь картки, вона перевернеться на інше слово. \nЗручно, чи не так?</string>
-    <string name="stay_connected">Залишайтесь на зв\'язку! Тепер кожен свайп у SnapWords наближає вас до вашої мети!</string>
-    <string name="share_app">Поділитися додатком</string>
-    <string name="contact_in_telegram">Зв\'язок у Telegram</string>
+    <string name="every_swipe">Тепер кожен свайп у SnapWords наближає вас до вашої мети!</string>
+    <string name="share_app">Поділитися додатком </string>
+    <string name="contact_in_telegram">Зв\'язок у Telegram </string>
 
     <!--    Діалог створення картки-->
     <string name="create_card">Створити картку</string>

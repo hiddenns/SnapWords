@@ -14,6 +14,13 @@ class HomeScreenContract {
         ) : Event()
 
         data class SwipeCard(val swippedCardState: SwippedCardState) : Event()
+        data object RotateCard : Event()
+
+        sealed class Navigation : Event() {
+            data object ToCollectionScreen : Event()
+            data object ToInfoScreen : Event()
+            data object ToAnalyticScreen : Event()
+        }
     }
 
     data class State(
@@ -22,7 +29,9 @@ class HomeScreenContract {
 
     sealed class Effect : ViewSideEffect {
         sealed class Navigation : Effect() {
-            data class ToCollection(val categoryName: String) : Navigation()
+            data object ToCollectionScreen : Navigation()
+            data object ToInfoScreen : Navigation()
+            data object ToAnalyticScreen : Navigation()
         }
     }
 }

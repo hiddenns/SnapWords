@@ -1,11 +1,13 @@
 package com.khalore.snapwords.navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,11 +17,11 @@ import com.khalore.features.screens.home.HomeScreen
 import com.khalore.features.screens.settings.SettingsScreen
 import com.khalore.snapwords.R
 
-sealed class Screen(val route: String, val name: String) {
-    data object Home : Screen(route = "home_screen", name = "Home")
-    data object Collection : Screen(route = "collection_screen", name = "Collection")
-    data object Analytics : Screen(route = "analytics_screen", name = "Analytics")
-    data object Settings : Screen(route = "settings_screen", name = "Info")
+sealed class Screen(val route: String, @StringRes val name: Int) {
+    data object Home : Screen(route = "home_screen", name = R.string.home)
+    data object Collection : Screen(route = "collection_screen", name = R.string.collection)
+    data object Analytics : Screen(route = "analytics_screen", name = R.string.analytics)
+    data object Settings : Screen(route = "settings_screen", name = R.string.info)
 }
 
 val navigationItems = listOf(
@@ -88,7 +90,7 @@ fun MyBottomBar(
         navigationItems.forEachIndexed { index, screen ->
             NavigationBarItem(
                 icon = { NavigationBarItemIcon(screen) },
-                label = { Text(text = screen.name) },
+                label = { Text(text = stringResource(id = screen.name)) },
                 selected = (selectedScreen == index),
                 onClick = {
                     // this if condition keeps only one screen in the back stack

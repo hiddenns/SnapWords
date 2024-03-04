@@ -23,14 +23,14 @@ fun HomeScreen(
     val viewState = viewModel.viewState.value
     CardScreenContent(
         state = viewState.state,
-        onClickShop = onClickShop,
-        onClickCollection = onClickCollection,
-        onClickInfo = onClickInfo,
         effectFlow = viewModel.effect,
         onEventSent = { event -> viewModel.setEvent(event) },
         onNavigationRequested = { navigationEffect ->
-            if (navigationEffect is HomeScreenContract.Effect.Navigation.ToCollection) {
-                // navigate
+            when (navigationEffect) {
+                is HomeScreenContract.Effect.Navigation.ToCollectionScreen -> onClickCollection()
+                is HomeScreenContract.Effect.Navigation.ToAnalyticScreen -> {}
+                is HomeScreenContract.Effect.Navigation.ToInfoScreen -> onClickInfo()
+
             }
         }
     )
@@ -42,32 +42,38 @@ fun CardScreenContent(
     effectFlow: Flow<HomeScreenContract.Effect>?,
     onEventSent: (event: HomeScreenContract.Event) -> Unit,
     onNavigationRequested: (navigationEffect: HomeScreenContract.Effect.Navigation) -> Unit,
-    onClickShop: () -> Unit = {},
-    onClickCollection: () -> Unit = {},
-    onClickInfo: () -> Unit = {},
 ) {
     val LAUNCH_LISTEN_FOR_EFFECTS = 12323123123
     // Listen for side effects from the VM
     LaunchedEffect(LAUNCH_LISTEN_FOR_EFFECTS) {
         effectFlow?.onEach { effect ->
             when (effect) {
-//                is HomeScreenContract.Effect.ToastDataWasLoaded -> { ... }
-                is HomeScreenContract.Effect.Navigation.ToCollection ->
+                is HomeScreenContract.Effect.Navigation.ToCollectionScreen -> {
                     onNavigationRequested(effect)
+                }
+
+                is HomeScreenContract.Effect.Navigation.ToInfoScreen -> {
+                    onNavigationRequested(effect)
+                }
+
+                is HomeScreenContract.Effect.Navigation.ToAnalyticScreen -> {
+                    onNavigationRequested(effect)
+                }
             }
         }?.collect()
     }
 
     when (state) {
-        is State.Data -> SwappableCards(state.asData()) { swippedCardState: SwippedCardState ->
-            onEventSent(HomeScreenContract.Event.SwipeCard(swippedCardState))
-        }
+        is State.Data -> SwappableCards(
+            state.asData(),
+            onSwippedCard = { swippedCardState: SwippedCardState ->
+                onEventSent(HomeScreenContract.Event.SwipeCard(swippedCardState))
+            })
 
         is State.Error -> Error()
         is State.Loading -> LoadingScreen()
         is State.None -> EmptyCardsScreen(
-            onClickInfo = onClickInfo,
-            onClickCollection = onClickCollection
+            onEventSent = onEventSent
         )
     }
 }

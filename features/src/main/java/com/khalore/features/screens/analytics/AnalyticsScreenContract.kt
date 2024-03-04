@@ -8,6 +8,7 @@ import com.khalore.core.base.State as BaseState
 class AnalyticsScreenContract {
     sealed class Event : ViewEvent {
         data class SetupAnalyticState(val state: AnalyticsViewState) : Event()
+        data object OnClickSoonButton : Event()
     }
 
     data class State(
@@ -15,6 +16,6 @@ class AnalyticsScreenContract {
     ) : ViewState
 
     sealed class Effect : ViewSideEffect {
-        data object Navigation: Effect()
+        data object Navigation : Effect()
     }
 }
