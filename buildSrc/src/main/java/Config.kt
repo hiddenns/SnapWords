@@ -35,7 +35,7 @@ object Config {
         private const val versionMinor = 0
         private const val versionPatch = 0
 
-        const val versionCode = 1
+        const val versionCode = 3
         const val versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
