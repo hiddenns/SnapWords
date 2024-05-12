@@ -1,7 +1,7 @@
 package com.khalore.core.repository.analytics
 
 import android.icu.util.Calendar
-import com.khalore.core.datasource.analytics.AnalyticsLocalDataSource
+import com.khalore.core.datasource.local.analytics.AnalyticsLocalDataSource
 import com.khalore.core.ext.timeTodayMillis
 import com.khalore.core.model.analytics.DailyAnalytic
 import com.khalore.core.model.card.Card

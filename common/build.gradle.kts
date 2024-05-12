@@ -86,6 +86,13 @@ dependencies {
 
     //Nfc
     implementation(libs.devnied.emvnfccard)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.moshi)
+
     // Tooling
     debugImplementation(libs.androidx.compose.ui.tooling)
     // Instrumented tests

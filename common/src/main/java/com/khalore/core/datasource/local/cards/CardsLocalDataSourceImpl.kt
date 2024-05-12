@@ -1,4 +1,4 @@
-package com.khalore.core.datasource.cards
+package com.khalore.core.datasource.local.cards
 
 import com.khalore.core.dao.CardDao
 import com.khalore.core.entity.CardLocal

@@ -1,12 +1,12 @@
 package com.khalore.core.di
 
 
-import com.khalore.core.datasource.analytics.AnalyticsLocalDataSource
-import com.khalore.core.datasource.analytics.AnalyticsLocalDataSourceImpl
-import com.khalore.core.datasource.cards.CardsLocalDataSource
-import com.khalore.core.datasource.cards.CardsLocalDataSourceImpl
-import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
-import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSourceImpl
+import com.khalore.core.datasource.local.analytics.AnalyticsLocalDataSource
+import com.khalore.core.datasource.local.analytics.AnalyticsLocalDataSourceImpl
+import com.khalore.core.datasource.local.cards.CardsLocalDataSource
+import com.khalore.core.datasource.local.cards.CardsLocalDataSourceImpl
+import com.khalore.core.datasource.local.wordcombination.WordCombinationLocalDataSource
+import com.khalore.core.datasource.local.wordcombination.WordCombinationLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

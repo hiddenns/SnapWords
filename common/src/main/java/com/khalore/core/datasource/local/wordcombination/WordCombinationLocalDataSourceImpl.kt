@@ -1,4 +1,4 @@
-package com.khalore.core.datasource.wordcombination
+package com.khalore.core.datasource.local.wordcombination
 
 import com.khalore.core.dao.WordCombinationDao
 import com.khalore.core.mappers.toDomain

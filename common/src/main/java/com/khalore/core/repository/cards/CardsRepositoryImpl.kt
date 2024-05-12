@@ -1,7 +1,7 @@
 package com.khalore.core.repository.cards
 
-import com.khalore.core.datasource.cards.CardsLocalDataSource
-import com.khalore.core.datasource.wordcombination.WordCombinationLocalDataSource
+import com.khalore.core.datasource.local.cards.CardsLocalDataSource
+import com.khalore.core.datasource.local.wordcombination.WordCombinationLocalDataSource
 import com.khalore.core.mappers.toLocal
 import com.khalore.core.model.card.Card
 import kotlinx.coroutines.Dispatchers

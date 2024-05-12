@@ -1,4 +1,4 @@
-package com.khalore.core.datasource.analytics
+package com.khalore.core.datasource.local.analytics
 
 import android.util.Log
 import com.khalore.core.dao.AnalyticsDao

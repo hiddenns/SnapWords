@@ -1,4 +1,4 @@
-package com.khalore.core.datasource.analytics
+package com.khalore.core.datasource.local.analytics
 
 import com.khalore.core.model.analytics.DailyAnalytic
 

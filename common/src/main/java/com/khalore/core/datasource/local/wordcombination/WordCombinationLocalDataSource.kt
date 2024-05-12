@@ -1,4 +1,4 @@
-package com.khalore.core.datasource.wordcombination
+package com.khalore.core.datasource.local.wordcombination
 
 import com.khalore.core.model.word.WordsCombination
 import kotlinx.coroutines.flow.Flow
