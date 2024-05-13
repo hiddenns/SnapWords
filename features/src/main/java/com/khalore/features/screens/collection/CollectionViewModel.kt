@@ -9,7 +9,9 @@ import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
 import com.khalore.core.model.word.WordsCombination
 import com.khalore.core.repository.cards.CardsRepository
+import com.khalore.core.repository.translate.TranslateRepository
 import com.khalore.core.usecase.cards.AddCardUseCase
+import com.khalore.domain.translate.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class CollectionViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
     private val addCardUseCase: AddCardUseCase,
-    private val analyticManager: AnalyticManager
+    private val analyticManager: AnalyticManager,
+    private val translateRepository: TranslateRepository
 ) : BaseViewModel<
         CollectionScreenContract.Event,
         CollectionScreenContract.State,
@@ -38,6 +41,7 @@ class CollectionViewModel @Inject constructor(
             is CollectionScreenContract.Event.SetupCards -> setupCards(event.cards)
             is CollectionScreenContract.Event.AddDefaultCards -> addDefaultCards()
             is CollectionScreenContract.Event.OnClickFloatAdd -> setupClickFloatCreateAnalyticEvent()
+            is CollectionScreenContract.Event.OnTranslateSentence -> translateSentence(event.sentence)
         }
     }
 
@@ -113,6 +117,33 @@ class CollectionViewModel @Inject constructor(
 
     private fun setupClickFloatCreateAnalyticEvent() {
         analyticManager.logEvent(AnalyticsEvents.CLICK_CARD_FLOAT_BUTTON)
+    }
+
+    private fun translateSentence(sentence: String) {
+        viewModelScope.launch {
+            translateRepository.getTranslate(
+                source = Language.English,
+                target = Language.Ukrainian,
+                word = sentence
+            ).also { result ->
+                result.onSuccess {
+                    val translatedSentence = runCatching {
+                        it.sentences.takeIf { it.isNotEmpty() }?.firstOrNull()?.translation ?: ""
+                    }.getOrElse { "" }
+
+                    setState {
+                        CollectionScreenContract.State(
+                            State.Data(
+                                CollectionViewState(
+                                    cardsList = state.asData().cardsList,
+                                    translateInputWord = translatedSentence
+                                )
+                            )
+                        )
+                    }
+                }
+            }
+        }
     }
 
     private fun getDefaultCards(): List<Card> {

@@ -1,6 +1,5 @@
 package com.khalore.features.screens.home
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.viewModelScope
 import com.khalore.core.analyticmanager.AnalyticManager
@@ -10,12 +9,9 @@ import com.khalore.core.base.State
 import com.khalore.core.model.card.Card
 import com.khalore.core.repository.analytics.AnalyticsRepository
 import com.khalore.core.repository.cards.CardsRepository
-import com.khalore.core.repository.translate.TranslateRepository
-import com.khalore.domain.translate.Language
 import com.khalore.features.components.cards.SwippedCardState
 import com.khalore.features.components.cards.cardsColors
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,8 +20,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
     private val analyticsRepository: AnalyticsRepository,
-    private val analyticManager: AnalyticManager,
-    private val translateRepository: TranslateRepository
+    private val analyticManager: AnalyticManager
 ) : BaseViewModel<
         HomeScreenContract.Event,
         HomeScreenContract.State,
@@ -33,17 +28,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         fetchCards()
-        viewModelScope.launch(Dispatchers.IO) {
-            translateRepository.getTranslate(
-                source = Language.English,
-                target = Language.Ukrainian,
-                word = "dog"
-            ).onSuccess {
-                Log.d("anal", "translate succ: $it")
-            }.onFailure {
-                Log.d("anal", "translate fail: ${it.message}")
-            }
-        }
     }
 
     override fun setInitialState() = HomeScreenContract.State(State.Loading)

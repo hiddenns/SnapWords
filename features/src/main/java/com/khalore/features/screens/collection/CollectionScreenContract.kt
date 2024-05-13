@@ -24,6 +24,8 @@ class CollectionScreenContract {
             val cards: List<Card>
         ) : Event()
 
+        data class OnTranslateSentence(val sentence: String) : Event()
+
         data object AddDefaultCards : Event()
         data object OnClickFloatAdd : Event()
     }

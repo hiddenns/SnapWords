@@ -27,6 +27,8 @@
     <string name="add_default_cards_button">Додати картки за замовчуванням</string>
     <string name="remove_card">Видалити картку</string>
     <string name="remove_card_question">Ви впевнені, що хочете видалити картку?</string>
+    <string name="translate">Переклад</string>
+
 
     <!--    Аналітика-->
     <string name="more_analytics">Більше аналітики</string>

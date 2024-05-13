@@ -27,6 +27,7 @@
     <string name="add_default_cards_button">Add default cards</string>
     <string name="remove_card">Remove card</string>
     <string name="remove_card_question">Do you want to delete card?</string>
+    <string name="translate">Translate</string>
 
     <!--    Analytics-->
     <string name="more_analytics">More analytics</string>

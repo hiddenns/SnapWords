@@ -52,13 +52,19 @@ fun CollectionScreen(
         viewModel.handleEvents(CollectionScreenContract.Event.OnClickFloatAdd)
     }
 
+    val onTranslateSentence = { sentence: String ->
+        viewModel.handleEvents(CollectionScreenContract.Event.OnTranslateSentence(sentence))
+    }
+
+
     CollectionScreenContent(
         viewState = viewState.state,
         onSaveCard = onSaveCard,
         onRemoveCard = onRemoveCard,
         onUpdateCard = onUpdateCard,
         onAddDefaults = onAddDefaults,
-        onAddClickFloatButton = onAddClickFloatButton
+        onAddClickFloatButton = onAddClickFloatButton,
+        onTranslateSentence = onTranslateSentence
     )
 }
 
@@ -69,7 +75,8 @@ fun CollectionScreenContent(
     onRemoveCard: (Card) -> Unit,
     onUpdateCard: (Card) -> Unit,
     onAddDefaults: () -> Unit,
-    onAddClickFloatButton: () -> Unit
+    onAddClickFloatButton: () -> Unit,
+    onTranslateSentence: (String) -> Unit
 ) {
     CollectionCardsDialog(
         viewState = viewState,
@@ -77,7 +84,8 @@ fun CollectionScreenContent(
         onRemoveCard = onRemoveCard,
         onUpdateCard = onUpdateCard,
         onAddDefaults = onAddDefaults,
-        onAddClickFloatButton = onAddClickFloatButton
+        onAddClickFloatButton = onAddClickFloatButton,
+        onTranslateSentence = onTranslateSentence,
     )
 }
 

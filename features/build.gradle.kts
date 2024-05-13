@@ -48,6 +48,7 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
     implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.compose.material)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
