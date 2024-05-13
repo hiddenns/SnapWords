@@ -376,7 +376,11 @@ fun CollectionCardsDialog(
 
 
                             OutlinedTextField(
-                                value = if (checkedTranslate) viewState.asData().translateInputWord else otherText,
+                                value = if (checkedTranslate) {
+                                    val translatedSentence = viewState.asData().translateInputWord
+                                    otherText = translatedSentence
+                                    translatedSentence
+                                } else otherText,
                                 onValueChange = {
                                     animatedCard = animatedCard.copy(cardFace = CardFace.Back)
                                     otherText = it

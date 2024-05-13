@@ -3,8 +3,7 @@ package com.khalore.core.response
 import com.google.gson.annotations.SerializedName
 data class Sentence(
     @SerializedName("trans") val translation: String,
-    @SerializedName( "orig") val original: String,
-    @SerializedName( "backend") val backend: Int
+    @SerializedName( "orig") val original: String
 )
 
 data class TranslationResponse(
