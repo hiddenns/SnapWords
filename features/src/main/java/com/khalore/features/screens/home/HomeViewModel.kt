@@ -11,10 +11,10 @@ import com.khalore.core.model.card.Card
 import com.khalore.core.repository.analytics.AnalyticsRepository
 import com.khalore.core.repository.cards.CardsRepository
 import com.khalore.core.repository.translate.TranslateRepository
+import com.khalore.domain.translate.Language
 import com.khalore.features.components.cards.SwippedCardState
 import com.khalore.features.components.cards.cardsColors
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -33,17 +33,13 @@ class HomeViewModel @Inject constructor(
 
     init {
         fetchCards()
-        val handler = CoroutineExceptionHandler { context, t ->
-            Log.d("anal", "translate fail: ${t}")
-
-        }
-        viewModelScope.launch(Dispatchers.IO + handler) {
+        viewModelScope.launch(Dispatchers.IO) {
             translateRepository.getTranslate(
-                source = "en",
-                target = "uk",
+                source = Language.English,
+                target = Language.Ukrainian,
                 word = "dog"
             ).onSuccess {
-                Log.d("anal", "translate succ: ${it?.translations}")
+                Log.d("anal", "translate succ: $it")
             }.onFailure {
                 Log.d("anal", "translate fail: ${it.message}")
             }

@@ -1,13 +1,14 @@
 package com.khalore.core.repository.translate
 
-import com.khalore.core.response.TranslationData
+import com.khalore.core.response.TranslationResponse
+import com.khalore.domain.translate.Language
 
 interface TranslateRepository {
 
     suspend  fun getTranslate(
-        source: String,
-        target: String,
+        source: Language,
+        target: Language,
         word: String,
-    ): Result<TranslationData?>
+    ): Result<TranslationResponse>
 
 }
