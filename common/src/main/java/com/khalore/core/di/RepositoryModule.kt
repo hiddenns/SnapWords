@@ -1,7 +1,6 @@
 package com.khalore.core.di
 
 
-import com.khalore.core.datasource.remote.translate.TranslateRemoteDataSourceImpl
 import com.khalore.core.repository.analytics.AnalyticsRepository
 import com.khalore.core.repository.analytics.AnalyticsRepositoryImpl
 import com.khalore.core.repository.cards.CardsRepository
