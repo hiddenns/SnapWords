@@ -183,21 +183,25 @@ fun SwappableCard(
                 scaleX = animatedScale
                 scaleY = animatedScale
             },
-        onClick = {
-            animatedCard.value = animatedCard.value.next()
-        },
+        onClick = {},
         onMoveToBack = onMoveToBack,
         axis = RotationAxis.AxisY,
         back = {
             SampleCard(
                 backgroundColor = backgroundColor,
                 word = card.wordCombination.getOtherWord(),
+                onRotateClick =  {
+                    animatedCard.value = animatedCard.value.next()
+                },
             )
         },
         front = {
             SampleCard(
                 backgroundColor = backgroundColor,
                 word = card.wordCombination.getWord(),
+                onRotateClick =  {
+                    animatedCard.value = animatedCard.value.next()
+                }
             )
         },
         isSwappable = true,
